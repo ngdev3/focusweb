@@ -1,0 +1,39 @@
+#popup_container{    font-family: Verdana,Aerial;
+    font-size: 11px;
+    min-width: 250px;
+    max-width: 580px;
+    background: #fff;
+    border: solid 2px #34c5d2;
+    color: #000;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    box-shadow: rgb(52, 197, 210) 0px 0px 14px 1px;
+}
+#popup_title{font-size:14px;font-weight:bold;
+text-align:center;line-height:1.75em;color:#fff;
+background:#34c5d2  url(images/title.gif) top repeat-x;
+border:solid 0px #ff0000;border-bottom:solid 0px #ff0000;
+cursor:default;padding:0em;margin:0em}
+#popup_content{background:16px 16px no-repeat url(images/info.gif);
+padding:1em 1.75em;margin:0em}
+#popup_content.alert{background-image:url(images/info.gif)}
+#popup_content.confirm{background-image:url(images/important.gif)}
+#popup_content.prompt{background-image:url(images/help.gif)}
+#popup_message{padding-left:48px}
+#popup_panel{text-align:center;margin:1em 0em 0em 1em}
+#popup_prompt{margin:0.5em 0em}
+
+#popup_panel button, html input[type=button]{background-color: #34c5d2  ;
+    border: 0px;
+    border-radius: 2px !important;
+    padding: 4px 20px;
+    color: #fff; border:0px;
+}
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+    z-index: 3;
+    color: #fff;
+    background-color: #32c5d2;
+    border-color: #cecece;
+    cursor: default;
+}

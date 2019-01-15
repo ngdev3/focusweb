@@ -1,0 +1,1 @@
+<h3>Nomination Rejected By <?php echo @$res->fname.''.@$res->lname; ?> On RFQ Number <?php echo @$res->rfq_number; ?></h3>
