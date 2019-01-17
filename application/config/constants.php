@@ -32,6 +32,11 @@ defined('DIR_READ_MODE')   OR define('DIR_READ_MODE', 0755);
 defined('DIR_WRITE_MODE')  OR define('DIR_WRITE_MODE', 0755);
 define('API_KEY','srs_L51r143567');
 
+
+define('project_name','Focus');
+define('project_email','focus@yopmail.com   ');
+define('project_number','+918506003444');
+
 /*
 |--------------------------------------------------------------------------
 | File Stream Modes

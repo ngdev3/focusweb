@@ -30,9 +30,9 @@ class Manage_sales_order_model extends CI_Model {
         if(getUserInfos()->role == "0"){ 
         $sql = $this->db->select("po.*,pl.address,pl.client_name,cu.fname,cu.lname,cu2.fname as m_fname,cu2.lname as m_lname,cu3.fname as c_fname,cu3.lname as c_lname" , FALSE)
                 ->from("pr_order po")
-                ->join("cz_users cu", "cu.id = po.salesperson_id", "left")
-                ->join("cz_users cu2", "cu2.id = po.manager_id", "left")
-                ->join("cz_users cu3", "cu3.id= po.coordinator_id", "left")
+                ->join("users cu", "cu.id = po.salesperson_id", "left")
+                ->join("users cu2", "cu2.id = po.manager_id", "left")
+                ->join("users cu3", "cu3.id= po.coordinator_id", "left")
                 ->join("pr_lead pl", "pl.id = po.client_id", "left")
                 ->where(array("po.is_deleted =" => "0",'po.salesperson_id!=' => ""));
         }
@@ -40,9 +40,9 @@ class Manage_sales_order_model extends CI_Model {
             $logged_in_manager_id=$_SESSION['userinfo']['id'];
             $sql = $this->db->select("po.*,pl.address,pl.client_name,cu.fname,cu.lname,cu2.fname as m_fname,cu2.lname as m_lname,cu3.fname as c_fname,cu3.lname as c_lname" , FALSE)
                 ->from("pr_order po")
-                ->join("cz_users cu", "cu.id = po.salesperson_id", "left")
-                ->join("cz_users cu2", "cu2.id = po.manager_id", "left")
-                ->join("cz_users cu3", "cu3.id= po.coordinator_id", "left")
+                ->join("users cu", "cu.id = po.salesperson_id", "left")
+                ->join("users cu2", "cu2.id = po.manager_id", "left")
+                ->join("users cu3", "cu3.id= po.coordinator_id", "left")
                 ->join("pr_lead pl", "pl.id = po.client_id", "left")            
                 ->where(array("po.is_deleted =" => "0","po.manager_id=" => $logged_in_manager_id,'po.salesperson_id!=' => ""));
 
@@ -52,9 +52,9 @@ class Manage_sales_order_model extends CI_Model {
         $logged_in_coor_id=$_SESSION['userinfo']['id'];
         $sql = $this->db->select("po.*,pl.address,pl.client_name,cu.fname,cu.lname,cu2.fname as m_fname,cu2.lname as m_lname,cu3.fname as c_fname,cu3.lname as c_lname" , FALSE)
             ->from("pr_order po")
-            ->join("cz_users cu", "cu.id = po.salesperson_id", "left")
-            ->join("cz_users cu2", "cu2.id = po.manager_id", "left")
-            ->join("cz_users cu3", "cu3.id= po.coordinator_id", "left")
+            ->join("users cu", "cu.id = po.salesperson_id", "left")
+            ->join("users cu2", "cu2.id = po.manager_id", "left")
+            ->join("users cu3", "cu3.id= po.coordinator_id", "left")
             ->join("pr_lead pl", "pl.id = po.client_id", "left")            
             ->where(array("po.is_deleted =" => "0","po.coordinator_id=" => $logged_in_coor_id,'po.salesperson_id!=' => ""));
 
@@ -173,7 +173,7 @@ $sql->where(array("po.salesperson_id" => $salesperson_id));
 
     $ins2['coordinator_id'] = $logged_in_coor_id;
     $res = $this->db->select("cu.*")
-            ->from("cz_users cu")
+            ->from("users cu")
             ->where(array("cu.id" => $logged_in_coor_id))
             ->get()
             ->row();
@@ -266,9 +266,9 @@ $sql->where(array("po.salesperson_id" => $salesperson_id));
    function view($id) {
     $sql = $this->db->select("po.*,pl.location,pl.client_name,cu.fname,cu.lname,cu2.fname as m_fname,cu2.lname as m_lname,cu3.fname as c_fname,cu3.lname as c_lname" , FALSE)
     ->from("pr_order po")
-    ->join("cz_users cu", "cu.id = po.salesperson_id", "left")
-    ->join("cz_users cu2", "cu2.id = po.manager_id", "left")
-    ->join("cz_users cu3", "cu3.id= po.coordinator_id", "left")
+    ->join("users cu", "cu.id = po.salesperson_id", "left")
+    ->join("users cu2", "cu2.id = po.manager_id", "left")
+    ->join("users cu3", "cu3.id= po.coordinator_id", "left")
     ->join("pr_lead pl", "pl.id = po.client_id", "left")
     ->where(array("po.is_deleted =" => "0","po.id" => $id)) 
     ->get()
@@ -289,7 +289,7 @@ $sql->where(array("po.salesperson_id" => $salesperson_id));
     /* function delete($id) {
         $upd['is_deleted'] = "1";
         $whr['id'] = $id;
-        $this->db->update("cz_users", $upd, $whr);
+        $this->db->update("users", $upd, $whr);
         //echo $this->db->last_query();die;
         
         return $rt;
@@ -300,7 +300,7 @@ $sql->where(array("po.salesperson_id" => $salesperson_id));
         foreach ($id as $vals) {
             $upd['is_deleted'] = "1";
             $whr['id'] = $vals;
-            $abc = $this->db->update("cz_users", $upd, $whr);
+            $abc = $this->db->update("users", $upd, $whr);
         }
         if ($abc) {
             return true;
@@ -341,7 +341,7 @@ $sql->where(array("po.salesperson_id" => $salesperson_id));
     if ( getUserInfos()->role == "0" || getUserInfos()->role == "2") {
 
         $res = $this->db->select("cu.*")
-        ->from("cz_users cu")
+        ->from("users cu")
         ->where(array("cu.status"=>"1","cu.is_deleted"=>"0","cu.role=" => "5"))
          ->order_by("cu.id","DESC")
         ->get()
@@ -352,7 +352,7 @@ $sql->where(array("po.salesperson_id" => $salesperson_id));
         $logged_in_manager_id=$_SESSION['userinfo']['id'];
         
     $res = $this->db->select("cu.*")
-    ->from("cz_users cu")
+    ->from("users cu")
     ->where(array("cu.status"=>"1","cu.is_deleted"=>"0","cu.role=" => "5","cu.manager_id=" => $logged_in_manager_id))
     ->order_by("cu.id","DESC")
     ->get()
@@ -365,7 +365,7 @@ $sql->where(array("po.salesperson_id" => $salesperson_id));
         $logged_in_coor_id=$_SESSION['userinfo']['id'];
         
     $res = $this->db->select("cu.*")
-    ->from("cz_users cu")
+    ->from("users cu")
     ->where(array("cu.status"=>"1","cu.is_deleted"=>"0","cu.role=" => "5","cu.cordinator_id=" => $logged_in_coor_id))
     ->order_by("cu.id","DESC")
     ->get()

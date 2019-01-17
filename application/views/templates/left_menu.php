@@ -1,9 +1,16 @@
 <?php
 $controllers_name=$this->router->fetch_class();
 $method_name=$this->router->fetch_method();
+// pr($controllers_name); die;
+
+
+$uri1 = @uri_segment(1);
+$uri2 = @uri_segment(2);
+$uri3 = @uri_segment(3);
+
+
 
 ?>
-
             <div class="clearfix"> </div>
             <!-- END HEADER & CONTENT DIVIDER -->
             <!-- BEGIN CONTAINER -->
@@ -20,26 +27,11 @@ $method_name=$this->router->fetch_method();
                      <p  class="text text-warning text-responsive text-center">
                     
                           <?php
-                           if(getUserInfos()->role=="0")
+                           if(getUserInfos()->user_type == "1")
                            {
                                echo "Super Admin";
                            }
-                           if(getUserInfos()->role=='1')
-                           {
-                               echo "Branch Manager";
-                           }
-                           if(getUserInfos()->role=='2')
-                           {
-                               echo "Backend-Team";
-                           }
-                           if(getUserInfos()->role=='3')
-                           {
-                               echo "Sales Coordinator";
-                           }
-                           if(getUserInfos()->role=="4")
-                           {
-                               echo "Service Coordinator";
-                           }
+                         
                            ?>
                            </p> 
 
@@ -48,7 +40,7 @@ $method_name=$this->router->fetch_method();
 <!-----------------------------------------------Super Admin Start------------------------------------------------------------>                
                                             
  
-                            <?php if ( getUserInfos()->role == "0") { ?>
+                            <?php if ( getUserInfos()->user_type == "1") { ?>
                               
                             <li class="nav-item start <?php if($controllers_name=="dashboard"){echo "active open";} ?>">
                                 <a href="<?php echo base_url("dashboard"); ?>" class="nav-link nav-toggle">
@@ -57,27 +49,29 @@ $method_name=$this->router->fetch_method();
                                     <span class="selected"></span>
                                 </a>
                             </li>
-                            <li class="nav-item  <?php if(($controllers_name=="backendteam" && $method_name!="list_items_sales_quote" && $method_name!="view_sales_quote"  && $method_name!="list_items_service_quote" && $method_name!="view_service_quote") || $controllers_name=="manager" || $controllers_name=="cordinator" || $controllers_name=="salesperson" || $controllers_name=="serviceperson") {echo "active open";} ?>">
+                            <li class="nav-item  <?php if($uri1=="admin" &&  $uri2=="users") {echo "active open";} ?>">
                                 <a href="javascript:;" class="nav-link nav-toggle">
                                     <i class="icon-puzzle"></i>
                                     <span class="title">User Management</span>
-                                    <span class="arrow <?php if(($controllers_name=="backendteam" && $method_name!="list_items_sales_quote" && $method_name!="view_sales_quote"  && $method_name!="list_items_service_quote" && $method_name!="view_service_quote") || $controllers_name=="manager" || $controllers_name=="cordinator" || $controllers_name=="salesperson" || $controllers_name=="serviceperson"){echo "open";} ?>"></span>
+                                    <span class="arrow <?php if($uri2=="users" && $uri3 =="listing"){echo "open";} ?>"></span>
                                 </a>
                                 <ul class="sub-menu">
-                                    <li class="nav-item  ">
-                                        <a href="<?php echo base_url("backendteam/list_items"); ?>" class="nav-link ">
-                                            <span class="title <?php if($controllers_name=="backendteam" && ($method_name=="list_items" || $method_name=="edit" || $method_name=="view" || $method_name=="add")){echo "text text-danger";} ?>">End User</span>
+                                    <li class="nav-item  <?php if($uri2=="users" && $uri3=="listing"){echo "active text text-danger";} ?>">
+                                        <a href="<?php echo base_url("admin/users/listing"); ?>" class="nav-link ">
+                                            <span class="title ">End User</span>
                                         </a>
                                     </li>
+                                   
                                 </ul>
                             </li>
-                            <li class="nav-item  <?php if($controllers_name=="viewtarget"  && $method_name=="list_items"){echo "active";} ?>">
-                                        <a href="<?php echo base_url("viewtarget/list_items"); ?>" class="nav-link ">
-                                        <i class="icon-puzzle"></i>
-                                            <span class="title">Manage Color Scheme</span>
-                                        </a>
+                            <li class="nav-item  <?php if($uri1 == "admin"  && $uri2 == "colors"){ echo "active";} ?>">
+                            <a href="<?php echo base_url("admin/colors/listing"); ?>" class="nav-link ">
+                            <i class="icon-puzzle"></i>
+                                <span class="title">Manage Color Scheme</span>
+                            </a>
                            </li>
-                            <li class="nav-item  <?php if(($controllers_name=="backendteam" && $method_name!="list_items_sales_quote" && $method_name!="view_sales_quote"  && $method_name!="list_items_service_quote" && $method_name!="view_service_quote") || $controllers_name=="manager" || $controllers_name=="cordinator" || $controllers_name=="salesperson" || $controllers_name=="serviceperson") {echo "active open";} ?>">
+                           
+                            <li class="nav-item  <?php if($uri1=="admin" && ($uri2 =="morning" || $uri2 =="coaches" || $uri2 =="masterclass")) {echo "active open";} ?>">
                                 <a href="javascript:;" class="nav-link nav-toggle">
                                     <i class="icon-puzzle"></i>
                                     <span class="title">Masters Membership</span>
@@ -85,30 +79,30 @@ $method_name=$this->router->fetch_method();
                                 </a>
                                 <ul class="sub-menu">
                                     <li class="nav-item  ">
-                                        <a href="<?php echo base_url("backendteam/list_items"); ?>" class="nav-link ">
-                                            <span class="title <?php if($controllers_name=="backendteam" && ($method_name=="list_items" || $method_name=="edit" || $method_name=="view" || $method_name=="add")){echo "text text-danger";} ?>">Morning Focus</span>
+                                        <a href="<?php echo base_url("admin/morning/listing"); ?>" class="nav-link ">
+                                            <span class="title <?php if($uri1=="admin" && ($uri2=="morning" && $uri3=="listing")){echo "active text text-danger";} ?>">Morning Focus</span>
                                         </a>
                                     </li>
                                     <li class="nav-item  ">
-                                        <a href="<?php echo base_url("backendteam/list_items"); ?>" class="nav-link ">
-                                            <span class="title <?php if($controllers_name=="backendteam" && ($method_name=="list_items" || $method_name=="edit" || $method_name=="view" || $method_name=="add")){echo "text text-danger";} ?>">Coaches center</span>
+                                        <a href="<?php echo base_url("admin/coaches/listing"); ?>" class="nav-link ">
+                                            <span class="title <?php if($uri1=="admin" && ($uri2=="coaches" && $uri3=="listing")){echo "text text-danger";} ?>">Coaches center</span>
                                         </a>
                                     </li>
                                     <li class="nav-item  ">
-                                        <a href="<?php echo base_url("backendteam/list_items"); ?>" class="nav-link ">
-                                            <span class="title <?php if($controllers_name=="backendteam" && ($method_name=="list_items" || $method_name=="edit" || $method_name=="view" || $method_name=="add")){echo "text text-danger";} ?>">Focus Master class</span>
+                                        <a href="<?php echo base_url("admin/masterclass/listing"); ?>" class="nav-link ">
+                                            <span class="title <?php if($uri1=="admin" && ($uri2=="masterclass" && $uri3=="listing")){echo "text text-danger";} ?>">Focus Master class</span>
                                         </a>
                                     </li>
-                                    <li class="nav-item  ">
-                                        <a href="<?php echo base_url("backendteam/list_items"); ?>" class="nav-link ">
-                                            <span class="title <?php if($controllers_name=="backendteam" && ($method_name=="list_items" || $method_name=="edit" || $method_name=="view" || $method_name=="add")){echo "text text-danger";} ?>">Focus Education</span>
+                                    <!-- <li class="nav-item  ">
+                                        <a href="<?php echo base_url("admin/education/listing"); ?>" class="nav-link ">
+                                            <span class="title <?php if($uri1=="admin" && ($uri2=="education" && $uri3=="listing")){echo "text text-danger";} ?>">Focus Education</span>
                                         </a>
-                                    </li>
+                                    </li> -->
                                                                      
                                 </ul>
                             </li>
                            
-                            <li class="nav-item  <?php if(($controllers_name=="backendteam" && $method_name!="list_items_sales_quote" && $method_name!="view_sales_quote"  && $method_name!="list_items_service_quote" && $method_name!="view_service_quote") || $controllers_name=="manager" || $controllers_name=="cordinator" || $controllers_name=="salesperson" || $controllers_name=="serviceperson") {echo "active open";} ?>">
+                            <li class="nav-item  <?php if($uri1=="admin" && ($uri2 =="mastery" || $uri2 =="leadership")) {echo "active open";} ?>">
                                 <a href="javascript:;" class="nav-link nav-toggle">
                                     <i class="icon-puzzle"></i>
                                     <span class="title">Focus Retreats</span>
@@ -116,13 +110,34 @@ $method_name=$this->router->fetch_method();
                                 </a>
                                 <ul class="sub-menu">
                                     <li class="nav-item  ">
-                                        <a href="<?php echo base_url("backendteam/list_items"); ?>" class="nav-link ">
-                                            <span class="title <?php if($controllers_name=="backendteam" && ($method_name=="list_items" || $method_name=="edit" || $method_name=="view" || $method_name=="add")){echo "text text-danger";} ?>">Self Mastery</span>
+                                        <a href="<?php echo base_url("admin/mastery/listing"); ?>" class="nav-link ">
+                                            <span class="title <?php if($uri1=="admin" && ($uri2=="mastery" && $uri3=="listing")){echo "text text-danger";} ?>">Self Mastery</span>
+                                        </a>
+                                        <li class="nav-item  <?php if($uri1=="admin" && ($uri2 =="mastery" || $uri2 =="leadership")) {echo "active open";} ?>">
+                                <a href="javascript:;" class="nav-link nav-toggle">
+                                    <i class="icon-puzzle"></i>
+                                    <span class="title">Focus Retreats</span>
+                                    <span class="arrow <?php if(($controllers_name=="backendteam" && $method_name!="list_items_sales_quote" && $method_name!="view_sales_quote"  && $method_name!="list_items_service_quote" && $method_name!="view_service_quote") || $controllers_name=="manager" || $controllers_name=="cordinator" || $controllers_name=="salesperson" || $controllers_name=="serviceperson"){echo "open";} ?>"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item  ">
+                                        <a href="<?php echo base_url("admin/mastery/listing"); ?>" class="nav-link ">
+                                            <span class="title <?php if($uri1=="admin" && ($uri2=="mastery" && $uri3=="listing")){echo "text text-danger";} ?>">Self Mastery</span>
                                         </a>
                                     </li>
                                     <li class="nav-item  ">
-                                        <a href="<?php echo base_url("backendteam/list_items"); ?>" class="nav-link ">
-                                            <span class="title <?php if($controllers_name=="backendteam" && ($method_name=="list_items" || $method_name=="edit" || $method_name=="view" || $method_name=="add")){echo "text text-danger";} ?>">Business Leadership</span>
+                                        <a href="<?php echo base_url("admin/leadership/listing"); ?>" class="nav-link ">
+                                            <span class="title <?php if($uri1=="admin" && ($uri2=="leadership" && $uri3=="listing")){echo "text text-danger";} ?>">Business Leadership</span>
+                                        </a>
+                                    </li>
+                                   
+                                                                     
+                                </ul>
+                            </li>
+                                    </li>
+                                    <li class="nav-item  ">
+                                        <a href="<?php echo base_url("admin/leadership/listing"); ?>" class="nav-link ">
+                                            <span class="title <?php if($uri1=="admin" && ($uri2=="leadership" && $uri3=="listing")){echo "text text-danger";} ?>">Business Leadership</span>
                                         </a>
                                     </li>
                                    

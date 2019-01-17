@@ -14,14 +14,28 @@ class Dashboard_model extends CI_Model {
         die;
     }
 
-    function get_total_rfq() {
-        $this->db->select('crfq.id');
-        $this->db->from('cz_rfq crfq');
-        if (currUserId() != '1') {
-            $this->db->where(array("crfq.added_by" => currUserId()));
-        }
-        $this->db->where(array("crfq.is_delete" => "0"));
-        $num_results = $this->db->count_all_results();
+    function get_total_users() {
+
+        $this->db->select('id');
+        $this->db->from('users u');
+        $num_results['all_user'] = $this->db->count_all_results();
+
+        $this->db->select('*');
+        $this->db->where('user_type','3');
+        $this->db->from('users u');
+        $num_results['all_coaches'] = $this->db->count_all_results();
+
+        
+        $this->db->select('*');
+        $this->db->where('is_member','1');
+        $this->db->from('users u');
+
+        $num_results['total_paid_member'] = $this->db->count_all_results();
+        
+        $this->db->select('*');
+        $this->db->from('f_queries');
+        $num_results['total_queries'] = $this->db->count_all_results();
+// pr($num_results['total_queries']); die;
         return $num_results;
     }
 

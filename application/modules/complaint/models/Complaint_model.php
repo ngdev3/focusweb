@@ -29,9 +29,9 @@ class Complaint_model extends CI_Model {
                 ->from("pr_complaint pr")
                 ->join("pr_complaint_assign pca","pca.complaint_id=pr.id","left") 
                 ->join("pr_type_complaint ptc","ptc.id=pr.complaint_type","left") 
-                ->join("cz_users cum", "cum.id = pca.manager_id", "left")
-                ->join("cz_users cuc", "cuc.id = pca.coordinator_id", "left")
-                ->join("cz_users cus", "cus.id = pca.serviceperson_id", "left")
+                ->join("users cum", "cum.id = pca.manager_id", "left")
+                ->join("users cuc", "cuc.id = pca.coordinator_id", "left")
+                ->join("users cus", "cus.id = pca.serviceperson_id", "left")
                 ->where(array("pr.is_deleted =" => "0"/* ,"pr.status="=>"1" */));
 
             }else if ( getUserInfos()->role == "1") {
@@ -62,9 +62,9 @@ class Complaint_model extends CI_Model {
                 ->from("pr_complaint pr")
                 ->join("pr_complaint_assign pca","pca.complaint_id=pr.id","left") 
                 ->join("pr_type_complaint ptc","ptc.id=pr.complaint_type","left") 
-                ->join("cz_users cum", "cum.id = pca.manager_id", "left")
-                ->join("cz_users cuc", "cuc.id = pca.coordinator_id", "left")
-                ->join("cz_users cus", "cus.id = pca.serviceperson_id", "left")
+                ->join("users cum", "cum.id = pca.manager_id", "left")
+                ->join("users cuc", "cuc.id = pca.coordinator_id", "left")
+                ->join("users cus", "cus.id = pca.serviceperson_id", "left")
               //  ->where(array("pr.is_deleted =" => "0","pca.manager_id=" => $logged_in_manager_id/* ,"pr.status="=>"1" */));
              
               ->where_in('pr.id', $l_id)
@@ -284,7 +284,7 @@ class Complaint_model extends CI_Model {
     } 
     function viewData_2($id) {
         $res = $this->db->select("cu.*")
-                ->from("cz_users cu")
+                ->from("users cu")
                 ->where(array("cu.id" => $id))
                 ->get()
                 ->row();
@@ -298,10 +298,10 @@ class Complaint_model extends CI_Model {
                 ->join("pr_type_complaint ptc", "ptc.id = pr.complaint_type", "left")
                 
                  ->join("pr_complaint_assign pra", "pra.complaint_id = pr.id", "left")
-                 ->join("cz_users cum", "cum.id = pra.manager_id", "left")
-                 ->join("cz_users cuc", "cuc.id = pra.coordinator_id", "left")
+                 ->join("users cum", "cum.id = pra.manager_id", "left")
+                 ->join("users cuc", "cuc.id = pra.coordinator_id", "left")
                 
-                 ->join("cz_users cus", "cus.id = pra.serviceperson_id", "left")
+                 ->join("users cus", "cus.id = pra.serviceperson_id", "left")
    
                 ->where(array("pr.id" => $id,"pr.is_deleted"=>"0"))
                 ->order_by("pr.id","desc")
@@ -318,7 +318,7 @@ class Complaint_model extends CI_Model {
         $res = $this->db->select("prl.*,concat( cus.fname ,' ', cus.lname ) as service_name,cus.profile_image as service_image")
                 ->from("pr_complaint_meeting prl")
                 
-                ->join("cz_users cus", "cus.id = prl.service_person_id", "left")                
+                ->join("users cus", "cus.id = prl.service_person_id", "left")                
                 ->where(array("prl.complaint_id" => $id))
                  ->where(array("prl.is_approved" => 1))
                 ->get()
@@ -381,7 +381,7 @@ class Complaint_model extends CI_Model {
     
         $ins['coordinator_id'] = $logged_in_coor_id;
         $res = $this->db->select("cu.*")
-                ->from("cz_users cu")
+                ->from("users cu")
                 ->where(array("cu.id" => $logged_in_coor_id))
                 ->get()
                 ->row();
@@ -475,7 +475,7 @@ class Complaint_model extends CI_Model {
 
 
             $res = $this->db->select("cu.*")
-                    ->from("cz_users cu")
+                    ->from("users cu")
                     ->where(array("cu.role"=>"6","cu.status"=>"1","cu.is_deleted"=>"0"))
                   
                      ->order_by("cu.id","DESC")
@@ -486,7 +486,7 @@ class Complaint_model extends CI_Model {
             if ( getUserInfos()->role == "1") {
                 $logged_in_manager_id=$_SESSION['userinfo']['id'];
                 $res = $this->db->select("cu.*")
-                ->from("cz_users cu")
+                ->from("users cu")
                 ->where(array("cu.role"=>"6","cu.status"=>"1","cu.is_deleted"=>"0","cu.manager_id=" => $logged_in_manager_id))
                 
                  ->order_by("cu.id","DESC")
@@ -500,7 +500,7 @@ class Complaint_model extends CI_Model {
          
       
        $res = $this->db->select("cu.*")
-               ->from("cz_users cu")
+               ->from("users cu")
                ->where(array("cu.manager_id" => $manager_id,"cu.cordinator_id" => $coordinator_id,"cu.role"=>"6","cu.status"=>"1","cu.is_deleted"=>"0"))
                 ->order_by("cu.id","DESC")
                ->get()
@@ -512,7 +512,7 @@ class Complaint_model extends CI_Model {
 
    function getservicecordinator($id) {
     $res = $this->db->select("cu.*")
-            ->from("cz_users cu")
+            ->from("users cu")
             ->where(array("cu.manager_id" => $id,"cu.role"=>"4","cu.status"=>"1","cu.is_deleted"=>"0"))
              ->order_by("cu.id","DESC")
             ->get()
@@ -526,7 +526,7 @@ class Complaint_model extends CI_Model {
 
 
     $res = $this->db->select("cu.*")
-            ->from("cz_users cu")
+            ->from("users cu")
             ->where(array("cu.role"=>"4","cu.status"=>"1","cu.is_deleted"=>"0"))
           
              ->order_by("cu.id","DESC")
@@ -537,7 +537,7 @@ class Complaint_model extends CI_Model {
     if ( getUserInfos()->role == "1") {
         $logged_in_manager_id=$_SESSION['userinfo']['id'];
         $res = $this->db->select("cu.*")
-        ->from("cz_users cu")
+        ->from("users cu")
         ->where(array("cu.role"=>"4","cu.status"=>"1","cu.is_deleted"=>"0","cu.manager_id=" => $logged_in_manager_id))
         
          ->order_by("cu.id","DESC")
@@ -571,9 +571,9 @@ class Complaint_model extends CI_Model {
     $sql = $this->db->select("pr.*,cr.client_name,cr.contact_person,cr.contact_number,concat( cum.fname ,' ', cum.lname ) as manager_name,concat( cuc.fname ,' ', cuc.lname ) as coordinator_name,concat( cus.fname ,' ', cus.lname ) as serviceperson_name", FALSE)
             ->from("pr_complaint_assign pr")
             ->join("pr_complaint cr", "cr.id = pr.complaint_id", "left")
-            ->join("cz_users cum", "cum.id = pr.manager_id", "left")
-            ->join("cz_users cuc", "cuc.id = pr.coordinator_id", "left")
-            ->join("cz_users cus", "cus.id = pr.serviceperson_id", "left")
+            ->join("users cum", "cum.id = pr.manager_id", "left")
+            ->join("users cuc", "cuc.id = pr.coordinator_id", "left")
+            ->join("users cus", "cus.id = pr.serviceperson_id", "left")
             ->where(array("pr.is_deleted =" => "0"/* ,"pr.status="=>"1" */,"pr.serviceperson_id"=>$id));
 
 
@@ -670,9 +670,9 @@ public function getall_activity()
     $sql = $this->db->select("pr.*,cr.client_name,cr.contact_person,cr.contact_number,concat( cum.fname ,' ', cum.lname ) as manager_name,concat( cuc.fname ,' ', cuc.lname ) as coordinator_name,concat( cus.fname ,' ', cus.lname ) as serviceperson_name", FALSE)
             ->from("pr_complaint_assign pr")
             ->join("pr_complaint cr", "cr.id = pr.complaint_id", "left")
-            ->join("cz_users cum", "cum.id = pr.manager_id", "left")
-            ->join("cz_users cuc", "cuc.id = pr.coordinator_id", "left")
-            ->join("cz_users cus", "cus.id = pr.serviceperson_id", "left")
+            ->join("users cum", "cum.id = pr.manager_id", "left")
+            ->join("users cuc", "cuc.id = pr.coordinator_id", "left")
+            ->join("users cus", "cus.id = pr.serviceperson_id", "left")
             ->where(array("pr.is_deleted =" => "0","pr.status="=>"1"));
             $query = $sql->get()->result();
             return $query;
@@ -694,9 +694,9 @@ function list_items_activity_history_ajax() {
                     , FALSE)
             ->from("pr_complaint_assign pra")
             
-             ->join("cz_users cum", "cum.id = pra.manager_id", "left")
-            ->join("cz_users cuc", "cuc.id = pra.coordinator_id", "left")
-            ->join("cz_users cus", "cus.id = pra.serviceperson_id", "left")
+             ->join("users cum", "cum.id = pra.manager_id", "left")
+            ->join("users cuc", "cuc.id = pra.coordinator_id", "left")
+            ->join("users cus", "cus.id = pra.serviceperson_id", "left")
             ->where(array("pra.is_deleted =" => "0"))
             ->group_by("pra.serviceperson_id");
     }  else if( getUserInfos()->role == "1") {
@@ -705,9 +705,9 @@ function list_items_activity_history_ajax() {
                     , FALSE)
             ->from("pr_complaint_assign pra")
             
-             ->join("cz_users cum", "cum.id = pra.manager_id", "left")
-            ->join("cz_users cuc", "cuc.id = pra.coordinator_id", "left")
-            ->join("cz_users cus", "cus.id = pra.serviceperson_id", "left")
+             ->join("users cum", "cum.id = pra.manager_id", "left")
+            ->join("users cuc", "cuc.id = pra.coordinator_id", "left")
+            ->join("users cus", "cus.id = pra.serviceperson_id", "left")
             ->where(array("pra.is_deleted =" => "0","pra.manager_id=" => $logged_in_manager_id))
             ->group_by("pra.serviceperson_id");
     } else if( getUserInfos()->role == "4") {
@@ -716,9 +716,9 @@ function list_items_activity_history_ajax() {
                     , FALSE)
             ->from("pr_complaint_assign pra")
             
-             ->join("cz_users cum", "cum.id = pra.manager_id", "left")
-            ->join("cz_users cuc", "cuc.id = pra.coordinator_id", "left")
-            ->join("cz_users cus", "cus.id = pra.serviceperson_id", "left")
+             ->join("users cum", "cum.id = pra.manager_id", "left")
+            ->join("users cuc", "cuc.id = pra.coordinator_id", "left")
+            ->join("users cus", "cus.id = pra.serviceperson_id", "left")
             ->where(array("pra.is_deleted =" => "0","pra.coordinator_id=" => $logged_in_coor_id))
             ->group_by("pra.serviceperson_id");
 
@@ -849,9 +849,9 @@ function list_items_ajax_app_disapp() {
         ->join("pr_complaint_assign pals","plm.complaint_id=pals.complaint_id","left")
         ->join("pr_complaint pl","pl.id=pals.complaint_id","left")
         ->join("pr_type_complaint ptl","ptl.id = pl.complaint_type","left")
-        ->join("cz_users cu", "cu.id = pals.serviceperson_id", "left")
-        ->join("cz_users cu2", "cu2.id = pals.manager_id", "left")
-        ->join("cz_users cu3", "cu3.id= pals.coordinator_id", "left")
+        ->join("users cu", "cu.id = pals.serviceperson_id", "left")
+        ->join("users cu2", "cu2.id = pals.manager_id", "left")
+        ->join("users cu3", "cu3.id= pals.coordinator_id", "left")
         ->where(array("pals.is_deleted =" => "0"));
     }
 
@@ -862,9 +862,9 @@ function list_items_ajax_app_disapp() {
         ->join("pr_complaint_assign pals","plm.complaint_id=pals.complaint_id","left")
         ->join("pr_complaint pl","pl.id=pals.complaint_id","left")
         ->join("pr_type_complaint ptl","ptl.id = pl.complaint_type","left")
-        ->join("cz_users cu", "cu.id = pals.serviceperson_id", "left")
-        ->join("cz_users cu2", "cu2.id = pals.manager_id", "left")
-        ->join("cz_users cu3", "cu3.id= pals.coordinator_id", "left")
+        ->join("users cu", "cu.id = pals.serviceperson_id", "left")
+        ->join("users cu2", "cu2.id = pals.manager_id", "left")
+        ->join("users cu3", "cu3.id= pals.coordinator_id", "left")
         ->where(array("pals.is_deleted =" => "0","pals.manager_id=" => $logged_in_manager_id));
 
     }
@@ -877,9 +877,9 @@ function list_items_ajax_app_disapp() {
             ->join("pr_complaint_assign pals","plm.complaint_id=pals.complaint_id","left")
             ->join("pr_complaint pl","pl.id=pals.complaint_id","left")
             ->join("pr_type_complaint ptl","ptl.id = pl.complaint_type","left")
-            ->join("cz_users cu", "cu.id = pals.serviceperson_id", "left")
-            ->join("cz_users cu2", "cu2.id = pals.manager_id", "left")
-            ->join("cz_users cu3", "cu3.id= pals.coordinator_id", "left")
+            ->join("users cu", "cu.id = pals.serviceperson_id", "left")
+            ->join("users cu2", "cu2.id = pals.manager_id", "left")
+            ->join("users cu3", "cu3.id= pals.coordinator_id", "left")
             ->where(array("pals.is_deleted =" => "0","pals.manager_id=" => $logged_in_coor_id));
 
         }
@@ -997,7 +997,7 @@ function getsalesperson() {
     if ( getUserInfos()->role == "0") {
 
         $res = $this->db->select("cu.*")
-        ->from("cz_users cu")
+        ->from("users cu")
         ->where(array("cu.status"=>"1","cu.is_deleted"=>"0","cu.role=" => "5"))
          ->order_by("cu.id","DESC")
         ->get()
@@ -1008,7 +1008,7 @@ function getsalesperson() {
         $logged_in_manager_id=$_SESSION['userinfo']['id'];
         
     $res = $this->db->select("cu.*")
-    ->from("cz_users cu")
+    ->from("users cu")
     ->where(array("cu.status"=>"1","cu.is_deleted"=>"0","cu.role=" => "5","cu.manager_id=" => $logged_in_manager_id))
     ->order_by("cu.id","DESC")
     ->get()
@@ -1020,7 +1020,7 @@ function getsalesperson() {
         $logged_in_coor_id=$_SESSION['userinfo']['id'];
         
     $res = $this->db->select("cu.*")
-    ->from("cz_users cu")
+    ->from("users cu")
     ->where(array("cu.status"=>"1","cu.is_deleted"=>"0","cu.role=" => "5","cu.cordinator_id=" => $logged_in_coor_id))
     ->order_by("cu.id","DESC")
     ->get()
@@ -1041,9 +1041,9 @@ function getsalesperson() {
         ->join("pr_complaint_assign pals","plm.complaint_id=pals.complaint_id","left")
         ->join("pr_complaint pl","pl.id=pals.complaint_id","left")
         ->join("pr_type_complaint ptl","ptl.id = pl.complaint_type","left")
-        ->join("cz_users cu", "cu.id = pals.serviceperson_id", "left")
-        ->join("cz_users cu2", "cu2.id = pals.manager_id", "left")
-        ->join("cz_users cu3", "cu3.id= pals.coordinator_id", "left")
+        ->join("users cu", "cu.id = pals.serviceperson_id", "left")
+        ->join("users cu2", "cu2.id = pals.manager_id", "left")
+        ->join("users cu3", "cu3.id= pals.coordinator_id", "left")
         ->where(array("pals.is_deleted =" => "0","pals.id" =>$id ))
         ->get()
         ->row();
@@ -1056,9 +1056,9 @@ function view_activity($id) {
     ->from("pr_complaint_assign pals")
     ->join("pr_complaint pl","pl.id=pals.complaint_id","left")
     ->join("pr_type_complaint ptl","ptl.id = pl.complaint_type","left")
-    ->join("cz_users cu", "cu.id = pals.serviceperson_id", "left")
-    ->join("cz_users cu2", "cu2.id = pals.manager_id", "left")
-    ->join("cz_users cu3", "cu3.id= pals.coordinator_id", "left")
+    ->join("users cu", "cu.id = pals.serviceperson_id", "left")
+    ->join("users cu2", "cu2.id = pals.manager_id", "left")
+    ->join("users cu3", "cu3.id= pals.coordinator_id", "left")
    
     ->where(array("pals.is_deleted =" => "0","pals.complaint_id" =>$id ))
     ->get()
@@ -1093,9 +1093,9 @@ function list_items_ajax_reschedule_activity() {
             ->from("pr_complaint_assign pals")
             ->join("pr_complaint pl","pl.id=pals.complaint_id","left")
             ->join("pr_type_complaint ptl","ptl.id = pl.complaint_type","left")
-            ->join("cz_users cu", "cu.id = pals.serviceperson_id", "left")
-            ->join("cz_users cu2", "cu2.id = pals.manager_id", "left")
-            ->join("cz_users cu3", "cu3.id= pals.coordinator_id", "left")
+            ->join("users cu", "cu.id = pals.serviceperson_id", "left")
+            ->join("users cu2", "cu2.id = pals.manager_id", "left")
+            ->join("users cu3", "cu3.id= pals.coordinator_id", "left")
             ->where(array("pals.is_deleted =" => "0" ,"pals.outcome_status" => "4"));
     }
 
@@ -1105,9 +1105,9 @@ function list_items_ajax_reschedule_activity() {
         ->from("pr_complaint_assign pals")
         ->join("pr_complaint pl","pl.id=pals.complaint_id","left")
         ->join("pr_type_complaint ptl","ptl.id = pl.complaint_type","left")
-        ->join("cz_users cu", "cu.id = pals.serviceperson_id", "left")
-        ->join("cz_users cu2", "cu2.id = pals.manager_id", "left")
-        ->join("cz_users cu3", "cu3.id= pals.coordinator_id", "left")
+        ->join("users cu", "cu.id = pals.serviceperson_id", "left")
+        ->join("users cu2", "cu2.id = pals.manager_id", "left")
+        ->join("users cu3", "cu3.id= pals.coordinator_id", "left")
         ->where(array("pals.is_deleted =" => "0" ,"pals.outcome_status" => "4","pals.manager_id=" => $logged_in_manager_id));
 
     }
@@ -1119,9 +1119,9 @@ function list_items_ajax_reschedule_activity() {
             ->from("pr_complaint_assign pals")
             ->join("pr_complaint pl","pl.id=pals.complaint_id","left")
             ->join("pr_type_complaint ptl","ptl.id = pl.complaint_type","left")
-            ->join("cz_users cu", "cu.id = pals.serviceperson_id", "left")
-            ->join("cz_users cu2", "cu2.id = pals.manager_id", "left")
-            ->join("cz_users cu3", "cu3.id= pals.coordinator_id", "left")
+            ->join("users cu", "cu.id = pals.serviceperson_id", "left")
+            ->join("users cu2", "cu2.id = pals.manager_id", "left")
+            ->join("users cu3", "cu3.id= pals.coordinator_id", "left")
             ->where(array("pals.is_deleted =" => "0" ,"pals.outcome_status" => "4","pals.manager_id=" => $logged_in_coor_id));
 
         }
@@ -1226,9 +1226,9 @@ function view_reschedule_activity($id) {
             ->from("pr_complaint_assign pals")
             ->join("pr_complaint pl","pl.id=pals.complaint_id","left")
             ->join("pr_type_complaint ptl","ptl.id = pl.complaint_type","left")
-            ->join("cz_users cu", "cu.id = pals.serviceperson_id", "left")
-            ->join("cz_users cu2", "cu2.id = pals.manager_id", "left")
-            ->join("cz_users cu3", "cu3.id= pals.coordinator_id", "left")
+            ->join("users cu", "cu.id = pals.serviceperson_id", "left")
+            ->join("users cu2", "cu2.id = pals.manager_id", "left")
+            ->join("users cu3", "cu3.id= pals.coordinator_id", "left")
             
             ->where(array("pals.is_deleted =" => "0","pals.id" =>$id/* ,"pals.outcome_status" => "4" */))
             ->get()
@@ -1308,7 +1308,7 @@ public function last_id_assign_activity() {
     function static_coordinator() {
         $logged_in_manager_id=$_SESSION['userinfo']['id'];
         $res = $this->db->select("cu.*")
-                ->from("cz_users cu")
+                ->from("users cu")
                 ->where(array("cu.manager_id" => $id,"cu.role"=>"4","cu.status"=>"1","cu.is_deleted"=>"0","cu.manager_id" =>$logged_in_manager_id ))
                  ->order_by("cu.id","DESC")
                 ->get()
@@ -1320,7 +1320,7 @@ public function last_id_assign_activity() {
         $logged_in_coor_id=$_SESSION['userinfo']['id'];
         //echo $coordinator_id;die;
        $res = $this->db->select("cu.*")
-               ->from("cz_users cu")
+               ->from("users cu")
                ->where(array("cu.cordinator_id" => $logged_in_coor_id,"cu.role"=>"6","cu.status"=>"1","cu.is_deleted"=>"0"))
                 ->order_by("cu.id","DESC")
                ->get()

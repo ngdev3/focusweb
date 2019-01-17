@@ -23,10 +23,10 @@ class Cordinator_model extends CI_Model {
        if ( getUserInfos()->role == "0") {
         $sql = $this->db->select("cu.*,plc.location_name as location_name,cr.role_name,concat( cu.fname ,' ', cu.lname ) as user_name,concat( cum.fname ,' ', cum.lname ) as manager_name,"
                         , FALSE)
-                ->from("cz_users cu")
+                ->from("users cu")
                 ->join("cz_roles cr", "cr.id = cu.role", "left")
                 ->join("pr_location plc", "plc.id = cu.location_id", "left")
-                ->join("cz_users cum", "cum.id = cu.manager_id", "left")
+                ->join("users cum", "cum.id = cu.manager_id", "left")
                 ->where("(cu.role='3' OR cu.role='4')")
                 ->where(array("cu.is_deleted =" => "0"));
 
@@ -36,10 +36,10 @@ class Cordinator_model extends CI_Model {
                     $logged_in_manager_id=$_SESSION['userinfo']['id'];
                     $sql = $this->db->select("cu.*,plc.location_name as location_name,cr.role_name,concat( cu.fname ,' ', cu.lname ) as user_name,concat( cum.fname ,' ', cum.lname ) as manager_name,"
                     , FALSE)
-            ->from("cz_users cu")
+            ->from("users cu")
             ->join("cz_roles cr", "cr.id = cu.role", "left")
             ->join("pr_location plc", "plc.id = cu.location_id", "left")
-            ->join("cz_users cum", "cum.id = cu.manager_id", "left")
+            ->join("users cum", "cum.id = cu.manager_id", "left")
        
             ->where("(cu.role='3' OR cu.role='4')")
 
@@ -142,7 +142,7 @@ class Cordinator_model extends CI_Model {
 
 
         //pr($ins);die;
-        $this->db->insert("cz_users", $ins);
+        $this->db->insert("users", $ins);
 
         //Sending Mail to user
         $subject = "Registration";
@@ -177,12 +177,12 @@ class Cordinator_model extends CI_Model {
        
         $upd['updated_date'] = current_datetime();
         $whr['id'] = $id;
-        $this->db->update("cz_users", $upd, $whr);
+        $this->db->update("users", $upd, $whr);
     }
 
     function viewData($id) {
         $res = $this->db->select("cu.*")
-                ->from("cz_users cu")
+                ->from("users cu")
                 ->where(array("cu.id" => $id))
                 ->get()
                 ->row();
@@ -192,10 +192,10 @@ class Cordinator_model extends CI_Model {
     
     function view($id) {
         $res = $this->db->select("cu.*,cr.role_name,plc.location_name as location_name,cum.fname as manager_fname,cum.lname as manager_lname")
-                ->from("cz_users cu")
+                ->from("users cu")
                 
                 ->join("pr_location plc", "plc.id = cu.location_id", "left")
-                ->join("cz_users cum", "cum.id = cu.manager_id", "left")
+                ->join("users cum", "cum.id = cu.manager_id", "left")
                 ->join("cz_roles cr", "cr.id = cu.role", "left")
                 ->where(array("cu.id" => $id))
                 ->get()
@@ -208,7 +208,7 @@ class Cordinator_model extends CI_Model {
 
     function get_manager_user() {
         $res = $this->db->select("cu.id,cu.fname,cu.lname")
-                ->from("cz_users cu")
+                ->from("users cu")
                 ->where("(cu.role='1' OR cu.role='7')")
                  ->where("(cu.status='1' )")
                  ->where("(cu.is_deleted='0')")
@@ -231,7 +231,7 @@ class Cordinator_model extends CI_Model {
     function delete($id) {
         $upd['is_deleted'] = "1";
         $whr['id'] = $id;
-        $this->db->update("cz_users", $upd, $whr);
+        $this->db->update("users", $upd, $whr);
         //echo $this->db->last_query();die;
         if ($this->db->affected_rows() > 0) {
             $rt["status"] = "true";
@@ -248,7 +248,7 @@ class Cordinator_model extends CI_Model {
         foreach ($id as $vals) {
             $upd['is_deleted'] = "1";
             $whr['id'] = $vals;
-            $abc = $this->db->update("cz_users", $upd, $whr);
+            $abc = $this->db->update("users", $upd, $whr);
         }
         if ($abc) {
             return true;
@@ -263,7 +263,7 @@ class Cordinator_model extends CI_Model {
         for ($i = 0; $i < count($images); $i++) {
             $upd['profile_image'] = $images[$i];
             $whr['id'] = $user_id;
-            $abc = $this->db->update("cz_users", $upd, $whr);
+            $abc = $this->db->update("users", $upd, $whr);
             //echo $this->db->last_query();die;
         }
 
@@ -289,10 +289,10 @@ class Cordinator_model extends CI_Model {
        
         $sql = $this->db->select("cu.*,plc.location_name as location_name,cr.role_name,concat( cu.fname ,' ', cu.lname ) as user_name,concat( cum.fname ,' ', cum.lname ) as manager_name,"
                         , FALSE)
-                ->from("cz_users cu")
+                ->from("users cu")
                 ->join("cz_roles cr", "cr.id = cu.role", "left")
                 ->join("pr_location plc", "plc.id = cu.location_id", "left")
-                 ->join("cz_users cum", "cum.id = cu.manager_id", "left")
+                 ->join("users cum", "cum.id = cu.manager_id", "left")
                 //->where(array("cu.role =" => "1"))
                 //->where("(cu.role='3')")
                 
@@ -364,7 +364,7 @@ class Cordinator_model extends CI_Model {
 
     public function last_id_get() {
         $res = $this->db->select("pr.id")
-                ->from("cz_users pr")
+                ->from("users pr")
                 ->order_by("pr.id", "Desc")
                 ->limit(1)
                 ->get()

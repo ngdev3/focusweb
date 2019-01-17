@@ -130,7 +130,7 @@ class Webapi extends REST_Controller {
     /* ---------------------------------------------Get Old Password------------------------------------------------ */
 
     public function getOldPassword($id) {
-        $result = $this->db->select('password')->where('id', $id)->get('cz_users')->row();
+        $result = $this->db->select('password')->where('id', $id)->get('users')->row();
         return $result;
     }
 
@@ -201,11 +201,11 @@ class Webapi extends REST_Controller {
         if (isPostBack()) {
             $this->form_validation->set_rules('fname', 'First Name', "required|alpha");
             $this->form_validation->set_rules('lname', 'Last Name', "required|alpha");
-            $this->form_validation->set_rules('email', 'Email id', 'required|is_unique[cz_users.email]|valid_email');
+            $this->form_validation->set_rules('email', 'Email id', 'required|is_unique[users.email]|valid_email');
             $this->form_validation->set_rules('father_mobile', 'Father Mobile no', 'required|min_length[8]|max_length[14]|numeric');
             $this->form_validation->set_rules('mother_mobile', 'Mother Mobile no', 'required|min_length[8]|max_length[14]|numeric');
-            $this->form_validation->set_rules('admission_number', 'Admission no', 'required|is_unique[cz_users.admission_number]');
-            $this->form_validation->set_rules('aadhar_no', 'Aadhar card no', 'required|min_length[12]|max_length[12]|is_unique[cz_users.aadhar_no]|numeric');
+            $this->form_validation->set_rules('admission_number', 'Admission no', 'required|is_unique[users.admission_number]');
+            $this->form_validation->set_rules('aadhar_no', 'Aadhar card no', 'required|min_length[12]|max_length[12]|is_unique[users.aadhar_no]|numeric');
             $this->form_validation->set_rules('class_id', 'Class Name', 'required');
             $this->form_validation->set_rules('section_id', 'Section Name', 'required');
             if ($this->form_validation->run()) {
@@ -290,7 +290,7 @@ class Webapi extends REST_Controller {
             $this->form_validation->set_rules('lname', 'Last Name', "required|alpha");
             $this->form_validation->set_rules('father_mobile', 'Father Mobile no', 'required|min_length[8]|max_length[14]|numeric');
             $this->form_validation->set_rules('mother_mobile', 'Mother Mobile no', 'required|min_length[8]|max_length[14]|numeric');
-            $this->form_validation->set_rules('aadhar_no', 'Aadhar card no', 'min_length[12]|max_length[12]|is_unique[cz_users.aadhar_no]|numeric');
+            $this->form_validation->set_rules('aadhar_no', 'Aadhar card no', 'min_length[12]|max_length[12]|is_unique[users.aadhar_no]|numeric');
             $this->form_validation->set_rules('class_id', 'Class Name', 'required');
             $this->form_validation->set_rules('section_id', 'Section Name', 'required');
             if ($this->form_validation->run()) {

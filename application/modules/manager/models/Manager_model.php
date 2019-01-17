@@ -26,7 +26,7 @@ class Manager_model extends CI_Model {
 
         $sql = $this->db->select("cu.*,plc.location_name as location_name,cr.role_name,concat( cu.fname ,' ', cu.lname ) as user_name,"
                         , FALSE)
-                ->from("cz_users cu")
+                ->from("users cu")
                 ->join("cz_roles cr", "cr.id = cu.role", "left")
                 ->join("pr_location plc", "plc.id = cu.location_id", "left")
                 //->where(array("cu.role =" => "1"))
@@ -109,7 +109,7 @@ class Manager_model extends CI_Model {
 
 
         //pr($ins);die;
-        $this->db->insert("cz_users", $ins);
+        $this->db->insert("users", $ins);
 
         //Sending Mail to user
         $subject = "Registration";
@@ -136,12 +136,12 @@ class Manager_model extends CI_Model {
        
         $upd['updated_date'] = current_datetime();
         $whr['id'] = $id;
-        $this->db->update("cz_users", $upd, $whr);
+        $this->db->update("users", $upd, $whr);
     }
 
     function viewData($id) {
         $res = $this->db->select("cu.*")
-                ->from("cz_users cu")
+                ->from("users cu")
                 ->where(array("cu.id" => $id))
                 ->get()
                 ->row();
@@ -151,7 +151,7 @@ class Manager_model extends CI_Model {
     
     function view($id) {
         $res = $this->db->select("cu.*,plc.location_name as location_name,cr.role_name")
-                ->from("cz_users cu")
+                ->from("users cu")
                 ->join("cz_roles cr", "cr.id = cu.role", "left")
                 ->join("pr_location plc", "plc.id = cu.location_id", "left")
                
@@ -176,7 +176,7 @@ class Manager_model extends CI_Model {
     function delete($id) {
         $upd['is_deleted'] = "1";
         $whr['id'] = $id;
-        $this->db->update("cz_users", $upd, $whr);
+        $this->db->update("users", $upd, $whr);
         //echo $this->db->last_query();die;
         if ($this->db->affected_rows() > 0) {
             $rt["status"] = "true";
@@ -193,7 +193,7 @@ class Manager_model extends CI_Model {
         foreach ($id as $vals) {
             $upd['is_deleted'] = "1";
             $whr['id'] = $vals;
-            $abc = $this->db->update("cz_users", $upd, $whr);
+            $abc = $this->db->update("users", $upd, $whr);
         }
         if ($abc) {
             return true;
@@ -208,7 +208,7 @@ class Manager_model extends CI_Model {
         for ($i = 0; $i < count($images); $i++) {
             $upd['profile_image'] = $images[$i];
             $whr['id'] = $user_id;
-            $abc = $this->db->update("cz_users", $upd, $whr);
+            $abc = $this->db->update("users", $upd, $whr);
             //echo $this->db->last_query();die;
         }
 
@@ -216,7 +216,7 @@ class Manager_model extends CI_Model {
     }
     public function last_id_get() {
         $res = $this->db->select("pr.id")
-                ->from("cz_users pr")
+                ->from("users pr")
                 ->order_by("pr.id", "Desc")
                 ->limit(1)
                 ->get()

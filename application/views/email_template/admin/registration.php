@@ -118,17 +118,17 @@ a[class="mobile-button"] { width:90% !important; padding: 15px !important; borde
               <tr>
                 <td align="left" style="padding:0px 20px 0px 20px; font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #404041; background-color:#ffffff; line-height:30px;"><p style="color:#3a9c95;"><strong><!--Successfully Registered !--></strong></p>
                   <p> HI <?php echo ucwords($data['fname']); ?> <?php echo ucwords($data['lname']); ?>,  </b></p>
-                  <p> Thanks for registering with Pioneer. Your Credentials are as follows: </p>
+                  <p> Thanks for registering with <?php echo project_name; ?>. Your Credentials are as follows: </p>
                   <p style="font-family:arial;font-size:14px;color:#000;font-weight:bold;padding:0px 0px">Email: 
-                  <span><a style="color:#3a9c95;" href="mailto:tekshapers101@gmail.com" target="_blank"><?php echo $data['email']; ?></a></span> <br>
+                  <span><a style="color:#3a9c95;" href="mailto:<?php echo project_email; ?>" target="_blank"><?php echo $data['email']; ?></a></span> <br>
                     Password : <?php echo $data['cpassword']; ?> </p>
                   Please login at
-                   <a style="color:#3a9c95;text-decoration:underline" href="<?php echo base_url();?>"> Pioneer </a> and change your password. </td>
+                   <a style="color:#3a9c95;text-decoration:underline" href="<?php echo base_url();?>"> <?php echo project_name; ?> </a> and change your password. </td>
 
               </tr>
               <tr>
                 <td align="left" style="padding: 20px ; font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #757575; background-color:#ffffff; text-align:left;"><span style="font-size:16px;"> Regards,<br>
-                  Team Pioneer </span></td>
+                  Team <?php echo project_name; ?> </span></td>
               </tr>
             </table></td>
         </tr>

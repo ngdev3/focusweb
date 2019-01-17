@@ -10,7 +10,7 @@ class Webapi_model extends CI_Model {
 
     public function login($email) {
         $this->db->select("cu.*");
-        $this->db->from("cz_users cu");
+        $this->db->from("users cu");
         $this->db->where('cu.status', '1');
         $this->db->where('cu.is_deleted', '0');
         $this->db->where_in("role", ['1', '2','0']);
@@ -30,7 +30,7 @@ class Webapi_model extends CI_Model {
     public function change_pwd($data, $id = '') {
         if (!empty($id)) {
             $this->db->where('id', $id);
-            $this->db->update('cz_users', $data);
+            $this->db->update('users', $data);
         }
     }
 
@@ -46,7 +46,7 @@ class Webapi_model extends CI_Model {
         $this->db->where('cu.status', '1');
         $this->db->where('cu.is_deleted', '0');
         $this->db->where_in("role", ['0','1', '2']);
-        $this->db->from("cz_users cu");
+        $this->db->from("users cu");
         $res = $this->db->get()->row();
         return $res;
     }
@@ -64,7 +64,7 @@ class Webapi_model extends CI_Model {
         );
         if ($a && $gotemail) {
             $this->db->where('email', $gotemail);
-            $this->db->update('cz_users', $gotpassword);
+            $this->db->update('users', $gotpassword);
             //Sending Mail to user
 
             $subject = 'Forgot Password';
@@ -107,7 +107,7 @@ class Webapi_model extends CI_Model {
         $ins['cpassword'] = rand('111111', '999999');
         $ins['password'] = md5($ins['cpassword']);
 
-        $this->db->insert("cz_users", $ins);
+        $this->db->insert("users", $ins);
         $insert_id = $this->db->insert_id();
         $subject = "Registration";
         $body = $this->load->view("email_template/admin/registration", array("data" => $ins), true);
@@ -127,7 +127,7 @@ class Webapi_model extends CI_Model {
         $this->db->join("sr_class sc", "cu.class_id=sc.id", 'left');
         $this->db->join("sr_section ss", "cu.section_id=ss.id", 'left');
         $this->db->where('cu.id', $id);
-        $this->db->from('cz_users cu');
+        $this->db->from('users cu');
 
         $query = $this->db->get()->result();
         return $query;
@@ -154,7 +154,7 @@ class Webapi_model extends CI_Model {
         $ins['section_id'] = $section_id;
         $ins['updated_date'] = current_datetime();
         $whr['id'] = $id;
-        $this->db->update("cz_users", $ins, $whr);
+        $this->db->update("users", $ins, $whr);
     }
 
     /* ---------------------------------------Edit User Profile Closed---------------------------------------------- */
@@ -273,7 +273,7 @@ class Webapi_model extends CI_Model {
 //        $this->db->where('cu.status', '1');
 //        $this->db->where('cu.is_deleted', '0');
 //        $this->db->where_in("role", ['1', '2']);
-//        $this->db->from("cz_users cu");
+//        $this->db->from("users cu");
 //        $this->db->join("sr_subject ss", 'cu.class_id=ss.class_id');
 //        $res = $this->db->get()->result();
 //
@@ -442,7 +442,7 @@ class Webapi_model extends CI_Model {
         $ins['profile_image'] = $image;
         $ins['updated_date'] = current_datetime();
         $whr['id'] = $id;
-        $prof = $this->db->update("cz_users", $ins, $whr);
+        $prof = $this->db->update("users", $ins, $whr);
         return $prof;
     }
 
@@ -452,7 +452,7 @@ class Webapi_model extends CI_Model {
 
         $this->db->select('*');
         $this->db->where("(id = '" . $id . "')");
-        $hai = $this->db->from('cz_users');
+        $hai = $this->db->from('users');
         $query = $this->db->get()->result();
         return $query;
     }
@@ -560,7 +560,7 @@ class Webapi_model extends CI_Model {
     {
         $sql = $this->db->select("s.*,sd.fname,sd.lname", FALSE)
         ->from('notification_app s')
-        ->join("cz_users sd", "s.notify_userid = sd.id", "left")
+        ->join("users sd", "s.notify_userid = sd.id", "left")
         ->where(array("s.notify_userid=" => $id))
          ->where(array("s.is_view=" => 0));
         $query = $this->db->get()->result();
@@ -700,7 +700,7 @@ public function result_view_list($quiz_play_id)
     $this->db->select('qr.*,u.fname,u.lname,qm.quiz_title,qm.quiz_time');
     $this->db->from('quiz_result qr');
     $this->db->order_by('qr.id', 'DESC');
-    $this->db->join('cz_users u', 'u.id=qr.student_id','left');
+    $this->db->join('users u', 'u.id=qr.student_id','left');
     $this->db->join('quiz_master qm', 'qm.id=qr.quiz_id','left');
     $this->db->where(array('qr.id' => $quiz_play_id));
     $qry = $this->db->get();
@@ -939,7 +939,7 @@ public function ques_ans_result_view_list($quiz_result_id)
     $this->db->select('qr.*,u.fname,u.lname,qm.quiz_title,qm.quiz_time');
     $this->db->from('quiz_result qr');
     $this->db->order_by('qr.id', 'DESC');
-    $this->db->join('cz_users u', 'u.id=qr.student_id','left');
+    $this->db->join('users u', 'u.id=qr.student_id','left');
     $this->db->join('quiz_master qm', 'qm.id=qr.quiz_id','left');
     //$this->db->where(array('qr.quiz_id' => $quiz_id, 'qr.student_id' => $student_id));
     

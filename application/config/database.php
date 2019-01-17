@@ -79,7 +79,8 @@ $db['default'] = array(
  	//'username' => 'root',
  	//'password' => '',
   //'database' => 'learning_track',
-        'database' => 'pioneer',
+        // 'database' => 'pioneer',
+        'database' => 'focus',
         
  	'username' => 'root',
  	'password' => '',

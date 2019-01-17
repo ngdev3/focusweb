@@ -19,7 +19,7 @@ class MY_Form_validation extends CI_Form_validation {
 
     function doLoginemail() {
         $res = $this->CI->db->select("*")
-                        ->from("cz_users")
+                        ->from("users")
           //              ->where(array("email" => $_POST['username']))
                         ->where(array("email" => $_POST['username']))
                         ->get()->row();
@@ -34,39 +34,37 @@ class MY_Form_validation extends CI_Form_validation {
 
     function doLogin() {
         $res = $this->CI->db->select("*")
-                        ->from("cz_users")
+                        ->from("users")
                         ->where(array("email" => $_POST['username'],"password" => md5($_POST['password'])))
                         ->get()->row();
                       
-//         echo $this->CI->db->last_query(); die;
         if (empty($res)) {
-            $this->CI->form_validation->set_message('doLogin', "The Password is InCorrect.");
+
+            $this->CI->form_validation->set_message('doLogin', "The Password is Incorrect.");
+            return FALSE;
+        }else if($res->user_type !== "1"){
+
+            $this->CI->form_validation->set_message('doLogin', "You are not authorized to login");
             return FALSE;
         }
-        else if($res->is_deleted!="0")
+        else if($res->status == "delete")
         {
             $this->CI->form_validation->set_message('doLogin', "The Account does not exist.");
             return FALSE;
-        }else if($res->status!="1")
+        }else if($res->status == "inactive")
         {
             $this->CI->form_validation->set_message('doLogin', "The Account is Inactive.");
             return FALSE;
         }else{
-        $sess['id'] = $res->id;
-        $sess['fname'] = $res->fname;
-        $sess['lname'] = $res->lname;
-        $sess['role'] = $res->role;
-        $sess['class_id'] = $res->class_id;
-        $sess['section_id'] = $res->section_id;
-       
-        $this->CI->session->set_userdata("userinfo", $sess);
+
+        $this->CI->session->set_userdata("userinfo", $res);
         return true;
         }
     }
 
     function mail_exist() {
         $res = $this->CI->db->select("*")
-                        ->from("cz_users")
+                        ->from("users")
                         ->where(array("email" => $_POST['email']))
                         ->get()->row();
         if (empty($res)) {
@@ -77,7 +75,7 @@ class MY_Form_validation extends CI_Form_validation {
 
     function checkCurrentPassword() {
         $res = $this->CI->db->select("*")
-                        ->from("cz_users")
+                        ->from("users")
                         ->where(array("cpassword" => $_POST['current_password'], "id" => currUserId()))
                         ->get()->row();
 //         echo $this->CI->db->last_query(); die;

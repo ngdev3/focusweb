@@ -22,7 +22,7 @@ class Logs_model extends CI_Model {
                 cu.fname,cu.lname" , FALSE)
                 ->from("cz_logs clg")
                 
-                ->join("cz_users cu", "cu.id = clg.user_id", "left");
+                ->join("users cu", "cu.id = clg.user_id", "left");
                 
 
         if (!empty($requestData['search']['value'])) {

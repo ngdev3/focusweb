@@ -137,7 +137,7 @@ class Location_model extends CI_Model {
     function delete($id) {
        // pr($id);die;
         $this->db->select('*');
-        $this->db->from('cz_users');
+        $this->db->from('users');
         $this->db->where("(location_id= '" . $id . "')");
         $this->db->where("is_deleted","0");
         $query= $this->db->get()->row();
@@ -171,7 +171,7 @@ class Location_model extends CI_Model {
            $count=0;
         foreach($id as $vals){
             $this->db->select('*');
-            $this->db->from('cz_users');
+            $this->db->from('users');
             $this->db->where("(location_id= '" . $vals . "')");
             $this->db->where("is_deleted","0");
             $query= $this->db->get()->row();

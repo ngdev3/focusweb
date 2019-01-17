@@ -17,7 +17,7 @@ class Auth_model extends CI_Model {
 		$data['password'] =  md5($password);
 		$data['cpassword'] =  $password;
 		$whr['email'] = $_POST['email'];
-		$this->db->update("cz_users", $data, $whr);
+		$this->db->update("users", $data, $whr);
                 //echo $this->db->last_query();die;
 		$subject = "Forgot Password";
 		$body = $this->load->view("email_template/admin/forget_password",array("data"=>$data),true);

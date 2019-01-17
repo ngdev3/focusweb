@@ -200,7 +200,7 @@ class Role_model extends CI_Model {
     function getUserData($user_id, $type = NULL) {
         if ($type == 'user') {
             $data = $this->db->select("ru.*,rr.role_name, rr.permission_ids as role_permissions")
-                            ->from("cz_users ru")
+                            ->from("users ru")
                             ->where(array("ru.id" => $user_id))
                             ->join("cz_roles rr", "rr.id = ru.role", "left")
                             ->get()->row();
@@ -294,7 +294,7 @@ class Role_model extends CI_Model {
         if ($type == 'user') {
             $upd["user_extra_permission"] = json_encode($uextra_permission);
             $upd["user_removed_permission"] = json_encode($merged_uremoved_permission);
-            $this->db->update("cz_users", $upd, $whr);
+            $this->db->update("users", $upd, $whr);
         } else if ($type == 'role') {
             $upd["permission_ids"] = json_encode($up_arr);
             $this->db->update("cz_roles", $upd, $whr);

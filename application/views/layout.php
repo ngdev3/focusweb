@@ -72,7 +72,6 @@ $new_refer_students=_get_all_new_refer_student();
 			  s.parentNode.insertBefore(bh, s);
 			  })(document, 'script');
 		</script>
-		<script type="text/javascript" src="<?=SITE_PATH?>global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 	</head>
 	<!-- END HEAD -->
 	<!-- BEGIN BODY -->
@@ -285,27 +284,7 @@ $new_refer_students=_get_all_new_refer_student();
 		<!-- for data grid -->
 		<script type="text/javascript" src="<?=SITE_PATH?>global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
 		<script type="text/javascript" src="<?=SITE_PATH?>global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
-		<script>
-		jQuery(document).ready(function() {  
-		   
-		  Metronic.init(); // init metronic core componets
-		   Layout.init(); // init layout
-		  Demo.init(); // init demo features
-		   
-		   QuickSidebar.init(); // init quick sidebar
-		   FormValidation.init();
-		   Index.initCalendar(); // init index page's custom scripts
-		   <?php if((int)currentuserinfo()->user_type === 1){ ?>
-		   Index.init(); // init index page
-		   <?php } ?>   
-		   Tasks.initDashboardWidget(); // init tash dashboard widget 
-		   
-		   
-		   
-			
-			
-		});
-		</script>
+		
 		<!-- END JAVASCRIPTS -->
 		
 		

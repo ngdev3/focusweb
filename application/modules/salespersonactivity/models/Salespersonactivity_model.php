@@ -28,9 +28,9 @@ class Salespersonactivity_model extends CI_Model {
                         , FALSE)
                 ->from("pr_assign_lead_sales pra")
                 
-                ->join("cz_users cum", "cum.id = pra.manager_id", "left")
-                ->join("cz_users cuc", "cuc.id = pra.coordinator_id", "left")
-                ->join("cz_users cus", "cus.id = pra.sales_person_id", "left")
+                ->join("users cum", "cum.id = pra.manager_id", "left")
+                ->join("users cuc", "cuc.id = pra.coordinator_id", "left")
+                ->join("users cus", "cus.id = pra.sales_person_id", "left")
                 ->where(array("pra.is_deleted =" => "0"))
                 ->group_by("pra.sales_person_id");
      
@@ -42,9 +42,9 @@ class Salespersonactivity_model extends CI_Model {
             , FALSE)
                 ->from("pr_assign_lead_sales pra")
                 
-                ->join("cz_users cum", "cum.id = pra.manager_id", "left")
-                ->join("cz_users cuc", "cuc.id = pra.coordinator_id", "left")
-                ->join("cz_users cus", "cus.id = pra.sales_person_id", "left")
+                ->join("users cum", "cum.id = pra.manager_id", "left")
+                ->join("users cuc", "cuc.id = pra.coordinator_id", "left")
+                ->join("users cus", "cus.id = pra.sales_person_id", "left")
                 ->where(array("pra.is_deleted =" => "0","pra.manager_id=" => $logged_in_manager_id))
                 ->group_by("pra.sales_person_id");
 
@@ -57,9 +57,9 @@ class Salespersonactivity_model extends CI_Model {
             , FALSE)
                 ->from("pr_assign_lead_sales pra")
                 
-                ->join("cz_users cum", "cum.id = pra.manager_id", "left")
-                ->join("cz_users cuc", "cuc.id = pra.coordinator_id", "left")
-                ->join("cz_users cus", "cus.id = pra.sales_person_id", "left")
+                ->join("users cum", "cum.id = pra.manager_id", "left")
+                ->join("users cuc", "cuc.id = pra.coordinator_id", "left")
+                ->join("users cus", "cus.id = pra.sales_person_id", "left")
                 ->where(array("pra.is_deleted =" => "0","pra.coordinator_id=" => $logged_in_coor_id))
                 ->group_by("pra.sales_person_id");
 
@@ -166,7 +166,7 @@ class Salespersonactivity_model extends CI_Model {
     function delete($id) {
         $upd['is_deleted'] = "1";
         $whr['id'] = $id;
-        $this->db->update("cz_users", $upd, $whr);
+        $this->db->update("users", $upd, $whr);
         //echo $this->db->last_query();die;
         if ($this->db->affected_rows() > 0) {
             $rt["status"] = "true";
@@ -183,7 +183,7 @@ class Salespersonactivity_model extends CI_Model {
         foreach ($id as $vals) {
             $upd['is_deleted'] = "1";
             $whr['id'] = $vals;
-            $abc = $this->db->update("cz_users", $upd, $whr);
+            $abc = $this->db->update("users", $upd, $whr);
         }
         if ($abc) {
             return true;
@@ -304,7 +304,7 @@ class Salespersonactivity_model extends CI_Model {
    
     function viewData($id) {
         $res = $this->db->select("cu.*")
-                ->from("cz_users cu")
+                ->from("users cu")
                 ->where(array("cu.id" => $id))
                 ->get()
                 ->row();
@@ -317,9 +317,9 @@ class Salespersonactivity_model extends CI_Model {
         $res =  $this->db->select("pra.*,pl.location,pl.client_name,pl.contact_person,pl.address,pl.notes,pl.contact_number,cu.fname,cu.lname,cu2.fname as m_fname,cu2.lname as m_lname,cu3.fname as c_fname,cu3.lname as c_lname", FALSE)
                 ->from("pr_assign_lead_sales pra")
                 ->join("pr_lead pl", "pl.id = pra.lead_id", "left")
-                ->join("cz_users cu", "cu.id = pra.sales_person_id", "left")
-                ->join("cz_users cu2", "cu.manager_id = cu2.id", "left")
-                ->join("cz_users cu3", "cu.cordinator_id = cu3.id", "left")
+                ->join("users cu", "cu.id = pra.sales_person_id", "left")
+                ->join("users cu2", "cu.manager_id = cu2.id", "left")
+                ->join("users cu3", "cu.cordinator_id = cu3.id", "left")
                 ->where(array("pra.is_deleted =" => "0","pra.lead_id" =>$id ))
                 ->get()
                 ->row();
@@ -351,9 +351,9 @@ class Salespersonactivity_model extends CI_Model {
 //                ->from("pr_assign_lead_sales pals")
 //                ->join("pr_lead pl","pl.id=pals.lead_id","left")
 //                ->join("pr_type_lead ptl","ptl.id = pl.type_of_lead","left")
-//                ->join("cz_users cu", "cu.id = pals.sales_person_id", "left")
-//                ->join("cz_users cu2", "cu2.id = pals.manager_id", "left")
-//                ->join("cz_users cu3", "cu3.id= pals.coordinator_id", "left")
+//                ->join("users cu", "cu.id = pals.sales_person_id", "left")
+//                ->join("users cu2", "cu2.id = pals.manager_id", "left")
+//                ->join("users cu3", "cu3.id= pals.coordinator_id", "left")
 //                ->where(array("pals.is_deleted =" => "0"));
 //        }
 //
@@ -363,9 +363,9 @@ class Salespersonactivity_model extends CI_Model {
 //            ->from("pr_assign_lead_sales pals")
 //            ->join("pr_lead pl","pl.id=pals.lead_id","left")
 //            ->join("pr_type_lead ptl","ptl.id = pl.type_of_lead","left")
-//            ->join("cz_users cu", "cu.id = pals.sales_person_id", "left")
-//            ->join("cz_users cu2", "cu2.id = pals.manager_id", "left")
-//            ->join("cz_users cu3", "cu3.id= pals.coordinator_id", "left")
+//            ->join("users cu", "cu.id = pals.sales_person_id", "left")
+//            ->join("users cu2", "cu2.id = pals.manager_id", "left")
+//            ->join("users cu3", "cu3.id= pals.coordinator_id", "left")
 //            ->where(array("pals.is_deleted =" => "0","pals.manager_id=" => $logged_in_manager_id));
 //
 //        }
@@ -377,9 +377,9 @@ class Salespersonactivity_model extends CI_Model {
 //                ->from("pr_assign_lead_sales pals")
 //                ->join("pr_lead pl","pl.id=pals.lead_id","left")
 //                ->join("pr_type_lead ptl","ptl.id = pl.type_of_lead","left")
-//                ->join("cz_users cu", "cu.id = pals.sales_person_id", "left")
-//                ->join("cz_users cu2", "cu2.id = pals.manager_id", "left")
-//                ->join("cz_users cu3", "cu3.id= pals.coordinator_id", "left")
+//                ->join("users cu", "cu.id = pals.sales_person_id", "left")
+//                ->join("users cu2", "cu2.id = pals.manager_id", "left")
+//                ->join("users cu3", "cu3.id= pals.coordinator_id", "left")
 //                ->where(array("pals.is_deleted =" => "0","pals.coordinator_id=" => $logged_in_coor_id));
 //    
 //            }
@@ -490,9 +490,9 @@ class Salespersonactivity_model extends CI_Model {
                 ->join("pr_assign_lead_sales pals","plm.lead_id=pals.lead_id","left")
                 ->join("pr_lead pl","pl.id=pals.lead_id","left")
                 ->join("pr_type_lead ptl","ptl.id = pl.type_of_lead","left")
-                ->join("cz_users cu", "cu.id = pals.sales_person_id", "left")
-                ->join("cz_users cu2", "cu2.id = pals.manager_id", "left")
-                ->join("cz_users cu3", "cu3.id= pals.coordinator_id", "left")
+                ->join("users cu", "cu.id = pals.sales_person_id", "left")
+                ->join("users cu2", "cu2.id = pals.manager_id", "left")
+                ->join("users cu3", "cu3.id= pals.coordinator_id", "left")
                 ->where(array("pals.is_deleted =" => "0"));
         }
 
@@ -503,9 +503,9 @@ class Salespersonactivity_model extends CI_Model {
                 ->join("pr_assign_lead_sales pals","plm.lead_id=pals.lead_id","left")
                 ->join("pr_lead pl","pl.id=pals.lead_id","left")
             ->join("pr_type_lead ptl","ptl.id = pl.type_of_lead","left")
-            ->join("cz_users cu", "cu.id = pals.sales_person_id", "left")
-            ->join("cz_users cu2", "cu2.id = pals.manager_id", "left")
-            ->join("cz_users cu3", "cu3.id= pals.coordinator_id", "left")
+            ->join("users cu", "cu.id = pals.sales_person_id", "left")
+            ->join("users cu2", "cu2.id = pals.manager_id", "left")
+            ->join("users cu3", "cu3.id= pals.coordinator_id", "left")
             ->where(array("pals.is_deleted =" => "0","pals.manager_id=" => $logged_in_manager_id));
 
         }
@@ -518,9 +518,9 @@ class Salespersonactivity_model extends CI_Model {
                 ->join("pr_assign_lead_sales pals","plm.lead_id=pals.lead_id","left")
                 ->join("pr_lead pl","pl.id=pals.lead_id","left")
                 ->join("pr_type_lead ptl","ptl.id = pl.type_of_lead","left")
-                ->join("cz_users cu", "cu.id = pals.sales_person_id", "left")
-                ->join("cz_users cu2", "cu2.id = pals.manager_id", "left")
-                ->join("cz_users cu3", "cu3.id= pals.coordinator_id", "left")
+                ->join("users cu", "cu.id = pals.sales_person_id", "left")
+                ->join("users cu2", "cu2.id = pals.manager_id", "left")
+                ->join("users cu3", "cu3.id= pals.coordinator_id", "left")
                 ->where(array("pals.is_deleted =" => "0","pals.coordinator_id=" => $logged_in_coor_id));
     
             }
@@ -637,7 +637,7 @@ class Salespersonactivity_model extends CI_Model {
         if ( getUserInfos()->role == "0") {
     
             $res = $this->db->select("cu.*")
-            ->from("cz_users cu")
+            ->from("users cu")
             ->where(array("cu.status"=>"1","cu.is_deleted"=>"0","cu.role=" => "5"))
              ->order_by("cu.id","DESC")
             ->get()
@@ -648,7 +648,7 @@ class Salespersonactivity_model extends CI_Model {
             $logged_in_manager_id=$_SESSION['userinfo']['id'];
             
         $res = $this->db->select("cu.*")
-        ->from("cz_users cu")
+        ->from("users cu")
         ->where(array("cu.status"=>"1","cu.is_deleted"=>"0","cu.role=" => "5","cu.manager_id=" => $logged_in_manager_id))
         ->order_by("cu.id","DESC")
         ->get()
@@ -660,7 +660,7 @@ class Salespersonactivity_model extends CI_Model {
             $logged_in_coor_id=$_SESSION['userinfo']['id'];
             
         $res = $this->db->select("cu.*")
-        ->from("cz_users cu")
+        ->from("users cu")
         ->where(array("cu.status"=>"1","cu.is_deleted"=>"0","cu.role=" => "5","cu.cordinator_id=" => $logged_in_coor_id))
         ->order_by("cu.id","DESC")
         ->get()
@@ -681,9 +681,9 @@ class Salespersonactivity_model extends CI_Model {
         ->join("pr_assign_lead_sales pals","plm.lead_id=pals.lead_id","left")
         ->join("pr_lead pl","pl.id=pals.lead_id","left")
         ->join("pr_type_lead ptl","ptl.id = pl.type_of_lead","left")
-        ->join("cz_users cu", "cu.id = pals.sales_person_id", "left")
-        ->join("cz_users cu2", "cu2.id = pals.manager_id", "left")
-        ->join("cz_users cu3", "cu3.id= pals.coordinator_id", "left")
+        ->join("users cu", "cu.id = pals.sales_person_id", "left")
+        ->join("users cu2", "cu2.id = pals.manager_id", "left")
+        ->join("users cu3", "cu3.id= pals.coordinator_id", "left")
         ->where(array("pals.is_deleted =" => "0","plm.id" =>$id ))
         ->get()->row();  
         
@@ -717,9 +717,9 @@ function list_items_ajax_reschedule_activity() {
             ->from("pr_assign_lead_sales pals")
             ->join("pr_lead pl","pl.id=pals.lead_id","left")
             ->join("pr_type_lead ptl","ptl.id = pl.type_of_lead","left")
-            ->join("cz_users cu", "cu.id = pals.sales_person_id", "left")
-            ->join("cz_users cu2", "cu2.id = pals.manager_id", "left")
-            ->join("cz_users cu3", "cu3.id= pals.coordinator_id", "left")
+            ->join("users cu", "cu.id = pals.sales_person_id", "left")
+            ->join("users cu2", "cu2.id = pals.manager_id", "left")
+            ->join("users cu3", "cu3.id= pals.coordinator_id", "left")
             ->where(array("pals.is_deleted" => "0" ,"pals.outcome_status" => "4"));
 
             if (isset($_GET['manager_id']) && $_GET['manager_id'] != "") {
@@ -806,9 +806,9 @@ function view_reschedule_activity($id) {
     ->from("pr_assign_lead_sales pals")
     ->join("pr_lead pl","pl.id=pals.lead_id","left")
     ->join("pr_type_lead ptl","ptl.id = pl.type_of_lead","left")
-    ->join("cz_users cu", "cu.id = pals.sales_person_id", "left")
-    ->join("cz_users cu2", "cu2.id = pals.manager_id", "left")
-    ->join("cz_users cu3", "cu3.id= pals.coordinator_id", "left")
+    ->join("users cu", "cu.id = pals.sales_person_id", "left")
+    ->join("users cu2", "cu2.id = pals.manager_id", "left")
+    ->join("users cu3", "cu3.id= pals.coordinator_id", "left")
     ->where(array("pals.is_deleted =" => "0","pals.id" =>$id/* ,"pals.outcome_status" => "4" */))
     ->get()
     ->row();
@@ -848,11 +848,11 @@ function list_items_ajax_sales_performance() {
         if ( getUserInfos()->role == "0") {
         $sql = $this->db->select("cu.*,concat( cu.fname ,' ', cu.lname ) as salesperson,concat( cuc.fname ,' ', cuc.lname ) as coordinator,"
                         , FALSE)
-                ->from("cz_users cu")
+                ->from("users cu")
                 // ->join("cz_roles cr", "cr.id = cu.role", "left")
                 // ->join("pr_location plc", "plc.id = cu.location_id", "left")
-                ->join("cz_users cum", "cum.id = cu.manager_id", "left")
-                ->join("cz_users cuc", "cuc.id = cu.cordinator_id", "left")
+                ->join("users cum", "cum.id = cu.manager_id", "left")
+                ->join("users cuc", "cuc.id = cu.cordinator_id", "left")
                 //->join("pr_assign_lead_sales plm", "plm.sales_person_id = cu.id", "left")
                // ->join("pr_order pr","pr.salesperson_id=cu.id","left")
                 ->where("(cu.role='5')")
@@ -863,11 +863,11 @@ function list_items_ajax_sales_performance() {
             $logged_in_manager_id=$_SESSION['userinfo']['id'];
             $sql = $this->db->select("cu.*,count(plm.lead_id) as total_visit,plm.outcome_status,concat( cu.fname ,' ', cu.lname ) as salesperson,concat( cuc.fname ,' ', cuc.lname ) as coordinator,"
             , FALSE)
-                ->from("cz_users cu")
+                ->from("users cu")
                 // ->join("cz_roles cr", "cr.id = cu.role", "left")
                 // ->join("pr_location plc", "plc.id = cu.location_id", "left")
-                ->join("cz_users cum", "cum.id = cu.manager_id", "left")
-                ->join("cz_users cuc", "cuc.id = cu.cordinator_id", "left")
+                ->join("users cum", "cum.id = cu.manager_id", "left")
+                ->join("users cuc", "cuc.id = cu.cordinator_id", "left")
                 ->join("pr_assign_lead_sales plm", "plm.sales_person_id = cu.id", "left")
                // ->join("pr_order pr","pr.salesperson_id=cu.id","left")
                 ->where("(cu.role='5')")
@@ -878,11 +878,11 @@ function list_items_ajax_sales_performance() {
             $logged_in_coor_id=$_SESSION['userinfo']['id'];
             $sql = $this->db->select("cu.*,count(plm.lead_id) as total_visit,plm.outcome_status,concat( cu.fname ,' ', cu.lname ) as salesperson,concat( cuc.fname ,' ', cuc.lname ) as coordinator,"
             , FALSE)
-                ->from("cz_users cu")
+                ->from("users cu")
                 // ->join("cz_roles cr", "cr.id = cu.role", "left")
                 // ->join("pr_location plc", "plc.id = cu.location_id", "left")
-                ->join("cz_users cum", "cum.id = cu.manager_id", "left")
-                ->join("cz_users cuc", "cuc.id = cu.cordinator_id", "left")
+                ->join("users cum", "cum.id = cu.manager_id", "left")
+                ->join("users cuc", "cuc.id = cu.cordinator_id", "left")
                 ->join("pr_assign_lead_sales plm", "plm.sales_person_id = cu.id", "left")
                // ->join("pr_order pr","pr.salesperson_id=cu.id","left")
                 ->where("(cu.role='5')")

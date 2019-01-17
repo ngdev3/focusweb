@@ -33,7 +33,7 @@
                                         </tr>
                                         <tr>
                                             <td class="fnt_bld"> Attending Surveyor</td>
-                                            <td><?php echo @getcolumn_name('cz_users', 'fname', $res->attending_surveyor_id)[0]->fname; ?> <?php echo @getcolumn_name('cz_users', 'lname', $res->attending_surveyor_id)[0]->lname; ?></td>
+                                            <td><?php echo @getcolumn_name('users', 'fname', $res->attending_surveyor_id)[0]->fname; ?> <?php echo @getcolumn_name('users', 'lname', $res->attending_surveyor_id)[0]->lname; ?></td>
                                         <input type="hidden" name="attending_surveyor_id" value="<?php echo $res->attending_surveyor_id ?>">
                                         <td><?php echo set_value("attending_surveyor_comment", $res->attending_surveyor_comment); ?>
                                         </td>

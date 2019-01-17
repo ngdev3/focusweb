@@ -20,7 +20,7 @@ class Users_model extends CI_Model {
 
         $sql = $this->db->select("cu.*,cr.role_name"
                         , FALSE)
-                ->from("cz_users cu")
+                ->from("users cu")
                 ->join("cz_roles cr", "cr.id = cu.role", "left")
                 ->where(array("cu.role !=" => "0"));
                 if(isset($_GET['role'])){
@@ -102,7 +102,7 @@ class Users_model extends CI_Model {
         $ins['role'] = $role;
         $ins['status'] = $status;
         //pr($ins);die;
-        $this->db->insert("cz_users", $ins);
+        $this->db->insert("users", $ins);
         
         //Sending Mail to user
                 $subject = "Registration";
@@ -123,12 +123,12 @@ class Users_model extends CI_Model {
         $upd['role'] = $role;
         $upd['status'] = $status;
         $whr['id'] = $id;
-        $this->db->update("cz_users", $upd, $whr);
+        $this->db->update("users", $upd, $whr);
     }
     
         function viewData($id) {
         $res = $this->db->select("cu.*")
-                ->from("cz_users cu")
+                ->from("users cu")
                 ->where(array("cu.id" => $id))
                 ->get()
                 ->row();
@@ -138,7 +138,7 @@ class Users_model extends CI_Model {
 
     function profile($user_id) {
         $res = $this->db->select("cu.*, CONCAT(fname,' ',lname) as fullname, cr.role_name,pl.location_name")
-                        ->from("cz_users cu")
+                        ->from("users cu")
                         ->join("cz_roles cr","cr.id = cu.role","left")
                         ->join("pr_location pl","pl.id = cu.location_id","left")
                         ->where(array("cu.id" => $user_id))
@@ -159,7 +159,7 @@ class Users_model extends CI_Model {
         //$upd['status'] = $status;
         
         $whr['id'] = $user_id;       
-        $this->db->update("cz_users", $upd,$whr);
+        $this->db->update("users", $upd,$whr);
 //      echo $this->db->last_query(); die;
     }
     
@@ -168,14 +168,14 @@ class Users_model extends CI_Model {
         $upd['password'] = md5($_POST['new_password']);        
         $whr['id'] = $user_id; 
         
-        $this->db->update("cz_users",$upd, $whr);
+        $this->db->update("users",$upd, $whr);
     }
     
     
     function delete($id){
        // $upd['is_delete'] = "1";
         $whr['id']=$id;
-        $this->db->delete("cz_users",$whr);
+        $this->db->delete("users",$whr);
        // echo $this->db->last_query();die;
         if ($this->db->affected_rows() > 0) {
             $rt["status"] = "true";

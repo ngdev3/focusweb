@@ -5,20 +5,10 @@ $fvalid[] = array("field"=>"password","label"=>"Password","rules"=>"required|doL
 $config['auth/login'] = $fvalid;
 unset($fvalid);
 
-$fvalid[] = array("field"=>"role_name","label"=>"Role Name","rules"=>"required|is_unique[cz_roles.role_name]");
-$fvalid[] = array("field"=>"status","label"=>"Status","rules"=>"trim|required");
-$config['role/add'] = $fvalid;
-unset($fvalid);
-
-
-$fvalid[] = array("field"=>"role_name","label"=>"Role Name","rules"=>"required|is_unique_edit[cz_roles.role_name]");
-$fvalid[] = array("field"=>"status","label"=>"Status","rules"=>"trim|required");
-$config['role/edit'] = $fvalid;
-unset($fvalid);
 
 $fvalid[] = array("field"=>"fname","label"=>"First Name","rules"=>"required|alpha");
 $fvalid[] = array("field"=>"lname","label"=>"Last Name","rules"=>"required|alpha");
-$fvalid[] = array("field"=>"email","label"=>"Email","rules"=>"required|valid_email|is_unique[cz_users.email]");
+$fvalid[] = array("field"=>"email","label"=>"Email","rules"=>"required|valid_email|is_unique[users.email]");
 $fvalid[] = array("field"=>"mobile","label"=>"Mobile","rules"=>"required|numeric");
 $fvalid[] = array("field"=>"password","label"=>"Password","rules"=>"required");
 $fvalid[] = array("field"=>"cpassword","label"=>"Confirm Password","rules"=>"trim|required|matches[password]","errors"=>array('matches'=>'Passwords do not match'));
@@ -29,7 +19,7 @@ unset($fvalid);
 
 $fvalid[] = array("field"=>"fname","label"=>"First Name","rules"=>"required|alpha");
 $fvalid[] = array("field"=>"lname","label"=>"Last Name","rules"=>"required|alpha");
-$fvalid[] = array("field"=>"email","label"=>"Email","rules"=>"required|valid_email|is_unique_edit[cz_users.email]");
+$fvalid[] = array("field"=>"email","label"=>"Email","rules"=>"required|valid_email|is_unique_edit[users.email]");
 $fvalid[] = array("field"=>"mobile","label"=>"Mobile","rules"=>"required|numeric");
 $fvalid[] = array("field"=>"role","label"=>"Role","rules"=>"required");
 $config['users/edit'] = $fvalid;
@@ -38,7 +28,7 @@ unset($fvalid);
 
 $fvalid[] = array("field"=>"fname","label"=>"First Name","rules"=>"required|alpha");
 $fvalid[] = array("field"=>"lname","label"=>"Last Name","rules"=>"required|alpha");
-//$fvalid[] = array("field"=>"email","label"=>"Email","rules"=>"required|valid_email|is_unique[cz_users.email]");
+//$fvalid[] = array("field"=>"email","label"=>"Email","rules"=>"required|valid_email|is_unique[users.email]");
 $fvalid[] = array("field"=>"mobile","label"=>"Phone No","rules"=>"required|numeric");
 //$fvalid[] = array("field"=>"password","label"=>"Password","rules"=>"required");
 //$fvalid[] = array("field"=>"cpassword","label"=>"Confirm Password","rules"=>"trim|required|matches[password]","errors"=>array('matches'=>'Passwords do not match'));

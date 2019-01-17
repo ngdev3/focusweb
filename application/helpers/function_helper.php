@@ -31,6 +31,16 @@ if (!function_exists('_invoicelayout')) {
 
 }
 
+if (!function_exists('uri_segment')) {
+
+    function uri_segment($data = null) {
+        $CI = &get_instance();
+        $data = $CI->uri->segment($data);
+        return  $data;
+    }
+
+}
+
 
 if (!function_exists('_layout')) {
 
@@ -48,7 +58,7 @@ if (!function_exists('getUserInfo')) {
     function getUserInfo($id = null) {
         $CI = &get_instance();
         $res = $CI->db->select("cu.*, CONCAT(fname,' ',lname) as fullname ", false)
-                ->from("cz_users cu")
+                ->from("users cu")
                 ->where(array("id" => $id))
                 ->get()
                 ->row();
@@ -64,7 +74,7 @@ if (!function_exists('getUserInfos')) {
     function getUserInfos($id = null) {
         $CI = &get_instance();
         $res = $CI->db->select("cu.*, CONCAT(fname,' ',lname) as fullname ", false)
-                ->from("cz_users cu")
+                ->from("users cu")
                 ->where(array("id" => currUserId()))
                 ->get()
                 ->row();
@@ -138,7 +148,7 @@ if (!function_exists('isPostBack')) {
   //            ->row();
   //
   $result = $CI->db->select("u.*,iur.role_name, iur.permission_ids as role_permissions")
-  ->from("cz_users u")
+  ->from("users u")
   ->where(array("u.id" => currUserId()))
   ->join("cz_roles iur", "iur.id = u.role", "left")
   ->get()->row();
@@ -196,6 +206,7 @@ if (!function_exists('isPostBack')) {
  */
 
 function getUserPermissions() {
+    return true;
     $CI = &get_instance();
     $result = $CI->db->select("cu.id as id, 
             cu.user_extra_permission, 
@@ -203,17 +214,18 @@ function getUserPermissions() {
             cr.role_name, 
             cr.permission_ids as role_permissions
             ")
-            ->from("cz_users cu")
+            ->from("users cu")
             ->join("cz_roles cr", "cr.id = cu.role", "left")
             ->where(array("cu.id" => currUserId()))
             ->get()
             ->row();
 
-//    echo $CI->db->last_query(); die;
+//    echo $CI->db->last_query(); die;294
     return $result;
 }
 
 function has_permission($controller, $action) {
+    return true;
     $CI = &get_instance();
     $data = $CI->db->select("*")
             ->from("cz_permissions")
@@ -278,7 +290,7 @@ if (!function_exists('currUserId')) {
 
     function currUserId() {
         $CI = &get_instance();
-        return $CI->session->userdata["userinfo"]['id'];
+        return $CI->session->userdata["userinfo"]->id;
     }
 
 }
@@ -479,7 +491,7 @@ function sendMail($to = "", $subject = "", $body = "", $attach = false) {
     }
 
     $CI->email->set_newline("\r\n");
-    $CI->email->from('tekshapers.testing@gmail.com', 'Pioneer');
+    $CI->email->from(project_email, project_name);
     $CI->email->to($to);
     $CI->email->subject($subject);
     $CI->email->message($body);
@@ -616,7 +628,7 @@ function get_total_cordinator($id) {
         $CI->db->where('status', "1");
         $CI->db->where('is_deleted', "0");
          $CI->db->where("(role='3' OR role='4')");
-        $result = $CI->db->get("cz_users")->row();
+        $result = $CI->db->get("users")->row();
         
        // echo $CI->db->last_query();die;
         //pr($result);die;
@@ -632,7 +644,7 @@ function get_total_salesPerson($id) {
         $CI->db->where('is_deleted', "0");
         $CI->db->where('role', "5");
          //$CI->db->where("(role='3' OR role='4')");
-        $result = $CI->db->get("cz_users")->row();
+        $result = $CI->db->get("users")->row();
         
        // echo $CI->db->last_query();die;
         //pr($result);die;
@@ -649,7 +661,7 @@ function get_total_servicePerson($id) {
         $CI->db->where('is_deleted', "0");
         $CI->db->where('role', "6");
          //$CI->db->where("(role='3' OR role='4')");
-        $result = $CI->db->get("cz_users")->row();
+        $result = $CI->db->get("users")->row();
         
        // echo $CI->db->last_query();die;
        //pr($result);die;

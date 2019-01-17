@@ -27,9 +27,9 @@ class Viewtarget_model extends CI_Model {
         if(getUserInfos()->role == "0"){                   
             $sql = $this->db->select("pst.*,psvt.achieved_price,psvt.achieved_product,psvt.is_achieved,cu2.id as m_id,cu.fname,cu.lname,cu2.fname as m_fname,cu2.lname as m_lname,cu3.fname as c_fname,cu3.lname as c_lname" , FALSE)
             ->from("pr_sales_target pst")
-            ->join("cz_users cu", "cu.id = pst.salesperson_id", "left")
-            ->join("cz_users cu2", "cu.manager_id = cu2.id", "left")
-            ->join("cz_users cu3", "cu.cordinator_id = cu3.id", "left")
+            ->join("users cu", "cu.id = pst.salesperson_id", "left")
+            ->join("users cu2", "cu.manager_id = cu2.id", "left")
+            ->join("users cu3", "cu.cordinator_id = cu3.id", "left")
             ->join("pr_sales_view_target psvt", "psvt.salesperson_id = pst.salesperson_id", "left")
             ->where(array("pst.is_deleted =" => "0"));
         
@@ -38,9 +38,9 @@ class Viewtarget_model extends CI_Model {
             $logged_in_manager_id=$_SESSION['userinfo']['id'];                  
             $sql = $this->db->select("pst.*,psvt.achieved_price,psvt.achieved_product,psvt.is_achieved,cu2.id as m_id,cu.fname,cu.lname,cu2.fname as m_fname,cu2.lname as m_lname,cu3.fname as c_fname,cu3.lname as c_lname" , FALSE)
             ->from("pr_sales_target pst")
-            ->join("cz_users cu", "cu.id = pst.salesperson_id", "left")
-            ->join("cz_users cu2", "cu.manager_id = cu2.id", "left")
-            ->join("cz_users cu3", "cu.cordinator_id = cu3.id", "left")
+            ->join("users cu", "cu.id = pst.salesperson_id", "left")
+            ->join("users cu2", "cu.manager_id = cu2.id", "left")
+            ->join("users cu3", "cu.cordinator_id = cu3.id", "left")
             ->join("pr_sales_view_target psvt", "psvt.salesperson_id = pst.salesperson_id", "left")
             ->where(array("pst.is_deleted =" => "0","cu2.id=" => $logged_in_manager_id));
         
@@ -49,9 +49,9 @@ class Viewtarget_model extends CI_Model {
             $logged_in_coor_id=$_SESSION['userinfo']['id'];                  
             $sql = $this->db->select("pst.*,psvt.achieved_price,psvt.achieved_product,psvt.is_achieved,cu3.id as m_id,cu.fname,cu.lname,cu2.fname as m_fname,cu2.lname as m_lname,cu3.fname as c_fname,cu3.lname as c_lname" , FALSE)
             ->from("pr_sales_target pst")
-            ->join("cz_users cu", "cu.id = pst.salesperson_id", "left")
-            ->join("cz_users cu2", "cu.manager_id = cu2.id", "left")
-            ->join("cz_users cu3", "cu.cordinator_id = cu3.id", "left")
+            ->join("users cu", "cu.id = pst.salesperson_id", "left")
+            ->join("users cu2", "cu.manager_id = cu2.id", "left")
+            ->join("users cu3", "cu.cordinator_id = cu3.id", "left")
             ->join("pr_sales_view_target psvt", "psvt.salesperson_id = pst.salesperson_id", "left")
             ->where(array("pst.is_deleted =" => "0","cu3.id=" => $logged_in_coor_id));
         

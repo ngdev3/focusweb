@@ -11,52 +11,52 @@
                         <!-- BEGIN DASHBOARD STATS 1-->
                         <div class="row">
                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                                <a class="dashboard-stat dashboard-stat-v2 blue" href="#">
+                                <a class="dashboard-stat dashboard-stat-v2 blue" href="<?php echo base_url('admin/users/listing')?>">
                                     <div class="visual">
                                         <i class="fa fa-comments"></i>
                                     </div>
                                     <div class="details">
                                         <div class="number">
-                                            <span data-counter="counterup" data-value="4">0</span>
+                                            <span data-counter="counterup" data-value="<?php echo $total_users; ?>">0</span>
                                         </div>
-                                        <div class="desc"> Branch Manager </div>
+                                        <div class="desc"> Total Registered Users </div>
                                     </div>
                                 </a>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                                <a class="dashboard-stat dashboard-stat-v2 red" href="#">
+                                <a class="dashboard-stat dashboard-stat-v2 red" href="<?php echo base_url('admin/users/listing')?>">
                                     <div class="visual">
                                         <i class="fa fa-bar-chart-o"></i>
                                     </div>
                                     <div class="details">
                                         <div class="number">
-                                            <span data-counter="counterup" data-value="32">0</span></div>
-                                        <div class="desc"> Total Coordinator </div>
+                                            <span data-counter="counterup" data-value="<?php echo $total_paid_user; ?>">0</span></div>
+                                        <div class="desc"> Total Paid Users </div>
                                     </div>
                                 </a>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                                <a class="dashboard-stat dashboard-stat-v2 green" href="#">
+                                <a class="dashboard-stat dashboard-stat-v2 green" href="<?php echo base_url('admin/users/listing')?>">
                                     <div class="visual">
                                         <i class="fa fa-shopping-cart"></i>
                                     </div>
                                     <div class="details">
                                         <div class="number">
-                                            <span data-counter="counterup" data-value="35">0</span>
+                                            <span data-counter="counterup" data-value="<?php echo $total_coaches; ?>">0</span>
                                         </div>
-                                        <div class="desc"> Service Person</div>
+                                        <div class="desc"> Total Coaches</div>
                                     </div>
                                 </a>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                                <a class="dashboard-stat dashboard-stat-v2 purple" href="#">
+                                <a class="dashboard-stat dashboard-stat-v2 purple" href="<?php echo base_url('admin/users/listing')?>">
                                     <div class="visual">
                                         <i class="fa fa-globe"></i>
                                     </div>
                                     <div class="details">
                                         <div class="number">
-                                            <span data-counter="counterup" data-value="25">0</span></div>
-                                        <div class="desc"> Sales Person </div>
+                                            <span data-counter="counterup" data-value="<?php echo $total_queries; ?>">0</span></div>
+                                        <div class="desc"> Total Queries </div>
                                     </div>
                                 </a>
                             </div>

@@ -31,10 +31,10 @@ if(getUserInfos()->role == "0"){
             ->from("pr_lead pr")
             ->join("pr_type_lead ppl", "ppl.id = pr.type_of_lead", "left")
             ->join("pr_assign_lead_sales pra", "pra.lead_id = pr.id", "left")
-            ->join("cz_users cum", "cum.id = pra.manager_id", "left")
-            ->join("cz_users cuc", "cuc.id = pra.coordinator_id", "left")
+            ->join("users cum", "cum.id = pra.manager_id", "left")
+            ->join("users cuc", "cuc.id = pra.coordinator_id", "left")
 
-            ->join("cz_users cus", "cus.id = pra.sales_person_id", "left")
+            ->join("users cus", "cus.id = pra.sales_person_id", "left")
 
             ->where("pr.is_deleted", "0"); 
            /*  ->get()->result();
@@ -69,10 +69,10 @@ if(getUserInfos()->role == "0"){
                 ->from("pr_lead pr")
                 ->join("pr_type_lead ppl", "ppl.id = pr.type_of_lead", "left")
                 ->join("pr_assign_lead_sales pra", "pra.lead_id = pr.id", "left")
-                 ->join("cz_users cum", "cum.id = pra.manager_id", "left")
-                ->join("cz_users cuc", "cuc.id = pra.coordinator_id", "left")
+                 ->join("users cum", "cum.id = pra.manager_id", "left")
+                ->join("users cuc", "cuc.id = pra.coordinator_id", "left")
                 
-                 ->join("cz_users cus", "cus.id = pra.sales_person_id", "left")
+                 ->join("users cus", "cus.id = pra.sales_person_id", "left")
                
                  ->where_in('pr.id', $l_id)
                  ->or_where_in('pra.manager_id', $logged_in_manager_id)
@@ -107,10 +107,10 @@ if(getUserInfos()->role == "0"){
                     ->from("pr_lead pr")
                     ->join("pr_type_lead ppl", "ppl.id = pr.type_of_lead", "left")
                     ->join("pr_assign_lead_sales pra", "pra.lead_id = pr.id", "left")
-                     ->join("cz_users cum", "cum.id = pra.manager_id", "left")
-                    ->join("cz_users cuc", "cuc.id = pra.coordinator_id", "left")
+                     ->join("users cum", "cum.id = pra.manager_id", "left")
+                    ->join("users cuc", "cuc.id = pra.coordinator_id", "left")
                     
-                     ->join("cz_users cus", "cus.id = pra.sales_person_id", "left")
+                     ->join("users cus", "cus.id = pra.sales_person_id", "left")
                    
                      ->where_in('pr.id', $l_id)
                      ->or_where_in('pra.coordinator_id', $logged_in_coor_id)
@@ -317,10 +317,10 @@ if(getUserInfos()->role == "0"){
                 ->from("pr_lead pr")
                  ->join("pr_type_lead ppl", "ppl.id = pr.type_of_lead", "left")
                  ->join("pr_assign_lead_sales pra", "pra.lead_id = pr.id", "left")
-                 ->join("cz_users cum", "cum.id = pra.manager_id", "left")
-                 ->join("cz_users cuc", "cuc.id = pra.coordinator_id", "left")
+                 ->join("users cum", "cum.id = pra.manager_id", "left")
+                 ->join("users cuc", "cuc.id = pra.coordinator_id", "left")
                 
-                 ->join("cz_users cus", "cus.id = pra.sales_person_id", "left")
+                 ->join("users cus", "cus.id = pra.sales_person_id", "left")
                 
                 
                 ->where(array("pr.id" => $id))
@@ -335,7 +335,7 @@ if(getUserInfos()->role == "0"){
         $res = $this->db->select("prl.*,concat( cus.fname ,' ', cus.lname ) as sales_name,cus.profile_image as sales_image")
                 ->from("pr_lead_meeting prl")
                 
-                ->join("cz_users cus", "cus.id = prl.sales_person_id", "left")                
+                ->join("users cus", "cus.id = prl.sales_person_id", "left")                
                 ->where(array("prl.lead_id" => $id))
                  ->where(array("prl.is_approved" => 1))
                 ->get()
@@ -398,7 +398,7 @@ if(getUserInfos()->role == "0"){
     
         $ins['coordinator_id'] = $logged_in_coor_id;
         $res = $this->db->select("cu.*")
-                ->from("cz_users cu")
+                ->from("users cu")
                 ->where(array("cu.id" => $logged_in_coor_id))
                 ->get()
                 ->row();
@@ -508,10 +508,10 @@ if(getUserInfos()->role == "0"){
             ->from("pr_lead pr")
             ->join("pr_type_lead ppl", "ppl.id = pr.type_of_lead", "left")
             ->join("pr_assign_lead_sales pra", "pra.lead_id = pr.id", "left")
-            ->join("cz_users cum", "cum.id = pra.manager_id", "left")
-            ->join("cz_users cuc", "cuc.id = pra.coordinator_id", "left")
-            ->join("cz_users cz","cz.id=pr.added_by","left")
-            ->join("cz_users cus", "cus.id = pra.sales_person_id", "left")
+            ->join("users cum", "cum.id = pra.manager_id", "left")
+            ->join("users cuc", "cuc.id = pra.coordinator_id", "left")
+            ->join("users cz","cz.id=pr.added_by","left")
+            ->join("users cus", "cus.id = pra.sales_person_id", "left")
 
             ->where("pr.is_deleted", "0"); 
            /*  ->get()->result();
@@ -544,10 +544,10 @@ if(getUserInfos()->role == "0"){
                 ->from("pr_lead pr")
                 ->join("pr_type_lead ppl", "ppl.id = pr.type_of_lead", "left")
                 ->join("pr_assign_lead_sales pra", "pra.lead_id = pr.id", "left")
-                 ->join("cz_users cum", "cum.id = pra.manager_id", "left")
-                ->join("cz_users cuc", "cuc.id = pra.coordinator_id", "left")
-                 ->join("cz_users cz","cz.id=pr.added_by","left")
-                 ->join("cz_users cus", "cus.id = pra.sales_person_id", "left")
+                 ->join("users cum", "cum.id = pra.manager_id", "left")
+                ->join("users cuc", "cuc.id = pra.coordinator_id", "left")
+                 ->join("users cz","cz.id=pr.added_by","left")
+                 ->join("users cus", "cus.id = pra.sales_person_id", "left")
                
                  ->where_in('pr.id', $l_id)
                  ->or_where_in('pra.manager_id', $logged_in_manager_id)
@@ -582,10 +582,10 @@ if(getUserInfos()->role == "0"){
                     ->from("pr_lead pr")
                     ->join("pr_type_lead ppl", "ppl.id = pr.type_of_lead", "left")
                     ->join("pr_assign_lead_sales pra", "pra.lead_id = pr.id", "left")
-                     ->join("cz_users cum", "cum.id = pra.manager_id", "left")
-                    ->join("cz_users cuc", "cuc.id = pra.coordinator_id", "left")
-                     ->join("cz_users cz","cz.id=pr.added_by","left")
-                     ->join("cz_users cus", "cus.id = pra.sales_person_id", "left")
+                     ->join("users cum", "cum.id = pra.manager_id", "left")
+                    ->join("users cuc", "cuc.id = pra.coordinator_id", "left")
+                     ->join("users cz","cz.id=pr.added_by","left")
+                     ->join("users cus", "cus.id = pra.sales_person_id", "left")
                    
                      ->where_in('pr.id', $l_id)
                      ->or_where_in('pra.coordinator_id', $logged_in_coor_id)

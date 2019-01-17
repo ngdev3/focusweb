@@ -48,7 +48,7 @@ class Salesperson extends MY_Controller {
         $this->form_validation->set_rules('employee_id', 'First Name', "trim|required|alpha_numeric");
         $this->form_validation->set_rules('fname', 'First Name', "trim|required|alpha");
         $this->form_validation->set_rules('lname', 'Last Name', "trim|required|alpha");
-        $this->form_validation->set_rules('email', 'Email Id', 'trim|required|is_unique[cz_users.email]|valid_email');
+        $this->form_validation->set_rules('email', 'Email Id', 'trim|required|is_unique[users.email]|valid_email');
         $this->form_validation->set_rules("mobile", "Contact Number", "trim|required|min_length[10]|max_length[15]|numeric");
         $this->form_validation->set_rules('status', 'Status', 'trim|required');
         $this->form_validation->set_rules('gender', 'Gender', 'trim|required');
@@ -81,7 +81,7 @@ class Salesperson extends MY_Controller {
         $this->form_validation->set_rules('employee_id', 'First Name', "trim|required|alpha_numeric");
         $this->form_validation->set_rules('fname', 'First Name', "trim|required|alpha");
         $this->form_validation->set_rules('lname', 'Last Name', "trim|required|alpha");
-        // $this->form_validation->set_rules('email','Email Id','trim|required|is_unique[cz_users.email]|valid_email');
+        // $this->form_validation->set_rules('email','Email Id','trim|required|is_unique[users.email]|valid_email');
         // $this->form_validation->set_rules("mobile","Contact Number","trim|required|min_length[10]|max_length[15]|numeric");
         $this->form_validation->set_rules('status', 'Status', 'trim|required');
         $this->form_validation->set_rules('gender', 'Gender', 'trim|required');

@@ -44,7 +44,7 @@
   
    <tr>
    <td width="30%" style="font-family: calibri;font-size:15px;background:#ffe799;padding:5px;text-align:right;">Attention:</td>
-   <td width="70%" colspan="2" style="font-family: calibri;font-size:15px;padding:5px;">Mr. <?php echo @getcolumn_name('cz_users', 'fname', $res->attending_surveyor_id)[0]->fname; ?> <?php echo @getcolumn_name('cz_users', 'lname', $res->attending_surveyor_id)[0]->lname; ?></td>
+   <td width="70%" colspan="2" style="font-family: calibri;font-size:15px;padding:5px;">Mr. <?php echo @getcolumn_name('users', 'fname', $res->attending_surveyor_id)[0]->fname; ?> <?php echo @getcolumn_name('users', 'lname', $res->attending_surveyor_id)[0]->lname; ?></td>
   </tr>
    <tr>
    <td width="30%" style="font-family: calibri;font-size:15px;background:#ffe799;padding:5px;text-align:right;">Our File No:

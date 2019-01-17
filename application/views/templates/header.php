@@ -40,6 +40,8 @@
         <link href="<?= base_url(); ?>assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.css" rel="stylesheet" media="screen">      <!-- END THEME LAYOUT SCRIPTS -->
         <link href="<?= base_url(); ?>assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" media="screen">        
         <link rel="shortcut icon" href="favicon.ico" />
+
+        
         <!-- ********** GOOGLE CHARTS ***********  -->
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
