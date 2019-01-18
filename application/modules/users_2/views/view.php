@@ -59,7 +59,7 @@
                         <label for="inputEmail12" class="col-md-3 control-label">Contact No :</label>
                         <div class="col-md-9">
                             <div class="input-icon" >
-                                <p><?php echo ucwords("+91 ".$res->mobile_no); ?></p>                          
+                                <p><?php echo ucwords("+91 ".$res->mobile); ?></p>                          
                             </div>
                         </div>
                     </div>

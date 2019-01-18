@@ -58,7 +58,7 @@ class Users extends MY_Controller {
                 redirect('users/profile');
             }
            // echo $user_id;die;
-            $data['roles'] = get_where("cz_roles",array("status"=>"1"));              
+            // $data['roles'] = get_where("cz_roles",array("status"=>"1"));              
             $data['userData'] = $this->Users_model->profile($user_id);            
             $data['title'] = "Update Profile";
             $data['page_title'] = "Update Profile";

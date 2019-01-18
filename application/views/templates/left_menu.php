@@ -102,45 +102,59 @@ $uri3 = @uri_segment(3);
                                 </ul>
                             </li>
                            
-                            <li class="nav-item  <?php if($uri1=="admin" && ($uri2 =="mastery" || $uri2 =="leadership")) {echo "active open";} ?>">
+                            <!-- <li class="nav-item open"> -->
+                            <li class="nav-item  <?php if($uri1=="admin" && ($uri2 =="mastercontent" || $uri2 =="mastervideo" || $uri2 =="leadership")) {echo "active open";} ?>">
+                                
                                 <a href="javascript:;" class="nav-link nav-toggle">
                                     <i class="icon-puzzle"></i>
                                     <span class="title">Focus Retreats</span>
-                                    <span class="arrow <?php if(($controllers_name=="backendteam" && $method_name!="list_items_sales_quote" && $method_name!="view_sales_quote"  && $method_name!="list_items_service_quote" && $method_name!="view_service_quote") || $controllers_name=="manager" || $controllers_name=="cordinator" || $controllers_name=="salesperson" || $controllers_name=="serviceperson"){echo "open";} ?>"></span>
+                                    <span class="arrow"></span>
                                 </a>
+
                                 <ul class="sub-menu">
-                                    <li class="nav-item  ">
-                                        <a href="<?php echo base_url("admin/mastery/listing"); ?>" class="nav-link ">
-                                            <span class="title <?php if($uri1=="admin" && ($uri2=="mastery" && $uri3=="listing")){echo "text text-danger";} ?>">Self Mastery</span>
-                                        </a>
-                                        <li class="nav-item  <?php if($uri1=="admin" && ($uri2 =="mastery" || $uri2 =="leadership")) {echo "active open";} ?>">
-                                <a href="javascript:;" class="nav-link nav-toggle">
-                                    <i class="icon-puzzle"></i>
-                                    <span class="title">Focus Retreats</span>
-                                    <span class="arrow <?php if(($controllers_name=="backendteam" && $method_name!="list_items_sales_quote" && $method_name!="view_sales_quote"  && $method_name!="list_items_service_quote" && $method_name!="view_service_quote") || $controllers_name=="manager" || $controllers_name=="cordinator" || $controllers_name=="salesperson" || $controllers_name=="serviceperson"){echo "open";} ?>"></span>
-                                </a>
-                                <ul class="sub-menu">
-                                    <li class="nav-item  ">
-                                        <a href="<?php echo base_url("admin/mastery/listing"); ?>" class="nav-link ">
-                                            <span class="title <?php if($uri1=="admin" && ($uri2=="mastery" && $uri3=="listing")){echo "text text-danger";} ?>">Self Mastery</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item  ">
-                                        <a href="<?php echo base_url("admin/leadership/listing"); ?>" class="nav-link ">
-                                            <span class="title <?php if($uri1=="admin" && ($uri2=="leadership" && $uri3=="listing")){echo "text text-danger";} ?>">Business Leadership</span>
-                                        </a>
-                                    </li>
-                                   
-                                                                     
-                                </ul>
+                                    <li class="nav-item <?php if(($uri1=="admin" && ($uri2 =="mastercontent" || $uri2 =="mastervideo" || $uri2 =="leadershipcontent" || $uri2 =="leadershipvideo" ))){echo "active open";} ?>">
+                                      
+                                            <a href="javascript:;" class="nav-link nav-toggle">
+                                                <i class="icon-puzzle"></i>
+                                                <span class="title">Self Mastery</span>
+                                                <span class="arrow "></span>
+                                            </a>
+                                                <ul class="sub-menu">
+                                                    <li class="nav-item ">
+                                                        <a href="<?php echo base_url("admin/mastercontent/listing"); ?>" class="nav-link ">
+                                                            <span class="title <?php if($uri1=="admin" && ($uri2=="mastercontent")){echo "text text-danger";} ?>">Content</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-item  ">
+                                                        <a href="<?php echo base_url("admin/mastervideo/listing"); ?>" class="nav-link ">
+                                                            <span class="title <?php if($uri1=="admin" && ($uri2=="mastervideo")){echo "text text-danger";} ?>">Videos</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                     
                             </li>
-                                    </li>
-                                    <li class="nav-item  ">
-                                        <a href="<?php echo base_url("admin/leadership/listing"); ?>" class="nav-link ">
-                                            <span class="title <?php if($uri1=="admin" && ($uri2=="leadership" && $uri3=="listing")){echo "text text-danger";} ?>">Business Leadership</span>
-                                        </a>
-                                    </li>
-                                   
+                            <li class="nav-item <?php if(($uri1=="admin" && ($uri2 =="leadershipcontent" || $uri2 =="leadershipvideo" ))){echo "active open";} ?>">
+                                            <a href="javascript:;" class="nav-link nav-toggle">
+                                                <i class="icon-puzzle"></i>
+                                                <span class="title">Business Leadership</span>
+                                                <span class="arrow "></span>
+                                            </a>
+                                        <ul class="sub-menu">
+                                            <li class="nav-item ">
+                                                <a href="<?php echo base_url("admin/leadershipcontent/listing"); ?>" class="nav-link ">
+                                                    <span class="title <?php if($uri1=="admin" && ($uri2=="leadershipcontent")){echo "text text-danger";} ?>">Content</span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item  ">
+                                                <a href="<?php echo base_url("admin/leadershipvideo/listing"); ?>" class="nav-link ">
+                                                    <span class="title <?php if($uri1=="admin" && ($uri2=="leadershipvideo")){echo "text text-danger";} ?>">Video</span>
+                                                </a>
+                                            </li>
+                                        
+                                                                            
+                                        </ul>
+                            </li>
+                        
                                                                      
                                 </ul>
                             </li>

@@ -154,8 +154,8 @@ class Users_model extends CI_Model {
         $upd['fname'] = $fname;
         $upd['lname'] = $lname;
         $upd['email'] = $email;
-        $upd['mobile'] = $mobile;      
-        $upd['role'] = $role;
+        $upd['mobile_no'] = $mobile;      
+        // $upd['role'] = $role;
         //$upd['status'] = $status;
         
         $whr['id'] = $user_id;       
