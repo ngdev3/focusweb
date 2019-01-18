@@ -73,7 +73,7 @@ class Leadershipcontent_model extends CI_Model {
                 $nestedData[] = '<label class="label-danger label">Delete</label>';
             }
            
-            $nestedData[] = $this->load->view("mastercontent/_action", array("data" => $row), true);
+            $nestedData[] = $this->load->view("leadershipcontent/_action", array("data" => $row), true);
             $data[] = $nestedData;
         }
         $json_data = array(

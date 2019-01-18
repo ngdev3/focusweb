@@ -49,6 +49,7 @@
                                                     </th>
                                                     <th> S No. </th>
                                                     <th>video Title</th>
+                                                    <th>Video Url</th>
                                                     <th>Description</th>
                                                    
                                                     <th>Status</th>

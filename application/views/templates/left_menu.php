@@ -103,7 +103,7 @@ $uri3 = @uri_segment(3);
                             </li>
                            
                             <!-- <li class="nav-item open"> -->
-                            <li class="nav-item  <?php if($uri1=="admin" && ($uri2 =="mastercontent" || $uri2 =="mastervideo" || $uri2 =="leadership")) {echo "active open";} ?>">
+                            <li class="nav-item  <?php if($uri1=="admin" && ($uri2 =="mastercontent" || $uri2 =="mastervideo" || $uri2 =="leadershipcontent" || $uri2 =="leadershipvideo")) {echo "active open";} ?>">
                                 
                                 <a href="javascript:;" class="nav-link nav-toggle">
                                     <i class="icon-puzzle"></i>
@@ -112,7 +112,7 @@ $uri3 = @uri_segment(3);
                                 </a>
 
                                 <ul class="sub-menu">
-                                    <li class="nav-item <?php if(($uri1=="admin" && ($uri2 =="mastercontent" || $uri2 =="mastervideo" || $uri2 =="leadershipcontent" || $uri2 =="leadershipvideo" ))){echo "active open";} ?>">
+                                    <li class="nav-item <?php if(($uri1=="admin" && ($uri2 =="mastercontent" || $uri2 =="mastervideo"))){echo "active open";} ?>">
                                       
                                             <a href="javascript:;" class="nav-link nav-toggle">
                                                 <i class="icon-puzzle"></i>
@@ -140,7 +140,7 @@ $uri3 = @uri_segment(3);
                                                 <span class="arrow "></span>
                                             </a>
                                         <ul class="sub-menu">
-                                            <li class="nav-item ">
+                                            <li class="nav-item">
                                                 <a href="<?php echo base_url("admin/leadershipcontent/listing"); ?>" class="nav-link ">
                                                     <span class="title <?php if($uri1=="admin" && ($uri2=="leadershipcontent")){echo "text text-danger";} ?>">Content</span>
                                                 </a>
