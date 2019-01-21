@@ -22,7 +22,7 @@ class Webapi extends REST_Controller {
         $this->load->library('session');
         $this->load->library('Form_validation');
         $this->load->helper('security');
-        define("APIKEY", "srs_L51r143567");
+        define("APIKEY", "focus_Lkjhg546dfhkduhrg43567");
         header('Access-Control-Allow-Origin: *');
     }
 

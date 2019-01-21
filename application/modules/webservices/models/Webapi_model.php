@@ -11,9 +11,6 @@ class Webapi_model extends CI_Model {
     public function login($email) {
         $this->db->select("cu.*");
         $this->db->from("users cu");
-        $this->db->where('cu.status', '1');
-        $this->db->where('cu.is_deleted', '0');
-        $this->db->where_in("role", ['1', '2','0']);
         $this->db->where('cu.email', $email);
         $res = $this->db->get()->row();
 
