@@ -21,9 +21,9 @@
                                                                       <!-- <a class="btn blue btn-outline sbold" data-toggle="modal" href="#small"> View Demo </a> -->
                                                                 </li>
                                                                
-                                                                <li>
+                                                                <!-- <li>
 	                                      			                <a href="javascript:void(0);" data-id="<?php echo $data->id; ?>" data-toggle="tooltip" class="tooltips delete_row" title="Delete"> <i class="fa fa-trash"></i>  Delete</a>
-                                                                </li>
+                                                                </li> -->
                                                                 
                                                             </ul>
                                                         </div>
