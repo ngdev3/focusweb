@@ -24,6 +24,7 @@ class Users_model extends CI_Model {
         );
 
         $sql = $this->db->select("cu.*", FALSE)
+        ->where('cu.status !=','delete')
                 ->from("users cu");
 
         if (!empty($requestData['search']['value'])) {

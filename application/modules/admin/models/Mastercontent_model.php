@@ -24,6 +24,7 @@ class Mastercontent_model extends CI_Model {
 
         $sql = $this->db->select("cu.*", FALSE)
                 ->where("cu.type",'1')
+                ->where('cu.status !=','delete')
                 ->from("f_self_mastery cu");
 
         if (!empty($requestData['search']['value'])) {

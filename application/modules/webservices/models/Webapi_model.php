@@ -40,9 +40,6 @@ class Webapi_model extends CI_Model {
     public function check_email($email) {
 
         $this->db->where("email", $email);
-        $this->db->where('cu.status', '1');
-        $this->db->where('cu.is_deleted', '0');
-        $this->db->where_in("role", ['0','1', '2']);
         $this->db->from("users cu");
         $res = $this->db->get()->row();
         return $res;
@@ -57,7 +54,7 @@ class Webapi_model extends CI_Model {
 
     public function update_password($a, $gotemail) {
         $gotpassword = array("password" => md5($a),
-            "cpassword" => $a
+            
         );
         if ($a && $gotemail) {
             $this->db->where('email', $gotemail);
@@ -83,31 +80,25 @@ class Webapi_model extends CI_Model {
 
 
     function add() {
-
+        // pr($_POST); die;
         extract($_POST);
         $ins['fname'] = $fname;
         $ins['lname'] = $lname;
-        if ($_POST['image']) {
-            $ins['image'] = $image;
-        }
-
-        $ins['father_mobile'] = $father_mobile;
-        $ins['mother_mobile'] = $mother_mobile;
+        $ins['mobile_no'] = $mobile_no;
         $ins['email'] = $email;
-        $ins['admission_number'] = $admission_number;
-        $ins['aadhar_no'] = $aadhar_no;
-        $ins['class_id'] = $class_id;
-        $ins['section_id'] = $section_id;
-        $ins['role'] = "1";
-        $ins['created_date'] = current_datetime();
-        $ins['added_by'] = currUserId();
-        $ins['cpassword'] = rand('111111', '999999');
-        $ins['password'] = md5($ins['cpassword']);
+        $mail['email'] = $email;
+        // $ins['password'] = $password;
+        $ins['status'] = 'active';
+
+        $ins['added_date'] = current_datetime();
+        $ins['user_type'] = '2';
+        $mail['cpassword'] = $password;
+        $ins['password'] = md5($mail['cpassword']);
 
         $this->db->insert("users", $ins);
         $insert_id = $this->db->insert_id();
         $subject = "Registration";
-        $body = $this->load->view("email_template/admin/registration", array("data" => $ins), true);
+        $body = $this->load->view("email_template/admin/registration", array("data" => $mail), true);
         sendMail($ins['email'], $subject, $body);
         //Sending Mail to user
         return $insert_id;
@@ -161,11 +152,9 @@ class Webapi_model extends CI_Model {
 
     /* -----------------------------------------------Get Class--------------------------------------------------- */
 
-    public function class_view() {
-        $this->db->where('sc.status', '1');
-        $this->db->where('sc.is_deleted', '0');
-
-        $query = $this->db->get('sr_class sc')->result();
+    public function get_color() {
+        $this->db->where('sc.status', 'active');
+        $query = $this->db->get('f_color_schemes sc')->result();
         return $query;
     }
 
@@ -431,7 +420,22 @@ class Webapi_model extends CI_Model {
 
     /* -------------------------------Edit User Profile---------------------------------------------------- */
 
-    public function profilepic($id, $new_name) {
+    public function profilepic($data) {
+
+        extract($_POST);
+
+        $image = $new_name;
+    //    $ins['profile_image'] = $image;
+        $data['created_date'] = current_datetime();
+        // $ins['created_date'] = current_datetime();
+
+        pr($data); die;
+        // $whr['id'] = $id;
+        $prof = $this->db->insert_batch("f_temp_image_upload", $data);
+        return $prof;
+    }
+
+    public function upload_pic($new_name) {
 
         extract($_POST);
 

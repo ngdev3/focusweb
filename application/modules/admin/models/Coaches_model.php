@@ -24,6 +24,7 @@ class Coaches_model extends CI_Model {
         );
 
         $sql = $this->db->select("cu.*", FALSE)
+                ->where('cu.status !=','delete')
                 ->from("f_coaches_center cu");
 
         if (!empty($requestData['search']['value'])) {

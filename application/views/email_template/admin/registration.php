@@ -123,7 +123,7 @@ a[class="mobile-button"] { width:90% !important; padding: 15px !important; borde
                   <span><a style="color:#3a9c95;" href="mailto:<?php echo project_email; ?>" target="_blank"><?php echo $data['email']; ?></a></span> <br>
                     Password : <?php echo $data['cpassword']; ?> </p>
                   Please login at
-                   <a style="color:#3a9c95;text-decoration:underline" href="<?php echo base_url();?>"> <?php echo project_name; ?> </a> and change your password. </td>
+                   <a style="color:#3a9c95;text-decoration:underline" href="<?php echo base_url();?>"> <?php echo project_name; ?> </a> </td>
 
               </tr>
               <tr>

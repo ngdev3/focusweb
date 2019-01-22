@@ -24,6 +24,7 @@ class Masterclass_model extends CI_Model {
         );
 
         $sql = $this->db->select("cu.*", FALSE)
+        ->where('cu.status !=','delete')
                 ->from("f_master_class cu");
 
         if (!empty($requestData['search']['value'])) {

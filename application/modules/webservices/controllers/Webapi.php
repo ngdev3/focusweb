@@ -22,6 +22,7 @@ class Webapi extends REST_Controller {
         $this->load->library('session');
         $this->load->library('Form_validation');
         $this->load->helper('security');
+        $this->load->library('image_lib');
         define("APIKEY", "focus_Lkjhg546dfhkduhrg43567");
         header('Access-Control-Allow-Origin: *');
     }
@@ -33,6 +34,7 @@ class Webapi extends REST_Controller {
 
         $this->form_validation->set_rules('email', 'Email', 'trim|xss_clean|required');
         $this->form_validation->set_rules('password', 'Password', 'trim|xss_clean|required');
+        $this->form_validation->set_rules('login_type', 'Login Type', 'trim|xss_clean|required');
         if ($this->form_validation->run() == TRUE) {
             $apikey = $this->input->post('apikey');
 
@@ -48,14 +50,34 @@ class Webapi extends REST_Controller {
                 }
                 
                 
-                //pr($query);die;
+                // pr($query);die;
                 if (!empty($query)) {
                     $password = md5($password);
                     if ($email == $query->email) {
                         if($password == $query->password)
                         {
-                            $success = array('ErrorCode' => 0, "message" => "Success", 'data' => $query);
-                            $this->response($success, 200);
+                            if($query->status == 'active'){
+                                
+                                $upd['last_login']= current_datetime();
+                                $upd['login_from']= $_POST['login_type'];
+
+                                $this->db->where('id', $query->id);
+                                $this->db->update('users', $upd);
+
+
+                                $success = array('ErrorCode' => 0, "message" => "Success", 'data' => $query);
+                                $this->response($success, 200);
+                                
+                            }else if($query->status == 'inactive'){
+                                
+                                $success = array('ErrorCode' => 1, 'message' => 'Your Account is Inactive! Contact Admin');
+                                $this->response($success, 200);
+                            }else{
+                                $success = array('ErrorCode' => 1, 'message' => 'Your Account is Deleted! Contact Admin');
+                                $this->response($success, 200);
+
+                            }
+
                         } else {
                             $error = array('ErrorCode' => 1, 'message' => 'Wrong Password');
                             $this->response($error, 200);
@@ -92,18 +114,16 @@ class Webapi extends REST_Controller {
         if ($this->form_validation->run() == TRUE) {
             $apikey = $this->input->post('apikey');
             if ($apikey == APIKEY) {
+                // if(){}
                 if ($this->input->post("new_password", true)) {
                     $insertData['password'] = md5($this->input->post("new_password", true));
-                    $insertData['cpassword'] = $this->input->post("new_password", true);
+                    $insertData['updated_date'] = current_datetime();
+                    // $insertData['cpassword'] = $this->input->post("new_password", true);
                 }
                 $id = $this->input->post("id", true);
-                //pr($id);die;
+                // pr($id);die;
                 $this->Webapi_model->change_pwd($insertData, $id);
-                $action = "view";
-                $module = "pioneer";
-                $description = "Password Changed";
-                
-                activity_logs_app($module, $action, $description, $id);
+               
                 $success = array('ErrorCode' => 0, "message" => "Password Changed Successfully !", 'data' => "1");
                 $this->response($success, 200);
             } else {
@@ -201,34 +221,28 @@ class Webapi extends REST_Controller {
     public function register_post() {
 
         $apikey = $this->input->post('apikey');
-        $image = $this->input->post('image');
         $fname = $this->input->post('fname');
         $lname = $this->input->post('lname');
-        $father_mobile = $this->input->post('father_mobile');
-        $mother_mobile = $this->input->post('mother_mobile');
+        $mobile_no = $this->input->post('mobile_no');
         $email = $this->input->post('email');
-        $admission_number = $this->input->post('admission_number');
-        $aadhar_no = $this->input->post('aadhar_no');
-        $class_id = $this->input->post('class_id');
-        $section_id = $this->input->post('section_id');
+        $password = $this->input->post('password');
 
         if (isPostBack()) {
+
             $this->form_validation->set_rules('fname', 'First Name', "required|alpha");
             $this->form_validation->set_rules('lname', 'Last Name', "required|alpha");
             $this->form_validation->set_rules('email', 'Email id', 'required|is_unique[users.email]|valid_email');
-            $this->form_validation->set_rules('father_mobile', 'Father Mobile no', 'required|min_length[8]|max_length[14]|numeric');
-            $this->form_validation->set_rules('mother_mobile', 'Mother Mobile no', 'required|min_length[8]|max_length[14]|numeric');
-            $this->form_validation->set_rules('admission_number', 'Admission no', 'required|is_unique[users.admission_number]');
-            $this->form_validation->set_rules('aadhar_no', 'Aadhar card no', 'required|min_length[12]|max_length[12]|is_unique[users.aadhar_no]|numeric');
-            $this->form_validation->set_rules('class_id', 'Class Name', 'required');
-            $this->form_validation->set_rules('section_id', 'Section Name', 'required');
+            $this->form_validation->set_rules('mobile_no', 'Mobile no', 'required|min_length[8]|max_length[14]|numeric');
+            $this->form_validation->set_rules('password', 'Password', 'required');
+
+            // $this->form_validation->set_rules('admission_number', 'Admission no', 'required|is_unique[users.admission_number]');
+            // $this->form_validation->set_rules('aadhar_no', 'Aadhar card no', 'required|min_length[12]|max_length[12]|is_unique[users.aadhar_no]|numeric');
+            // $this->form_validation->set_rules('class_id', 'Class Name', 'required');
+            // $this->form_validation->set_rules('section_id', 'Section Name', 'required');
             if ($this->form_validation->run()) {
                 if ($apikey == APIKEY) {
                     $user_id = $this->Webapi_model->add();
-                    $action = "view";
-                    $module = "student";
-                    $description = "New Student registered";
-                    activity_logs($module, $action, $description, $user_id);
+                   
                     $success = array('ErrorCode' => 0, "message" => "Registration Successfully !", 'data' => "1");
                     $this->response($success, 200);
                 } else {
@@ -334,12 +348,12 @@ class Webapi extends REST_Controller {
 
     /* -----------------------------------------------Get Class--------------------------------------------------- */
 
-    public function get_class_post() {
+    public function get_backgound_color_post() {
         $apikey = $this->input->post('apikey');
 
         if ($apikey == APIKEY) {
-            $abc = $this->Webapi_model->class_view();
-            $success = array('ErrorCode' => 0, "message" => "Class Data", 'data' => $abc);
+            $abc = $this->Webapi_model->get_color();
+            $success = array('ErrorCode' => 0, "message" => "Color Data", 'data' => $abc);
             $this->response($success, 200);
         } else {
             $error = array('ErrorCode' => 1, 'message' => 'Api Key does not exist');
@@ -352,27 +366,105 @@ class Webapi extends REST_Controller {
     //*************************************************Get Class Detail ****************************//
 
 
-    public function class_detail_post() {
+    public function upload_picture_post() {
         $apikey = $this->input->post('apikey');
-        $id = $this->input->post('class_id');
+        $id = $this->input->post('type');
+        
+        // pr($_FILES); 
+        // die;
 
+        $dataInfo = array();
+        $files = $_FILES;
+        $cpt = count($_FILES['upload_image']['name']);
 
+      
+        for($i=0; $i<$cpt; $i++)
+        {           
+            $_FILES['upload_image']['name']= $files['upload_image']['name'][$i];
+            $_FILES['upload_image']['type']= $files['upload_image']['type'][$i];
+            $_FILES['upload_image']['tmp_name']= $files['upload_image']['tmp_name'][$i];
+            $_FILES['upload_image']['error']= $files['upload_image']['error'][$i];
+            $_FILES['upload_image']['size']= $files['upload_image']['size'][$i];    
+            
+          
+                        $imageconfig['upload_path'] = 'uploads/upload_images';
+                        $imageconfig['allowed_types'] = 'jpg|jpeg|png|gif';
+                        $imageconfig['encrypt_name'] = TRUE;
+                        $imageconfig['file_name'] = $_FILES['upload_image']['name'];
 
+                        //Load upload library and initialize configuration
+
+                        $this->load->library('upload', $imageconfig);
+                        $this->upload->initialize($imageconfig);
+                        $this->upload->do_upload('upload_image');
+                        
+                        $file_name = $dataInfo[$i]['file_name'];
+                        // pr($file_name); 
+                        $config['image_library'] = 'gd2';
+                        @$config['source_image'] = "uploads/upload_images/$file_name";
+                        $config['maintain_ratio'] = '0';
+                        $config['new_image'] = 'uploads/temp_upload_images';
+                        $config['create_thumb'] = true;
+                        $config['width'] = 100;
+                        $config['height'] = 100;
+
+                        $this->image_lib->clear(); // added this line
+                        $this->image_lib->initialize($config); // added this line
+                        $this->image_lib->resize();
+                        $dataInfo[] = $this->upload->data();
+                        $dataInfo[$i]['thumbnail_name'] = $dataInfo[$i]['raw_name'] . '_thumb' . $dataInfo[$i]['file_ext']; 
+                        $dataInfo[$i]['created_date'] = current_datetime();
+        }
+
+      
+
+       //  pr($dataInfo); 
+         $this->Webapi_model->profilepic($dataInfo);
+         die;
+
+        $profile_image = $_FILES['profile_image']['name'];
+
+       
         if (isPostBack()) {
-            $this->form_validation->set_rules('class_id', 'Class Id', 'trim|required|numeric');
-
+            $this->form_validation->set_rules('type', 'Type', 'trim|required');
 
             if ($this->form_validation->run()) {
 
                 if ($apikey == APIKEY) {
 
-                    $data['chapter'] = $this->Webapi_model->class_details($id);
-                    if (!empty($data)) {
-                        $success = array('ErrorCode' => 0, "message" => "Success", 'data' => $data);
-                        $this->response($success, 200);
+                    if (!empty($profile_image)) {
+                        $new_name = str_replace(" ", "_", $profile_image);
+
+                        $imageconfig['upload_path'] = 'uploads/upload_images';
+                        $imageconfig['allowed_types'] = 'jpg|jpeg|png|gif';
+                        $imageconfig['file_name'] = $new_name;
+
+                        //Load upload library and initialize configuration
+
+                        $this->load->library('upload', $imageconfig);
+                        $this->upload->initialize($imageconfig);
+
+                        if ($this->upload->do_upload('profile_image')) {
+                            $uploadData = $this->upload->data();
+                            $picture = $uploadData['file_name'];
+
+                            die;
+                            $data = $this->Webapi_model->profilepic($id, $new_name);
+
+
+                            if (!empty($data)) {
+                                $success = array('ErrorCode' => 0, "message" => "Success", 'data' => $data);
+                                $this->response($success, 200);
+                            } else {
+                                $success = array('ErrorCode' => 1, "message" => "NO Data Found !");
+                                $this->response($success, 200);
+                            }
+                        } else {
+                            echo $this->upload->display_errors(); 
+                            echo('Image Uploading Error');
+                        }
                     } else {
-                        $success = array('ErrorCode' => 1, "message" => "NO Data Found !");
-                        $this->response($success, 200);
+                        echo "Profile Image field is required";
                     }
                 } else {
                     $error = array('ErrorCode' => 1, 'message' => 'Api Key does not exist');
@@ -391,6 +483,17 @@ class Webapi extends REST_Controller {
     //**************************************************Get Class Detail Ends*****************************//
 
 
+    private function set_upload_options()
+    {   
+        //upload an image options
+        $config = array();
+        $config['upload_path'] = 'uploads/upload_images';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_size']      = '0';
+        $config['overwrite']     = FALSE;
+    
+        return $config;
+    }
 
     /* -----------------------------------------------Get Section--------------------------------------------------- */
 

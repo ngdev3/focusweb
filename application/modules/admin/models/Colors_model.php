@@ -24,6 +24,7 @@ class Colors_model extends CI_Model {
         );
 
         $sql = $this->db->select("cu.*", FALSE)
+        ->where('cu.status !=','delete')
                 ->from("f_color_schemes cu");
 
         if (!empty($requestData['search']['value'])) {

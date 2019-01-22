@@ -26,6 +26,7 @@ class Morning_model extends CI_Model {
         );
 
         $sql = $this->db->select("cu.*", FALSE)
+        ->where('cu.status !=','delete')
                 ->from("f_morning_focus cu");
 
         if (!empty($requestData['search']['value'])) {

@@ -25,6 +25,7 @@ class Leadershipvideo_model extends CI_Model {
 
         $sql = $this->db->select("cu.*", FALSE)
                 ->where("cu.type",'2')
+                ->where('cu.status !=','delete')
                 ->from("f_leadership cu");
 
         if (!empty($requestData['search']['value'])) {
