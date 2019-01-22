@@ -25,13 +25,27 @@
                                                          <button id="delete_btn_list" class="btn sbold green"> Delete
                                                             <i class="fa fa-trash"></i>
                                                         </button>
-                                                      <!--  <select class="form-control edited type-of-project" id="form_control_1">
-                                                        <option value="">Type Of Project</option>
-                                                        <option value="1">Option 1</option>
-                                                        <option value="2">Option 2</option>
-                                                        <option value="3">Option 3</option>
-                                                        <option value="4">Option 4</option>
-                                                    </select>-->
+                                                        <form method="get" id="form_search" >
+											      
+                                                  <div  class="col-md-4">
+                                                    <select name="user_type" class="form-control" id="search_filter" >
+                                                        <option value="">Type Of User</option>
+                                                        <option value="2" <?php if(@$_GET['user_type'] == '2'){echo "selected";}?>>User</option>
+                                                        <option value="3" <?php if(@$_GET['user_type'] == '3'){echo "selected";}?>>Coaches</option>
+                                         
+                                  </select>
+                         
+                                   </div>
+                                   
+                                  
+                                   </div>
+                                  
+                              
+                                  
+                                  
+                                  
+                                   </div>
+                              </form>
                                                     </div>
 													
                                                 </div>
@@ -126,6 +140,10 @@
         $("#search_section").submit();
     }
     
+    $("#search_filter").on("change",function(){
+		$("#form_search").submit();
+	});
+
     
     $(document).ready(function() {
         var table = $('#location-grid').DataTable();

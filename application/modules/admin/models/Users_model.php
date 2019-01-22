@@ -38,6 +38,15 @@ class Users_model extends CI_Model {
             $sql->or_where("cu.email like '%$ser%'");
             $sql->or_where("cu.mobile_no like '%$ser%'");
         }
+
+        if(isset($_GET['user_type']) && $_GET['user_type']!="")
+        {
+              $id=$_GET['user_type'];
+              $sql->where(array("cu.user_type" => $id));
+              
+        }
+
+
         $sql->order_by($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir']);
         $sql1 = clone $sql;
         if ($requestData['length'] != '-1') {  // for showing all records
