@@ -79,7 +79,6 @@ class Users extends MY_Controller {
            } 
             
            // echo $user_id;die;
-            $data['roles'] = get_where("cz_roles",array("status"=>"1"));              
             $data['userData'] = $this->Users_model->profile($user_id);            
             $data['title'] = "Change Password";
             $data['page_title'] = "Change Password";
