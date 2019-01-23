@@ -400,17 +400,17 @@ class Webapi extends REST_Controller {
                         
                         $file_name = $dataInfo[$i]['file_name'];
                         // pr($file_name); 
-                        $config['image_library'] = 'gd2';
-                        @$config['source_image'] = "uploads/upload_images/$file_name";
-                        $config['maintain_ratio'] = '0';
-                        // $config['new_image'] = 'uploads/temp_upload_images';
-                        $config['create_thumb'] = true;
-                        $config['width'] = 100;
-                        $config['height'] = 100;
+                        // $config['image_library'] = 'gd2';
+                        // @$config['source_image'] = "uploads/upload_images/$file_name";
+                        // $config['maintain_ratio'] = '0';
+                        // // $config['new_image'] = 'uploads/temp_upload_images';
+                        // $config['create_thumb'] = true;
+                        // $config['width'] = 100;
+                        // $config['height'] = 100;
 
-                        $this->image_lib->clear(); // added this line
-                        $this->image_lib->initialize($config); // added this line
-                        $this->image_lib->resize();
+                        // $this->image_lib->clear(); // added this line
+                        // $this->image_lib->initialize($config); // added this line
+                        // $this->image_lib->resize();
                         $dataInfo[] = $this->upload->data();
 
                         echo $this->image_lib->display_errors();

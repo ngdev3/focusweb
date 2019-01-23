@@ -1,5 +1,14 @@
 
-                        <!-- END PAGE TITLE-->
+ <style>
+
+.table-scrollable .dataTable td>.btn-group, .table-scrollable .dataTable th>.btn-group {
+    position: relative;
+    margin-top: -2px;
+}
+
+
+</style>
+                       <!-- END PAGE TITLE-->
                         <!-- END PAGE HEADER-->
                         <!-- BEGIN DASHBOARD STATS 1-->
                         <div class="clearfix"></div>
