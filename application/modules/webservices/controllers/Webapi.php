@@ -367,12 +367,12 @@ class Webapi extends REST_Controller {
 
 
     public function upload_picture_post() {
+        $this->load->library('image_lib');
         $apikey = $this->input->post('apikey');
         $id = $this->input->post('type');
+        $user_id = $this->input->post('user_id');
+        $user_type = $this->input->post('user_type');
         
-        // pr($_FILES); 
-        // die;
-
         $dataInfo = array();
         $files = $_FILES;
         $cpt = count($_FILES['upload_image']['name']);
@@ -403,7 +403,7 @@ class Webapi extends REST_Controller {
                         $config['image_library'] = 'gd2';
                         @$config['source_image'] = "uploads/upload_images/$file_name";
                         $config['maintain_ratio'] = '0';
-                        $config['new_image'] = 'uploads/temp_upload_images';
+                        // $config['new_image'] = 'uploads/temp_upload_images';
                         $config['create_thumb'] = true;
                         $config['width'] = 100;
                         $config['height'] = 100;
@@ -412,14 +412,23 @@ class Webapi extends REST_Controller {
                         $this->image_lib->initialize($config); // added this line
                         $this->image_lib->resize();
                         $dataInfo[] = $this->upload->data();
-                        $dataInfo[$i]['thumbnail_name'] = $dataInfo[$i]['raw_name'] . '_thumb' . $dataInfo[$i]['file_ext']; 
-                        $dataInfo[$i]['created_date'] = current_datetime();
+
+                        echo $this->image_lib->display_errors();
+
+                        $dataInfos[$i]['thumbnail_name'] = $dataInfo[$i]['raw_name'] . '_thumb' . $dataInfo[$i]['file_ext']; 
+                        $dataInfos[$i]['created_date'] = current_datetime();
+                        $dataInfos[$i]['file_name'] = $dataInfo[$i]['file_name'];
+                        $dataInfos[$i]['file_ext'] = $dataInfo[$i]['file_ext'];;
+                        $dataInfos[$i]['file_size'] = $dataInfo[$i]['file_size'];;
+                        $dataInfos[$i]['raw_name'] = $dataInfo[$i]['raw_name'];;
+                        $dataInfos[$i]['image_type'] = $dataInfo[$i]['image_type'];;
+                        $dataInfos[$i]['added_by'] = $dataInfo[$i]['raw_name'];;
         }
 
       
 
        //  pr($dataInfo); 
-         $this->Webapi_model->profilepic($dataInfo);
+         $this->Webapi_model->profilepic($dataInfos);
          die;
 
         $profile_image = $_FILES['profile_image']['name'];

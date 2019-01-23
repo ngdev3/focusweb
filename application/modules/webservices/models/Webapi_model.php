@@ -420,18 +420,10 @@ class Webapi_model extends CI_Model {
 
     /* -------------------------------Edit User Profile---------------------------------------------------- */
 
-    public function profilepic($data) {
+    public function profilepic($dataInfo) {
 
-        extract($_POST);
-
-        $image = $new_name;
-    //    $ins['profile_image'] = $image;
-        $data['created_date'] = current_datetime();
-        // $ins['created_date'] = current_datetime();
-
-        pr($data); die;
-        // $whr['id'] = $id;
-        $prof = $this->db->insert_batch("f_temp_image_upload", $data);
+      
+        $prof = $this->db->insert_batch("f_temp_image_upload", $dataInfo);
         return $prof;
     }
 
