@@ -421,9 +421,243 @@ class Webapi_model extends CI_Model {
     /* -------------------------------Edit User Profile---------------------------------------------------- */
 
     public function profilepic($dataInfo) {
+        extract($_POST); 
+        $this->db->select('*');
+        $this->db->from('f_temp_image_upload');
+        $this->db->where('added_by',$user_id);
+        $count = $this->db->get()->num_rows();
+        if($count < 11){
+            
+            $prof = $this->db->insert_batch("f_temp_image_upload", $dataInfo);
+            return $prof;
+        }else{
+            return 0;
+        }
+    }
 
-      
-        $prof = $this->db->insert_batch("f_temp_image_upload", $dataInfo);
+    public function upload_focus($dataInfo) {
+        extract($_POST); 
+        $this->db->select('*');
+        $this->db->from('f_temp_image_upload');
+        $this->db->where('added_by',$user_id);
+        $count = $this->db->get()->num_rows();
+        if($count < 11){
+            
+            $prof = $this->db->insert_batch("f_temp_image_upload", $dataInfo);
+            return $prof;
+        }else{
+            return 0;
+        }
+    }
+
+    public function get_self_mastery($dataInfo) {
+        extract($_POST); 
+
+        if($typeofgoal == 'content'){
+            $type = 1;
+        }else if($typeofgoal == 'video'){
+            $type = 2;
+        }else{
+            return;
+        }
+        $this->db->select('*');
+        $this->db->from('f_self_mastery');
+        $this->db->where('status','active');
+        $this->db->where('type',$type);
+        $this->db->where('added_by','1');
+        $count = $this->db->get()->result();
+        return $count;
+        
+    }
+    public function get_business($dataInfo) {
+        extract($_POST); 
+
+        if($typeofgoal == 'content'){
+            $type = 1;
+        }else if($typeofgoal == 'video'){
+            $type = 2;
+        }else{
+            return;
+        }
+        $this->db->select('*');
+        $this->db->from('f_leadership');
+        $this->db->where('type',$type);
+        $this->db->where('status','active');
+        $this->db->where('added_by','1');
+        $count = $this->db->get()->result();
+        return $count;
+        
+    }
+
+    public function get_master_class($dataInfo) {
+        extract($_POST); 
+
+       
+        $this->db->select('*');
+        $this->db->from('f_master_class');
+        $this->db->where('status','active');
+        $this->db->where('added_by','1');
+        $count = $this->db->get()->result();
+        return $count;
+        
+    }
+    public function f_coaches_center($dataInfo) {
+        extract($_POST); 
+
+       
+        $this->db->select('*');
+        $this->db->from('f_coaches_center');
+        $this->db->where('status','active');
+        $this->db->where('added_by','1');
+        $count = $this->db->get()->result();
+        return $count;
+        
+    }
+
+    public function f_morning_focus($dataInfo) {
+        extract($_POST); 
+
+       
+        $this->db->select('*');
+        $this->db->from('f_morning_focus');
+        $this->db->where('status','active');
+        $this->db->where('added_by','1');
+        $count = $this->db->get()->result();
+        return $count;
+        
+    }
+    public function save_my_goal($dataInfo) {
+        extract($_POST); 
+        // pr($_POST); die;
+
+        $data['target_date'] = $target_date;
+        $data['added_by'] = $user_id;
+        $this->db->insert('f_my_goal',$data);
+        $goalId = $this->db->insert_id();
+
+        $goalIdlog;
+        for($i = 0; $i < count($action_step_title); $i++){
+            $insertstep['title'] = $action_step_title[$i];
+            $insertstep['selected_day'] = $action_days[$i];
+            $insertstep['set_time'] = $action_time[$i];
+            $insertstep['goal_id'] = $goalId;
+            $this->db->insert('f_my_goal_steps',$insertstep);
+            $goalIdlog[] = $this->db->insert_id();
+        }
+        $getid['goal_steps'] = implode(", ",$goalIdlog);
+        pr($goalId);
+        $this->db->where('id', $goalId);
+
+        $this->db->update('f_my_goal', $getid);
+        echo $this->db->affected_rows();
+        die;
+        // return $count;
+        
+    }
+
+    public function get_upload($dataInfo) {
+
+        extract($_POST); 
+        $this->db->select('*');
+        if($typeofgoal == 'vision'){
+          
+            $this->db->from('f_temp_image_upload');
+            
+            
+        }else{
+            
+            $this->db->from('f_temp_image_upload');
+        }
+        $this->db->where('added_by',$user_id);
+        $prof = $this->db->get()->result();
+        return $prof;
+    }
+    public function delete_upload($dataInfo) {
+
+              extract($_POST); 
+        $this->db->select('*');
+        if($typeofgoal == 'vision'){
+          
+            $this->db->from('f_temp_image_upload');
+            $this->db->where('added_by',$user_id);
+            $this->db->where('id',$id);
+            $res = $this->db->get()->row();
+            // pr($res);die;
+            if(!empty($res)){
+                $oldPicture = 'uploads/upload_images/'.$res->file_name;
+                if (file_exists($oldPicture)) {
+    
+                    var_dump($oldPicture);
+                    
+                    // last resort setting
+                    // chmod($oldPicture, 0777);
+                    chmod($oldPicture, 0644);
+                        unlink($oldPicture);
+                        $prof = 'Deleted old image';
+                    } 
+                    else {
+                        $prof  = 'Image file does not exist';
+                    }
+            }
+            $this->db->from('f_temp_image_upload');
+            $this->db->where('added_by',$user_id);
+            $this->db->where('id',$id);
+           $this->db->delete();
+           $prof = $this->db->affected_rows();
+          // pr($prof); die;
+            
+        }else{
+            
+            $this->db->from('f_temp_image_upload');
+            $this->db->where('added_by',$user_id);
+            $this->db->where('id',$id);
+        }
+
+        return $prof;
+    }
+    public function delete_all_upload($dataInfo) {
+
+              extract($_POST); 
+        $this->db->select('*');
+        if($typeofgoal == 'vision'){
+          
+            $this->db->from('f_temp_image_upload');
+            $this->db->where('added_by',$user_id);
+            $res = $this->db->get();
+            $result = $res->result();
+            // pr($result);die;
+            if(!empty($res->num_rows())){
+                foreach($result as $key => $val){
+                    
+                    $oldPicture = 'uploads/upload_images/'.$val->file_name;
+                    if (file_exists($oldPicture)) {
+    
+                        var_dump($oldPicture);
+                        
+                        // last resort setting
+                        // chmod($oldPicture, 0777);
+                        chmod($oldPicture, 0644);
+                            unlink($oldPicture);
+                            $prof = 'Deleted old image';
+                        } 
+                        else {
+                            $prof  = 'Image file does not exist';
+                        }
+
+                }              
+               
+            }
+            $this->db->from('f_temp_image_upload');
+            $this->db->where('added_by',$user_id);
+           $this->db->delete();
+           $prof = $this->db->affected_rows();
+        }else{
+            
+            $this->db->from('f_temp_image_upload');
+            $this->db->where('added_by',$user_id);
+            $this->db->where('id',$id);
+        }
+
         return $prof;
     }
 

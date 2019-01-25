@@ -372,11 +372,37 @@ class Webapi extends REST_Controller {
         $id = $this->input->post('type');
         $user_id = $this->input->post('user_id');
         $user_type = $this->input->post('user_type');
-        
+       
+        if (isPostBack()) {
+            $this->form_validation->set_rules('type', 'Type', 'trim|required');
+            $this->form_validation->set_rules('apikey', 'API Key', 'trim|required');
+            $this->form_validation->set_rules('user_id', 'User ID', 'trim|required');
+            $this->form_validation->set_rules('user_type', 'User Type', 'trim|required');
+
+            if ($this->form_validation->run()) {
+
+                if ($apikey == APIKEY) {
+
+                    if (!empty($_FILES['upload_image'])) {
+
+                         
         $dataInfo = array();
         $files = $_FILES;
         $cpt = count($_FILES['upload_image']['name']);
+        
+        $this->db->select('*');
+        $this->db->from('f_temp_image_upload');
+        $this->db->where('added_by',$user_id);
+        $count = $this->db->get()->num_rows();
+                        $total_length =  $count + $cpt;
+        if(($total_length > 10)){
+            $leftimg = 10 - $count;
+           
+            $success = array('ErrorCode' => 1, "message" => "You can Add Max ".$leftimg .' Images');
+            $this->response($success, 200);
+        }
 
+        // die;
       
         for($i=0; $i<$cpt; $i++)
         {           
@@ -385,86 +411,46 @@ class Webapi extends REST_Controller {
             $_FILES['upload_image']['tmp_name']= $files['upload_image']['tmp_name'][$i];
             $_FILES['upload_image']['error']= $files['upload_image']['error'][$i];
             $_FILES['upload_image']['size']= $files['upload_image']['size'][$i];    
+
+
+            $imageconfig['upload_path'] = 'uploads/upload_images';
+            $imageconfig['allowed_types'] = 'jpg|jpeg|png|gif';
+            $imageconfig['encrypt_name'] = TRUE;
+            $imageconfig['file_name'] = $_FILES['upload_image']['name'];
+
+            //Load upload library and initialize configuration
+
+            $this->load->library('upload', $imageconfig);
+            $this->upload->initialize($imageconfig);
+            $this->upload->do_upload('upload_image');
             
-          
-                        $imageconfig['upload_path'] = 'uploads/upload_images';
-                        $imageconfig['allowed_types'] = 'jpg|jpeg|png|gif';
-                        $imageconfig['encrypt_name'] = TRUE;
-                        $imageconfig['file_name'] = $_FILES['upload_image']['name'];
+            $file_name = $dataInfo[$i]['file_name'];
+            
+            $dataInfo[] = $this->upload->data();
 
-                        //Load upload library and initialize configuration
+           // echo $this->upload->display_errors();
 
-                        $this->load->library('upload', $imageconfig);
-                        $this->upload->initialize($imageconfig);
-                        $this->upload->do_upload('upload_image');
-                        
-                        $file_name = $dataInfo[$i]['file_name'];
-                        // pr($file_name); 
-                        // $config['image_library'] = 'gd2';
-                        // @$config['source_image'] = "uploads/upload_images/$file_name";
-                        // $config['maintain_ratio'] = '0';
-                        // // $config['new_image'] = 'uploads/temp_upload_images';
-                        // $config['create_thumb'] = true;
-                        // $config['width'] = 100;
-                        // $config['height'] = 100;
-
-                        // $this->image_lib->clear(); // added this line
-                        // $this->image_lib->initialize($config); // added this line
-                        // $this->image_lib->resize();
-                        $dataInfo[] = $this->upload->data();
-
-                        echo $this->image_lib->display_errors();
-
-                        $dataInfos[$i]['thumbnail_name'] = $dataInfo[$i]['raw_name'] . '_thumb' . $dataInfo[$i]['file_ext']; 
-                        $dataInfos[$i]['created_date'] = current_datetime();
-                        $dataInfos[$i]['file_name'] = $dataInfo[$i]['file_name'];
-                        $dataInfos[$i]['file_ext'] = $dataInfo[$i]['file_ext'];;
-                        $dataInfos[$i]['file_size'] = $dataInfo[$i]['file_size'];;
-                        $dataInfos[$i]['raw_name'] = $dataInfo[$i]['raw_name'];;
-                        $dataInfos[$i]['image_type'] = $dataInfo[$i]['image_type'];;
-                        $dataInfos[$i]['added_by'] = $dataInfo[$i]['raw_name'];;
+            $dataInfos[$i]['thumbnail_name'] = $dataInfo[$i]['raw_name'] . '_thumb' . $dataInfo[$i]['file_ext']; 
+            $dataInfos[$i]['created_date'] = current_datetime();
+            $dataInfos[$i]['file_name'] = $dataInfo[$i]['file_name'];
+            $dataInfos[$i]['file_ext'] = $dataInfo[$i]['file_ext'];;
+            $dataInfos[$i]['file_size'] = $dataInfo[$i]['file_size'];;
+            $dataInfos[$i]['raw_name'] = $dataInfo[$i]['raw_name'];;
+            $dataInfos[$i]['image_type'] = $dataInfo[$i]['image_type'];;
+            $dataInfos[$i]['added_by'] = $user_id;
         }
 
-      
+                        if ($this->upload->data()) {
 
-       //  pr($dataInfo); 
-         $this->Webapi_model->profilepic($dataInfos);
-         die;
-
-        $profile_image = $_FILES['profile_image']['name'];
-
-       
-        if (isPostBack()) {
-            $this->form_validation->set_rules('type', 'Type', 'trim|required');
-
-            if ($this->form_validation->run()) {
-
-                if ($apikey == APIKEY) {
-
-                    if (!empty($profile_image)) {
-                        $new_name = str_replace(" ", "_", $profile_image);
-
-                        $imageconfig['upload_path'] = 'uploads/upload_images';
-                        $imageconfig['allowed_types'] = 'jpg|jpeg|png|gif';
-                        $imageconfig['file_name'] = $new_name;
-
-                        //Load upload library and initialize configuration
-
-                        $this->load->library('upload', $imageconfig);
-                        $this->upload->initialize($imageconfig);
-
-                        if ($this->upload->do_upload('profile_image')) {
-                            $uploadData = $this->upload->data();
-                            $picture = $uploadData['file_name'];
-
-                            die;
-                            $data = $this->Webapi_model->profilepic($id, $new_name);
-
+                            $data = $this->Webapi_model->profilepic($dataInfos);
 
                             if (!empty($data)) {
+
                                 $success = array('ErrorCode' => 0, "message" => "Success", 'data' => $data);
                                 $this->response($success, 200);
+
                             } else {
+
                                 $success = array('ErrorCode' => 1, "message" => "NO Data Found !");
                                 $this->response($success, 200);
                             }
@@ -473,7 +459,7 @@ class Webapi extends REST_Controller {
                             echo('Image Uploading Error');
                         }
                     } else {
-                        echo "Profile Image field is required";
+                        echo "Image field is required";
                     }
                 } else {
                     $error = array('ErrorCode' => 1, 'message' => 'Api Key does not exist');
@@ -492,29 +478,385 @@ class Webapi extends REST_Controller {
     //**************************************************Get Class Detail Ends*****************************//
 
 
-    private function set_upload_options()
+    public function get_vision_pics_post()
     {   
-        //upload an image options
-        $config = array();
-        $config['upload_path'] = 'uploads/upload_images';
-        $config['allowed_types'] = 'gif|jpg|png';
-        $config['max_size']      = '0';
-        $config['overwrite']     = FALSE;
-    
-        return $config;
+        $apikey = $this->input->post('apikey');
+        $id = $this->input->post('id');
+
+        if (isPostBack()) {
+            $this->form_validation->set_rules('apikey', 'apikey', "required");
+            $this->form_validation->set_rules('user_id', 'User Id', 'required');
+            $this->form_validation->set_rules('typeofgoal', 'Type Goal', 'required');
+            if ($this->form_validation->run()) {
+
+                if ($apikey == APIKEY) {
+
+                    $getdata = $this->Webapi_model->get_upload();
+                    $success = array('ErrorCode' => 0, "message" => "Get Value From !", 'data' => $getdata);
+                    $this->response($success, 200);
+
+                } else {
+                    $error = array('ErrorCode' => 1, 'message' => 'Api Key does not exist');
+                    $this->response($error, 200);
+                }
+            } else {
+                $error = array('ErrorCode' => 1, 'message' => validation_errors());
+                $this->response($error, 200);
+            }
+        } else {
+            $error = array('ErrorCode' => 1, 'message' => 'Use Post Method Only');
+            $this->response($error, 200);
+        }
+    }
+
+
+    public function delete_vision_pics_post()
+    {   
+        $apikey = $this->input->post('apikey');
+        $id = $this->input->post('id');
+
+        if (isPostBack()) {
+            $this->form_validation->set_rules('apikey', 'apikey', "required");
+            $this->form_validation->set_rules('user_id', 'User Id', 'required');
+            $this->form_validation->set_rules('typeofgoal', 'Type Goal', 'required');
+            $this->form_validation->set_rules('id', 'Type Goal', 'required');
+            if ($this->form_validation->run()) {
+
+                if ($apikey == APIKEY) {
+
+                    $getdata = $this->Webapi_model->delete_upload();
+                    //pr($getdata); die;
+                    if($getdata ){
+
+                        $success = array('ErrorCode' => 0, "message" => "Image Deleted Successfully !", 'data' => $getdata);
+                        $this->response($success, 200);
+                    }else{
+                        
+                        $success = array('ErrorCode' => 1, "message" => "Wrong Image", 'data' => "");
+                        $this->response($success, 200);
+                    }
+
+                } else {
+                    $error = array('ErrorCode' => 1, 'message' => 'Api Key does not exist');
+                    $this->response($error, 200);
+                }
+            } else {
+                $error = array('ErrorCode' => 1, 'message' => validation_errors());
+                $this->response($error, 200);
+            }
+        } else {
+            $error = array('ErrorCode' => 1, 'message' => 'Use Post Method Only');
+            $this->response($error, 200);
+        }
     }
 
     /* -----------------------------------------------Get Section--------------------------------------------------- */
 
-    public function get_section_post() {
+    public function delete_all_post() {
         $apikey = $this->input->post('apikey');
+        $id = $this->input->post('id');
 
-        if ($apikey == APIKEY) {
-            $abc = $this->Webapi_model->section_view();
-            $success = array('ErrorCode' => 0, "message" => "Section Data !", 'data' => $abc);
-            $this->response($success, 200);
+        if (isPostBack()) {
+            $this->form_validation->set_rules('apikey', 'apikey', "required");
+            $this->form_validation->set_rules('user_id', 'User Id', 'required');
+            $this->form_validation->set_rules('typeofgoal', 'Type Goal', 'required');
+            if ($this->form_validation->run()) {
+
+                if ($apikey == APIKEY) {
+
+                    $getdata = $this->Webapi_model->delete_all_upload();
+                    //pr($getdata); die;
+                    if($getdata ){
+
+                        $success = array('ErrorCode' => 0, "message" => "Image Deleted Successfully !", 'data' => $getdata);
+                        $this->response($success, 200);
+                    }else{
+                        
+                        $success = array('ErrorCode' => 1, "message" => "No Image Found", 'data' => "");
+                        $this->response($success, 200);
+                    }
+
+                } else {
+                    $error = array('ErrorCode' => 1, 'message' => 'Api Key does not exist');
+                    $this->response($error, 200);
+                }
+            } else {
+                $error = array('ErrorCode' => 1, 'message' => validation_errors());
+                $this->response($error, 200);
+            }
         } else {
-            $error = array('ErrorCode' => 1, 'message' => 'Api Key does not exist');
+            $error = array('ErrorCode' => 1, 'message' => 'Use Post Method Only');
+            $this->response($error, 200);
+        }
+    }
+
+
+
+    public function upload_focus_post() {
+        $apikey = $this->input->post('apikey');
+        $id = $this->input->post('id');
+
+        if (isPostBack()) {
+            $this->form_validation->set_rules('apikey', 'apikey', "required");
+            $this->form_validation->set_rules('user_id', 'User Id', 'required');
+            $this->form_validation->set_rules('background_id', 'Type Goal', 'required');
+            $this->form_validation->set_rules('textforimage', 'Type Goal', 'required');
+            $this->form_validation->set_rules('goal_title', 'Type Goal', 'required');
+            $this->form_validation->set_rules('goal_date', 'Type Goal', 'required');
+            $this->form_validation->set_rules('typeofgoal', 'Type Goal', 'required');
+            if ($this->form_validation->run()) {
+
+                if ($apikey == APIKEY) {
+
+                    $getdata = $this->Webapi_model->upload_focus();
+                    //pr($getdata); die;
+                    if($getdata ){
+
+                        $success = array('ErrorCode' => 0, "message" => "Image Deleted Successfully !", 'data' => $getdata);
+                        $this->response($success, 200);
+                    }else{
+                        
+                        $success = array('ErrorCode' => 1, "message" => "No Image Found", 'data' => "");
+                        $this->response($success, 200);
+                    }
+
+                } else {
+                    $error = array('ErrorCode' => 1, 'message' => 'Api Key does not exist');
+                    $this->response($error, 200);
+                }
+            } else {
+                $error = array('ErrorCode' => 1, 'message' => validation_errors());
+                $this->response($error, 200);
+            }
+        } else {
+            $error = array('ErrorCode' => 1, 'message' => 'Use Post Method Only');
+            $this->response($error, 200);
+        }
+    }
+
+
+    public function get_self_mastery_post() {
+        $apikey = $this->input->post('apikey');
+        $id = $this->input->post('id');
+
+        if (isPostBack()) {
+            $this->form_validation->set_rules('apikey', 'apikey', "required");
+            $this->form_validation->set_rules('user_id', 'User Id', 'required');
+            $this->form_validation->set_rules('typeofgoal', 'Type Goal', 'required');
+            if ($this->form_validation->run()) {
+
+                if ($apikey == APIKEY) {
+
+                    $getdata = $this->Webapi_model->get_self_mastery();
+                    //pr($getdata); die;
+                    if($getdata){
+
+                        $success = array('ErrorCode' => 0, "message" => "Data Found !", 'data' => $getdata);
+                        $this->response($success, 200);
+                    }else{
+                        
+                        $success = array('ErrorCode' => 1, "message" => "Data No Found", 'data' => "");
+                        $this->response($success, 200);
+                    }
+
+                } else {
+                    $error = array('ErrorCode' => 1, 'message' => 'Api Key does not exist');
+                    $this->response($error, 200);
+                }
+            } else {
+                $error = array('ErrorCode' => 1, 'message' => validation_errors());
+                $this->response($error, 200);
+            }
+        } else {
+            $error = array('ErrorCode' => 1, 'message' => 'Use Post Method Only');
+            $this->response($error, 200);
+        }
+    }
+    public function get_business_post() {
+        $apikey = $this->input->post('apikey');
+        $id = $this->input->post('id');
+
+        if (isPostBack()) {
+            $this->form_validation->set_rules('apikey', 'apikey', "required");
+            $this->form_validation->set_rules('user_id', 'User Id', 'required');
+            $this->form_validation->set_rules('typeofgoal', 'Type Goal', 'required');
+            if ($this->form_validation->run()) {
+
+                if ($apikey == APIKEY) {
+
+                    $getdata = $this->Webapi_model->get_business();
+                    //pr($getdata); die;
+                    if($getdata){
+
+                        $success = array('ErrorCode' => 0, "message" => "Data Found !", 'data' => $getdata);
+                        $this->response($success, 200);
+                    }else{
+                        
+                        $success = array('ErrorCode' => 1, "message" => "Data No Found", 'data' => "");
+                        $this->response($success, 200);
+                    }
+
+                } else {
+                    $error = array('ErrorCode' => 1, 'message' => 'Api Key does not exist');
+                    $this->response($error, 200);
+                }
+            } else {
+                $error = array('ErrorCode' => 1, 'message' => validation_errors());
+                $this->response($error, 200);
+            }
+        } else {
+            $error = array('ErrorCode' => 1, 'message' => 'Use Post Method Only');
+            $this->response($error, 200);
+        }
+    }
+
+    public function get_focus_master_post() {
+        $apikey = $this->input->post('apikey');
+        $id = $this->input->post('id');
+
+        if (isPostBack()) {
+            $this->form_validation->set_rules('apikey', 'apikey', "required");
+            $this->form_validation->set_rules('user_id', 'User Id', 'required');
+            if ($this->form_validation->run()) {
+
+                if ($apikey == APIKEY) {
+
+                    $getdata = $this->Webapi_model->get_master_class();
+                    //pr($getdata); die;
+                    if($getdata){
+
+                        $success = array('ErrorCode' => 0, "message" => "Data Found !", 'data' => $getdata);
+                        $this->response($success, 200);
+                    }else{
+                        
+                        $success = array('ErrorCode' => 1, "message" => "Data No Found", 'data' => "");
+                        $this->response($success, 200);
+                    }
+
+                } else {
+                    $error = array('ErrorCode' => 1, 'message' => 'Api Key does not exist');
+                    $this->response($error, 200);
+                }
+            } else {
+                $error = array('ErrorCode' => 1, 'message' => validation_errors());
+                $this->response($error, 200);
+            }
+        } else {
+            $error = array('ErrorCode' => 1, 'message' => 'Use Post Method Only');
+            $this->response($error, 200);
+        }
+    }
+    public function get_coaches_center_post() {
+        $apikey = $this->input->post('apikey');
+        $id = $this->input->post('id');
+
+        if (isPostBack()) {
+            $this->form_validation->set_rules('apikey', 'apikey', "required");
+            $this->form_validation->set_rules('user_id', 'User Id', 'required');
+            if ($this->form_validation->run()) {
+
+                if ($apikey == APIKEY) {
+
+                    $getdata = $this->Webapi_model->f_coaches_center();
+                    //pr($getdata); die;
+                    if($getdata){
+
+                        $success = array('ErrorCode' => 0, "message" => "Data Found !", 'data' => $getdata);
+                        $this->response($success, 200);
+                    }else{
+                        
+                        $success = array('ErrorCode' => 1, "message" => "Data No Found", 'data' => "");
+                        $this->response($success, 200);
+                    }
+
+                } else {
+                    $error = array('ErrorCode' => 1, 'message' => 'Api Key does not exist');
+                    $this->response($error, 200);
+                }
+            } else {
+                $error = array('ErrorCode' => 1, 'message' => validation_errors());
+                $this->response($error, 200);
+            }
+        } else {
+            $error = array('ErrorCode' => 1, 'message' => 'Use Post Method Only');
+            $this->response($error, 200);
+        }
+    }
+    
+    public function get_morning_focus_post() {
+        $apikey = $this->input->post('apikey');
+        $id = $this->input->post('id');
+
+        if (isPostBack()) {
+            $this->form_validation->set_rules('apikey', 'apikey', "required");
+            $this->form_validation->set_rules('user_id', 'User Id', 'required');
+            if ($this->form_validation->run()) {
+
+                if ($apikey == APIKEY) {
+
+                    $getdata = $this->Webapi_model->f_morning_focus();
+                    //pr($getdata); die;
+                    if($getdata){
+
+                        $success = array('ErrorCode' => 0, "message" => "Data Found !", 'data' => $getdata);
+                        $this->response($success, 200);
+                    }else{
+                        
+                        $success = array('ErrorCode' => 1, "message" => "Data No Found", 'data' => "");
+                        $this->response($success, 200);
+                    }
+
+                } else {
+                    $error = array('ErrorCode' => 1, 'message' => 'Api Key does not exist');
+                    $this->response($error, 200);
+                }
+            } else {
+                $error = array('ErrorCode' => 1, 'message' => validation_errors());
+                $this->response($error, 200);
+            }
+        } else {
+            $error = array('ErrorCode' => 1, 'message' => 'Use Post Method Only');
+            $this->response($error, 200);
+        }
+    }
+
+    public function save_my_goal_post() {
+        $apikey = $this->input->post('apikey');
+        $id = $this->input->post('id');
+       // pr($_POST); die;
+        if (isPostBack()) {
+            $this->form_validation->set_rules('apikey', 'apikey', "required");
+            $this->form_validation->set_rules('user_id', 'User Id', 'required');
+            $this->form_validation->set_rules('target_date', 'Target Date', 'required');
+            $this->form_validation->set_rules('action_step_title[]', 'Step Title', 'required');
+            $this->form_validation->set_rules('action_days[]', 'Set Days', 'required');
+            $this->form_validation->set_rules('action_time[]', 'Set Time', 'required');
+            if ($this->form_validation->run()) {
+
+                if ($apikey == APIKEY) {
+
+                    $getdata = $this->Webapi_model->save_my_goal();
+                    //pr($getdata); die;
+                    if($getdata){
+
+                        $success = array('ErrorCode' => 0, "message" => "Data Found !", 'data' => $getdata);
+                        $this->response($success, 200);
+                    }else{
+                        
+                        $success = array('ErrorCode' => 1, "message" => "Data No Found", 'data' => "");
+                        $this->response($success, 200);
+                    }
+
+                } else {
+                    $error = array('ErrorCode' => 1, 'message' => 'Api Key does not exist');
+                    $this->response($error, 200);
+                }
+            } else {
+                $error = array('ErrorCode' => 1, 'message' => validation_errors());
+                $this->response($error, 200);
+            }
+        } else {
+            $error = array('ErrorCode' => 1, 'message' => 'Use Post Method Only');
             $this->response($error, 200);
         }
     }

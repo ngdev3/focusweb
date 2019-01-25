@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 22, 2019 at 06:46 AM
+-- Generation Time: Jan 25, 2019 at 08:15 AM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 5.6.36
 
@@ -179,7 +179,7 @@ CREATE TABLE `f_master_class` (
 --
 
 INSERT INTO `f_master_class` (`id`, `title`, `url`, `description`, `added_by`, `status`, `created_date`, `updated_date`) VALUES
-(1, 'Nam at doloribus ad velit laborum excepteur irure quo minima numquam qui rerum voluptates fugiat id expedita in obcaecati dolorum', 'http://www.fulafy.us', 'Mollit cupidatat quis neque eius laudantium ut reprehenderit tempora voluptatibus ullamco qui quae', 1, 'inactive', '2019-01-16 01:57:18', NULL);
+(1, 'Nam at doloribus ad velit laborum excepteur irure quo minima numquam qui rerum voluptates fugiat id expedita in obcaecati dolorum', 'http://www.fulafy.us', 'Mollit cupidatat quis neque eius laudantium ut reprehenderit tempora voluptatibus ullamco qui quae', 1, 'active', '2019-01-16 01:57:18', '2019-01-24 11:12:27');
 
 -- --------------------------------------------------------
 
@@ -239,6 +239,85 @@ INSERT INTO `f_morning_focus` (`id`, `from_date`, `to_date`, `set_time`, `global
 (1, '2001-03-01', '2019-01-30', '4:10:15 PM', '16:10:15', '16:10:15', 'dfgdfgdgooo', 'dgfdfgdg555', 'delete', 1, '2019-01-16 11:40:16', '2019-01-16 11:27:43'),
 (2, '2019-05-01', '1970-01-01', '4:41:45 PM', '16:41:45', '16:41:45', 'ddd', 'dddd', 'delete', 1, '2019-01-16 12:11:55', '2019-01-16 12:36:51'),
 (3, '2019-01-01', '2019-03-02', '4:46:30 PM', '16:46:30', '16:46:30', 'gdfgd', 'fgdfgdfgdfg', 'active', 1, '2019-01-16 12:16:48', '2019-01-16 06:50:57');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `f_my_goal`
+--
+
+CREATE TABLE `f_my_goal` (
+  `id` int(11) NOT NULL,
+  `target_date` varchar(255) NOT NULL,
+  `goal_steps` varchar(255) NOT NULL,
+  `added_by` int(11) NOT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `updated_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `f_my_goal`
+--
+
+INSERT INTO `f_my_goal` (`id`, `target_date`, `goal_steps`, `added_by`, `created_date`, `updated_date`) VALUES
+(1, '30-01-2019', '', 17, NULL, '2019-01-24 12:04:33'),
+(2, '30-01-2019', '', 17, NULL, '2019-01-24 12:05:47'),
+(3, '30-01-2019', '', 17, NULL, '2019-01-24 12:05:55'),
+(4, '30-01-2019', '', 17, NULL, '2019-01-24 12:06:36'),
+(5, '30-01-2019', '', 17, NULL, '2019-01-24 12:08:06'),
+(6, '30-01-2019', '', 17, NULL, '2019-01-24 12:09:05'),
+(7, '30-01-2019', '', 17, NULL, '2019-01-24 12:09:16'),
+(8, '30-01-2019', '', 17, NULL, '2019-01-24 12:14:03'),
+(9, '30-01-2019', '', 17, NULL, '2019-01-24 12:14:52'),
+(10, '30-01-2019', '', 17, NULL, '2019-01-24 12:17:06'),
+(11, '30-01-2019', '', 17, NULL, '2019-01-24 12:38:06'),
+(12, '30-01-2019', '23, 24', 17, NULL, '2019-01-24 12:38:54');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `f_my_goal_steps`
+--
+
+CREATE TABLE `f_my_goal_steps` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `selected_day` varchar(255) NOT NULL,
+  `set_time` varchar(255) NOT NULL,
+  `goal_id` int(11) DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `updated_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `f_my_goal_steps`
+--
+
+INSERT INTO `f_my_goal_steps` (`id`, `title`, `selected_day`, `set_time`, `goal_id`, `created_date`, `updated_date`) VALUES
+(1, 'Angualr 7', '1', '22:022:33', 1, NULL, '2019-01-24 12:04:33'),
+(2, 'Jquery', '2', '22:022:33', 1, NULL, '2019-01-24 12:04:33'),
+(3, 'Angualr 7', '1', '22:022:33', 2, NULL, '2019-01-24 12:05:47'),
+(4, 'Jquery', '2', '22:022:33', 2, NULL, '2019-01-24 12:05:47'),
+(5, 'Angualr 7', '1', '22:022:33', 3, NULL, '2019-01-24 12:05:55'),
+(6, 'Jquery', '2', '22:022:33', 3, NULL, '2019-01-24 12:05:55'),
+(7, 'Angualr 7', '1', '22:022:33', 4, NULL, '2019-01-24 12:06:37'),
+(8, 'Jquery', '2', '22:022:33', 4, NULL, '2019-01-24 12:06:37'),
+(9, 'Angualr 7', '1', '22:022:33', 5, NULL, '2019-01-24 12:08:06'),
+(10, 'Jquery', '2', '22:022:33', 5, NULL, '2019-01-24 12:08:06'),
+(11, 'Angualr 7', '1', '22:022:33', 6, NULL, '2019-01-24 12:09:05'),
+(12, 'Jquery', '2', '22:022:33', 6, NULL, '2019-01-24 12:09:05'),
+(13, 'Angualr 7', '1', '22:022:33', 7, NULL, '2019-01-24 12:09:16'),
+(14, 'Jquery', '2', '22:022:33', 7, NULL, '2019-01-24 12:09:16'),
+(15, 'Angualr 7', '1', '22:022:33', 8, NULL, '2019-01-24 12:14:03'),
+(16, 'Jquery', '2', '22:022:33', 8, NULL, '2019-01-24 12:14:03'),
+(17, 'Angualr 7', '1', '22:022:33', 9, NULL, '2019-01-24 12:14:52'),
+(18, 'Jquery', '2', '22:022:33', 9, NULL, '2019-01-24 12:14:52'),
+(19, 'Angualr 7', '1', '22:022:33', 10, NULL, '2019-01-24 12:17:06'),
+(20, 'Jquery', '2', '22:022:33', 10, NULL, '2019-01-24 12:17:06'),
+(21, 'Angualr 7', '1', '22:022:33', 11, NULL, '2019-01-24 12:38:06'),
+(22, 'Jquery', '2', '22:022:33', 11, NULL, '2019-01-24 12:38:06'),
+(23, 'Angualr 7', '1', '22:022:33', 12, NULL, '2019-01-24 12:38:54'),
+(24, 'Jquery', '2', '22:022:33', 12, NULL, '2019-01-24 12:38:54');
 
 -- --------------------------------------------------------
 
@@ -470,6 +549,18 @@ ALTER TABLE `f_morning_focus`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `f_my_goal`
+--
+ALTER TABLE `f_my_goal`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `f_my_goal_steps`
+--
+ALTER TABLE `f_my_goal_steps`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `f_payment_log`
 --
 ALTER TABLE `f_payment_log`
@@ -556,6 +647,18 @@ ALTER TABLE `f_membership`
 --
 ALTER TABLE `f_morning_focus`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `f_my_goal`
+--
+ALTER TABLE `f_my_goal`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `f_my_goal_steps`
+--
+ALTER TABLE `f_my_goal_steps`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `f_payment_log`
