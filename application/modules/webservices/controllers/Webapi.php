@@ -413,7 +413,7 @@ class Webapi extends REST_Controller {
             $_FILES['upload_image']['size']= $files['upload_image']['size'][$i];    
 
 
-            $imageconfig['upload_path'] = 'uploads/upload_images';
+            $imageconfig['upload_path'] = 'uploads/temp_upload_images';
             $imageconfig['allowed_types'] = 'jpg|jpeg|png|gif';
             $imageconfig['encrypt_name'] = TRUE;
             $imageconfig['file_name'] = $_FILES['upload_image']['name'];
@@ -555,7 +555,7 @@ class Webapi extends REST_Controller {
     public function delete_all_post() {
         $apikey = $this->input->post('apikey');
         $id = $this->input->post('id');
-
+// die;
         if (isPostBack()) {
             $this->form_validation->set_rules('apikey', 'apikey', "required");
             $this->form_validation->set_rules('user_id', 'User Id', 'required');
@@ -591,25 +591,25 @@ class Webapi extends REST_Controller {
     }
 
 
-
-    public function upload_focus_post() {
+    //My Vision add temp to active table
+    public function upload_vision_post() {
+        //Not compleetd YEt
         $apikey = $this->input->post('apikey');
         $id = $this->input->post('id');
 
         if (isPostBack()) {
             $this->form_validation->set_rules('apikey', 'apikey', "required");
             $this->form_validation->set_rules('user_id', 'User Id', 'required');
-            $this->form_validation->set_rules('background_id', 'Type Goal', 'required');
-            $this->form_validation->set_rules('textforimage', 'Type Goal', 'required');
-            $this->form_validation->set_rules('goal_title', 'Type Goal', 'required');
-            $this->form_validation->set_rules('goal_date', 'Type Goal', 'required');
-            $this->form_validation->set_rules('typeofgoal', 'Type Goal', 'required');
+            $this->form_validation->set_rules('vision_title', 'Vision Title', 'required');
+            $this->form_validation->set_rules('background_id', 'Background ID', 'required');
+            $this->form_validation->set_rules('textforimage', 'Text of Image', 'required');
+            $this->form_validation->set_rules('goal_date', 'Goal Date', 'required');
             if ($this->form_validation->run()) {
 
                 if ($apikey == APIKEY) {
 
-                    $getdata = $this->Webapi_model->upload_focus();
-                    //pr($getdata); die;
+                    $getdata = $this->Webapi_model->upload_vision();
+                    // pr($getdata); die;
                     if($getdata ){
 
                         $success = array('ErrorCode' => 0, "message" => "Image Deleted Successfully !", 'data' => $getdata);
@@ -839,11 +839,97 @@ class Webapi extends REST_Controller {
                     //pr($getdata); die;
                     if($getdata){
 
-                        $success = array('ErrorCode' => 0, "message" => "Data Found !", 'data' => $getdata);
+                        $success = array('ErrorCode' => 0, "message" => "Your Goal Saved Successfully", 'data' => $getdata);
                         $this->response($success, 200);
                     }else{
                         
-                        $success = array('ErrorCode' => 1, "message" => "Data No Found", 'data' => "");
+                        $success = array('ErrorCode' => 1, "message" => "Your Goal Not Saved", 'data' => "");
+                        $this->response($success, 200);
+                    }
+
+                } else {
+                    $error = array('ErrorCode' => 1, 'message' => 'Api Key does not exist');
+                    $this->response($error, 200);
+                }
+            } else {
+                $error = array('ErrorCode' => 1, 'message' => validation_errors());
+                $this->response($error, 200);
+            }
+        } else {
+            $error = array('ErrorCode' => 1, 'message' => 'Use Post Method Only');
+            $this->response($error, 200);
+        }
+    }
+
+
+    public function save_weekly_focus_post() {
+        $apikey = $this->input->post('apikey');
+        $id = $this->input->post('id');
+       // pr($_POST); die;
+        if (isPostBack()) {
+            $this->form_validation->set_rules('apikey', 'apikey', "required");
+            $this->form_validation->set_rules('user_id', 'User Id', 'required');
+            $this->form_validation->set_rules('action_days[]', 'Set Days', 'required');
+            $this->form_validation->set_rules('weekly_focus_title', 'Add Title ', 'required');
+            $this->form_validation->set_rules('set_time', 'Set Time', 'required');
+            $this->form_validation->set_rules('set_reminder', 'Set Reminder', 'required');
+            $this->form_validation->set_rules('set_notification', 'Set Notification', 'required');
+            if ($this->form_validation->run()) {
+
+                if ($apikey == APIKEY) {
+
+                    $getdata = $this->Webapi_model->save_weekly_focus();
+                    //pr($getdata); die;
+                    if($getdata){
+
+                        $success = array('ErrorCode' => 0, "message" => "Your Weekly Focus Saved Successfully", 'data' => $getdata);
+                        $this->response($success, 200);
+                    }else{
+                        
+                        $success = array('ErrorCode' => 1, "message" => "Your Goal Not Saved", 'data' => "");
+                        $this->response($success, 200);
+                    }
+
+                } else {
+                    $error = array('ErrorCode' => 1, 'message' => 'Api Key does not exist');
+                    $this->response($error, 200);
+                }
+            } else {
+                $error = array('ErrorCode' => 1, 'message' => validation_errors());
+                $this->response($error, 200);
+            }
+        } else {
+            $error = array('ErrorCode' => 1, 'message' => 'Use Post Method Only');
+            $this->response($error, 200);
+        }
+    }
+
+    public function save_focus_meeting_post() {
+        $apikey = $this->input->post('apikey');
+        $id = $this->input->post('id');
+       // pr($_POST); die;
+        if (isPostBack()) {
+            $this->form_validation->set_rules('apikey', 'apikey', "required");
+            $this->form_validation->set_rules('user_id', 'User Id', 'required');
+            $this->form_validation->set_rules('action_days[]', 'Set Days', 'required');
+            $this->form_validation->set_rules('meeting_name', 'Add Meeting Name ', 'required');
+            $this->form_validation->set_rules('meeting_goals[]', 'Add Meeting Goals ', 'required');
+            $this->form_validation->set_rules('set_time', 'Set Time', 'required');
+            $this->form_validation->set_rules('set_reminder', 'Set Reminder', 'required');
+            $this->form_validation->set_rules('set_notification', 'Set Notification', 'required');
+            if ($this->form_validation->run()) {
+
+                if ($apikey == APIKEY) {
+
+                    $getdata = $this->Webapi_model->save_focus_meeting();
+                    //pr($getdata); die;
+                    if($getdata){
+
+                        $success = array('ErrorCode' => 0, "message" => "Your Focus Meeting Saved Successfully", 'data' => $getdata);
+                        $this->response($success, 200);
+                    }else{
+                        
+                        $success = array('ErrorCode' => 1, "message" => "Your Goal Not Saved", 'data' => "");
                         $this->response($success, 200);
                     }
 

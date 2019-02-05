@@ -435,20 +435,7 @@ class Webapi_model extends CI_Model {
         }
     }
 
-    public function upload_focus($dataInfo) {
-        extract($_POST); 
-        $this->db->select('*');
-        $this->db->from('f_temp_image_upload');
-        $this->db->where('added_by',$user_id);
-        $count = $this->db->get()->num_rows();
-        if($count < 11){
-            
-            $prof = $this->db->insert_batch("f_temp_image_upload", $dataInfo);
-            return $prof;
-        }else{
-            return 0;
-        }
-    }
+    
 
     public function get_self_mastery($dataInfo) {
         extract($_POST); 
@@ -545,14 +532,90 @@ class Webapi_model extends CI_Model {
             $goalIdlog[] = $this->db->insert_id();
         }
         $getid['goal_steps'] = implode(", ",$goalIdlog);
-        pr($goalId);
         $this->db->where('id', $goalId);
-
         $this->db->update('f_my_goal', $getid);
-        echo $this->db->affected_rows();
-        die;
-        // return $count;
+        $quiz_result_id=    $this->db->affected_rows();
+        return $quiz_result_id;
         
+    }
+    public function save_weekly_focus($dataInfo) {
+        extract($_POST); 
+        
+        $data['days'] = implode(", ",$action_days);
+        $data['weekly_title'] = $weekly_focus_title;
+        $data['set_time'] = $set_time;
+        $data['set_reminder'] = $set_reminder;
+        $data['set_notification'] = $set_notification;
+        $data['status'] = 'active';
+        $data['added_by'] = $user_id;
+        $data['created_date'] = current_datetime();
+        
+        $this->db->insert('f_weekly_focus',$data);
+        $goalId = $this->db->insert_id();
+        return $goalId;
+        
+    }
+    
+    public function save_focus_meeting($dataInfo) {
+        extract($_POST); 
+        // pr($_POST); die;
+
+        $data['days'] = implode(", ",$action_days);
+        $data['meeting_name'] = $meeting_name;
+        $data['set_time'] = $set_time;
+        $data['set_reminder'] = $set_reminder;
+        $data['set_notification'] = $set_notification;
+        $data['added_by'] = $user_id;
+        $data['created_date'] = current_datetime();
+        $this->db->insert('f_focus_meeting',$data);
+        $goalId = $this->db->insert_id();
+
+        $goalIdlog;
+        for($i = 0; $i < count($meeting_goals); $i++){
+            $insertstep['action_step'] = $meeting_goals[$i];
+            $insertstep['added_by'] = $user_id;
+            $insertstep['created_date'] = current_datetime();
+            $insertstep['focus_meeting_id'] = $goalId;
+            $this->db->insert('f_focus_meeting_goals',$insertstep);
+            $goalIdlog[] = $this->db->insert_id();
+        }
+        $getid['meeting_goals'] = implode(", ",$goalIdlog);
+        $this->db->where('id', $goalId);
+        $this->db->update('f_focus_meeting', $getid);
+        $quiz_result_id=    $this->db->affected_rows();
+        return $quiz_result_id;
+        
+    }
+
+    //my vision 
+    public function upload_vision($dataInfo) {
+        extract($_POST); 
+
+        $data['vision_title'] = $vision_title;
+        $data['background_id'] = $background_id;
+        $data['textforimage'] = $textforimage;
+        $data['goal_date'] = $goal_date;
+
+        $this->db->insert('f_my_vision', $data);
+        $lastid = $this->db->insert_id();
+        $sql = 'INSERT INTO f_vision_image_upload (file_name, thumbnail_name, file_ext, added_by, file_size, raw_name, image_type, status, created_date, updated_date, vision_id) SELECT file_name, thumbnail_name, file_ext, added_by, file_size, raw_name, image_type, status, created_date, updated_date FROM f_temp_image_upload WHERE added_by='.$user_id;
+        $query = $this->db->query($sql);
+        echo $sql;
+        echo $this->db->last_query();
+        die;
+        $q = $this->db->get('f_temp_image_upload')->result();
+        $temp_folder = 'uploads/temp_upload_images';
+        $folder = 'uploads/upload_images';
+        foreach($q as $key => $val){
+            chmod($temp_folder, 0755);
+            chmod($folder, 0755);
+            copy('uploads/temp_upload_images/'.$val->file_name,'uploads/upload_images/'.$val->file_name);
+            unlink("uploads/temp_upload_images/".$val->file_name);
+        }
+        $sql = 'DELETE FROM f_temp_image_upload WHERE added_by='.$user_id;
+        $query = $this->db->query($sql);
+        $quiz_result_id = $this->db->affected_rows();
+        echo $quiz_result_id;
     }
 
     public function get_upload($dataInfo) {
@@ -584,7 +647,7 @@ class Webapi_model extends CI_Model {
             $res = $this->db->get()->row();
             // pr($res);die;
             if(!empty($res)){
-                $oldPicture = 'uploads/upload_images/'.$res->file_name;
+                $oldPicture = 'uploads/temp_upload_images/'.$res->file_name;
                 if (file_exists($oldPicture)) {
     
                     var_dump($oldPicture);
@@ -617,7 +680,7 @@ class Webapi_model extends CI_Model {
     }
     public function delete_all_upload($dataInfo) {
 
-              extract($_POST); 
+        extract($_POST); 
         $this->db->select('*');
         if($typeofgoal == 'vision'){
           
@@ -629,7 +692,7 @@ class Webapi_model extends CI_Model {
             if(!empty($res->num_rows())){
                 foreach($result as $key => $val){
                     
-                    $oldPicture = 'uploads/upload_images/'.$val->file_name;
+                    $oldPicture = 'uploads/temp_upload_images/'.$val->file_name;
                     if (file_exists($oldPicture)) {
     
                         var_dump($oldPicture);
