@@ -19,7 +19,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <head>
      <base href="<?php echo base_url();?>/">
 <meta charset="utf-8"/>
-<title> -:: Pioneer | Admin login ::-</title>
+<title> -:: <?php echo project_name; ?> | Admin login ::-</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">

@@ -128,12 +128,12 @@ a[class="mobile-button"] { width:90% !important; padding: 15px !important; borde
                   <span><a style="color:#3a9c95;" href="mailto:<?php echo $data['email']; ?>" target="_blank"><?php echo $data['email']; ?></a></span> <br>
                     Password : <?php echo $data['cpassword']; ?> </p>
                     Please login at
-                   <a style="color:#3a9c95;text-decoration:underline" href="<?php echo base_url();?>"> Pioneer</a> and change your password. </td>
+                   <a style="color:#3a9c95;text-decoration:underline" href="<?php echo base_url();?>"> <?php echo project_name; ?></a> and change your password. </td>
 
               </tr>
               <tr>
                 <td align="left" style="padding: 20px ; font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #757575; background-color:#ffffff; text-align:left;"><span style="font-size:16px;"> Regards,<br>
-               Pioneer </span></td>
+                <?php echo project_name; ?> </span></td>
               </tr>
             </table></td>
         </tr>
