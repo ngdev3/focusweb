@@ -367,6 +367,12 @@ class Webapi extends REST_Controller {
 
 
     public function upload_picture_post() {
+    // pr($_FILES); 
+        // pr($_POST); 
+        // pr($_GET); 
+//echo "dddd";
+    //   die;
+
         $this->load->library('image_lib');
         $apikey = $this->input->post('apikey');
         $id = $this->input->post('type');
@@ -378,14 +384,14 @@ class Webapi extends REST_Controller {
             $this->form_validation->set_rules('apikey', 'API Key', 'trim|required');
             $this->form_validation->set_rules('user_id', 'User ID', 'trim|required');
             $this->form_validation->set_rules('user_type', 'User Type', 'trim|required');
-
+          
             if ($this->form_validation->run()) {
 
                 if ($apikey == APIKEY) {
 
                     if (!empty($_FILES['upload_image'])) {
 
-                         
+            
         $dataInfo = array();
         $files = $_FILES;
         $cpt = count($_FILES['upload_image']['name']);
@@ -403,9 +409,9 @@ class Webapi extends REST_Controller {
         }
 
         // die;
-      
+       
         for($i=0; $i<$cpt; $i++)
-        {           
+        {           echo $files['upload_image']['name'][$i];
             $_FILES['upload_image']['name']= $files['upload_image']['name'][$i];
             $_FILES['upload_image']['type']= $files['upload_image']['type'][$i];
             $_FILES['upload_image']['tmp_name']= $files['upload_image']['tmp_name'][$i];
@@ -440,10 +446,11 @@ class Webapi extends REST_Controller {
             $dataInfos[$i]['added_by'] = $user_id;
         }
 
-                        if ($this->upload->data()) {
-
+       
+                        if ($this->upload->data()) {           
+                            
                             $data = $this->Webapi_model->profilepic($dataInfos);
-
+                           
                             if (!empty($data)) {
 
                                 $success = array('ErrorCode' => 0, "message" => "Success", 'data' => $data);
@@ -462,15 +469,45 @@ class Webapi extends REST_Controller {
                         echo "Image field is required";
                     }
                 } else {
+                    echo "471";
+            die;
                     $error = array('ErrorCode' => 1, 'message' => 'Api Key does not exist');
                     $this->response($error, 200);
                 }
             } else {
+                echo "475";
+            die;
                 $error = array('ErrorCode' => 1, 'message' => validation_errors());
                 $this->response($error, 200);
             }
         } else {
+            echo "479";
+            die;
             $error = array('ErrorCode' => 1, 'message' => 'Use Post Method Only');
+            $this->response($error, 200);
+        }
+    }
+
+
+    public function upload_banner_image_post()
+    {
+        header('Access-Control-Allow-Origin: *');
+       /// pr($_FILES['file']); die;
+        if (isset($_FILES['file']['tmp_name']) && !empty($_FILES['file']['tmp_name']))
+            {
+            $res = $this->Webapi_model->upload_banner_image();
+            if ($res['status'] == 'success') {
+                $success = array('responseCode' => '200', 'responseStatus' => 'success', 'data' => $res);
+                $this->response($success, 200);
+            } else {
+                $error = array('responseCode' => '400', 'responseStatus' => 'error', 'responseMessage' => $res['msg']);
+                $this->response($error, 200);
+            }
+        } else
+            {
+            $result['msg'] = "Image File not Found";
+            $result['status'] = 'error';
+            $error = array('responseCode' => '400', 'responseStatus' => 'error', 'responseMessage' => $result);
             $this->response($error, 200);
         }
     }
@@ -795,7 +832,194 @@ class Webapi extends REST_Controller {
                 if ($apikey == APIKEY) {
 
                     $getdata = $this->Webapi_model->f_morning_focus();
-                    //pr($getdata); die;
+                  //  pr($getdata); die;
+                    if($getdata){
+
+                        $success = array('ErrorCode' => 0, "message" => "Data Found !", 'data' => $getdata);
+                        $this->response($success, 200);
+                    }else{
+                        
+                        $success = array('ErrorCode' => 1, "message" => "Data No Found", 'data' => "");
+                        $this->response($success, 200);
+                    }
+
+                } else {
+                    $error = array('ErrorCode' => 1, 'message' => 'Api Key does not exist');
+                    $this->response($error, 200);
+                }
+            } else {
+                $error = array('ErrorCode' => 1, 'message' => validation_errors());
+                $this->response($error, 200);
+            }
+        } else {
+            $error = array('ErrorCode' => 1, 'message' => 'Use Post Method Only');
+            $this->response($error, 200);
+        }
+    }
+    public function get_focus_meetings_list_post() {
+        $apikey = $this->input->post('apikey');
+        $id = $this->input->post('id');
+
+        if (isPostBack()) {
+            $this->form_validation->set_rules('apikey', 'apikey', "required");
+            $this->form_validation->set_rules('user_id', 'User Id', 'required');
+            if ($this->form_validation->run()) {
+
+                if ($apikey == APIKEY) {
+
+                    $getdata = $this->Webapi_model->get_focus_meetings_list();
+                //    pr($getdata); die;
+                    if($getdata){
+
+                        $success = array('ErrorCode' => 0, "message" => "Data Found !", 'data' => $getdata);
+                        $this->response($success, 200);
+                    }else{
+                        
+                        $success = array('ErrorCode' => 1, "message" => "Data No Found", 'data' => "");
+                        $this->response($success, 200);
+                    }
+
+                } else {
+                    $error = array('ErrorCode' => 1, 'message' => 'Api Key does not exist');
+                    $this->response($error, 200);
+                }
+            } else {
+                $error = array('ErrorCode' => 1, 'message' => validation_errors());
+                $this->response($error, 200);
+            }
+        } else {
+            $error = array('ErrorCode' => 1, 'message' => 'Use Post Method Only');
+            $this->response($error, 200);
+        }
+    }
+
+    public function get_days_post() {
+        $apikey = $this->input->post('apikey');
+        $id = $this->input->post('id');
+
+        if (isPostBack()) {
+            $this->form_validation->set_rules('apikey', 'apikey', "required");
+            $this->form_validation->set_rules('user_id', 'User Id', 'required');
+            if ($this->form_validation->run()) {
+
+                if ($apikey == APIKEY) {
+
+                    $getdata = $this->Webapi_model->get_days();
+                //    pr($getdata); die;
+                    if($getdata){
+
+                        $success = array('ErrorCode' => 0, "message" => "Data Found !", 'data' => $getdata);
+                        $this->response($success, 200);
+                    }else{
+                        
+                        $success = array('ErrorCode' => 1, "message" => "Data No Found", 'data' => "");
+                        $this->response($success, 200);
+                    }
+
+                } else {
+                    $error = array('ErrorCode' => 1, 'message' => 'Api Key does not exist');
+                    $this->response($error, 200);
+                }
+            } else {
+                $error = array('ErrorCode' => 1, 'message' => validation_errors());
+                $this->response($error, 200);
+            }
+        } else {
+            $error = array('ErrorCode' => 1, 'message' => 'Use Post Method Only');
+            $this->response($error, 200);
+        }
+    }
+    
+    public function get_focus_meetings_detail_post() {
+        $apikey = $this->input->post('apikey');
+        $id = $this->input->post('id');
+
+        if (isPostBack()) {
+            $this->form_validation->set_rules('apikey', 'apikey', "required");
+            $this->form_validation->set_rules('user_id', 'User Id', 'required');
+            $this->form_validation->set_rules('meeting_id', 'Meeting ID', 'required');
+            if ($this->form_validation->run()) {
+
+                if ($apikey == APIKEY) {
+
+                    $getdata = $this->Webapi_model->get_meeting_details();
+                  // pr($getdata); die;
+                    if($getdata){
+
+                        $success = array('ErrorCode' => 0, "message" => "Data Found !", 'data' => $getdata);
+                        $this->response($success, 200);
+                    }else{
+                        
+                        $success = array('ErrorCode' => 1, "message" => "Data No Found", 'data' => "");
+                        $this->response($success, 200);
+                    }
+
+                } else {
+                    $error = array('ErrorCode' => 1, 'message' => 'Api Key does not exist');
+                    $this->response($error, 200);
+                }
+            } else {
+                $error = array('ErrorCode' => 1, 'message' => validation_errors());
+                $this->response($error, 200);
+            }
+        } else {
+            $error = array('ErrorCode' => 1, 'message' => 'Use Post Method Only');
+            $this->response($error, 200);
+        }
+    }
+
+    public function get_goal_detail_post() {
+        $apikey = $this->input->post('apikey');
+        $id = $this->input->post('id');
+
+        if (isPostBack()) {
+            $this->form_validation->set_rules('apikey', 'apikey', "required");
+            $this->form_validation->set_rules('user_id', 'User Id', 'required');
+            $this->form_validation->set_rules('goal_id', 'Goal ID', 'required');
+            if ($this->form_validation->run()) {
+
+                if ($apikey == APIKEY) {
+
+                    $getdata = $this->Webapi_model->get_goal_detail();
+                  // pr($getdata); die;
+                    if($getdata){
+
+                        $success = array('ErrorCode' => 0, "message" => "Data Found !", 'data' => $getdata);
+                        $this->response($success, 200);
+                    }else{
+                        
+                        $success = array('ErrorCode' => 1, "message" => "Data No Found", 'data' => "");
+                        $this->response($success, 200);
+                    }
+
+                } else {
+                    $error = array('ErrorCode' => 1, 'message' => 'Api Key does not exist');
+                    $this->response($error, 200);
+                }
+            } else {
+                $error = array('ErrorCode' => 1, 'message' => validation_errors());
+                $this->response($error, 200);
+            }
+        } else {
+            $error = array('ErrorCode' => 1, 'message' => 'Use Post Method Only');
+            $this->response($error, 200);
+        }
+    }
+
+
+    public function get_goal_list_post() {
+        $apikey = $this->input->post('apikey');
+        $id = $this->input->post('id');
+
+        if (isPostBack()) {
+            $this->form_validation->set_rules('apikey', 'apikey', "required");
+            $this->form_validation->set_rules('user_id', 'User Id', 'required');
+            if ($this->form_validation->run()) {
+
+                if ($apikey == APIKEY) {
+
+                    $getdata = $this->Webapi_model->get_goal_list();
+                  // pr($getdata); die;
                     if($getdata){
 
                         $success = array('ErrorCode' => 0, "message" => "Data Found !", 'data' => $getdata);
@@ -827,6 +1051,7 @@ class Webapi extends REST_Controller {
         if (isPostBack()) {
             $this->form_validation->set_rules('apikey', 'apikey', "required");
             $this->form_validation->set_rules('user_id', 'User Id', 'required');
+            $this->form_validation->set_rules('goal_name', 'Goal Name', 'required');
             $this->form_validation->set_rules('target_date', 'Target Date', 'required');
             $this->form_validation->set_rules('action_step_title[]', 'Step Title', 'required');
             $this->form_validation->set_rules('action_days[]', 'Set Days', 'required');
@@ -914,6 +1139,7 @@ class Webapi extends REST_Controller {
             $this->form_validation->set_rules('action_days[]', 'Set Days', 'required');
             $this->form_validation->set_rules('meeting_name', 'Add Meeting Name ', 'required');
             $this->form_validation->set_rules('meeting_goals[]', 'Add Meeting Goals ', 'required');
+            $this->form_validation->set_rules('set_date', 'Set Date', 'required');
             $this->form_validation->set_rules('set_time', 'Set Time', 'required');
             $this->form_validation->set_rules('set_reminder', 'Set Reminder', 'required');
             $this->form_validation->set_rules('set_notification', 'Set Notification', 'required');
@@ -922,6 +1148,51 @@ class Webapi extends REST_Controller {
                 if ($apikey == APIKEY) {
 
                     $getdata = $this->Webapi_model->save_focus_meeting();
+                    //pr($getdata); die;
+                    if($getdata){
+
+                        $success = array('ErrorCode' => 0, "message" => "Your Focus Meeting Saved Successfully", 'data' => $getdata);
+                        $this->response($success, 200);
+                    }else{
+                        
+                        $success = array('ErrorCode' => 1, "message" => "Your Goal Not Saved", 'data' => "");
+                        $this->response($success, 200);
+                    }
+
+                } else {
+                    $error = array('ErrorCode' => 1, 'message' => 'Api Key does not exist');
+                    $this->response($error, 200);
+                }
+            } else {
+                $error = array('ErrorCode' => 1, 'message' => validation_errors());
+                $this->response($error, 200);
+            }
+        } else {
+            $error = array('ErrorCode' => 1, 'message' => 'Use Post Method Only');
+            $this->response($error, 200);
+        }
+    }
+
+    
+    public function update_focus_meeting_post() {
+        $apikey = $this->input->post('apikey');
+        $id = $this->input->post('id');
+       // pr($_POST); die;
+        if (isPostBack()) {
+            $this->form_validation->set_rules('apikey', 'apikey', "required");
+            $this->form_validation->set_rules('user_id', 'User Id', 'required');
+            $this->form_validation->set_rules('action_days[]', 'Set Days', 'required');
+            $this->form_validation->set_rules('meeting_name', 'Add Meeting Name ', 'required');
+            $this->form_validation->set_rules('meeting_goals[]', 'Add Meeting Goals ', 'required');
+            $this->form_validation->set_rules('set_date', 'Set Date', 'required');
+            $this->form_validation->set_rules('set_time', 'Set Time', 'required');
+            $this->form_validation->set_rules('set_reminder', 'Set Reminder', 'required');
+            $this->form_validation->set_rules('set_notification', 'Set Notification', 'required');
+            if ($this->form_validation->run()) {
+
+                if ($apikey == APIKEY) {
+
+                    $getdata = $this->Webapi_model->update_focus_meeting();
                     //pr($getdata); die;
                     if($getdata){
 

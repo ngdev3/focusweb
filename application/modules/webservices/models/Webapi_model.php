@@ -427,12 +427,63 @@ class Webapi_model extends CI_Model {
         $this->db->where('added_by',$user_id);
         $count = $this->db->get()->num_rows();
         if($count < 11){
-            
+            echo "dddd";
+            pr($dataInfo);
+            die;
             $prof = $this->db->insert_batch("f_temp_image_upload", $dataInfo);
             return $prof;
         }else{
             return 0;
         }
+    }
+
+    public function upload_banner_image()
+    {
+
+            $asd = $_FILES['file'];
+            $path = $_FILES['file']['name'];
+            //  $ext = pathinfo($path, PATHINFO_EXTENSION);
+            $name = md5(time());
+            $file_name = $_FILES['file']['name'];
+            //  $thumb = $name . "_thumb." . $ext;
+            $_FILES['file']['name'] = $file_name;
+            $imageconfig['upload_path'] = 'uploads/temp_upload_images';
+            $imageconfig['allowed_types'] = 'jpg|jpeg|png|gif';
+            $imageconfig['encrypt_name'] = TRUE;
+
+        $this->upload->initialize($imageconfig);
+        if (!$this->upload->do_upload('file')) {
+            $result['msg'] = $this->upload->display_errors();
+          //  $result['msg'] =  json_encode($asd);
+            $result['status'] = 'error';
+
+
+        } else {
+            $upload_data = $this->upload->data();
+            $file_name = $upload_data['file_name'];
+
+            $config['image_library'] = 'gd2';
+            @$config['source_image'] = "./uploads/temp_files/$file_name";
+            $config['maintain_ratio'] = '0';
+            $config['create_thumb'] = true;
+            $config['width'] = 100;
+            $config['height'] = 100;
+            $this->image_lib->clear(); // added this line
+            $this->image_lib->initialize($config); // added this line 
+
+            if (!$this->image_lib->resize())
+                {
+                $result['msg'] = $this->image_lib->display_errors();
+                $result['status'] = 'error';
+            } else
+                {
+                $data = $this->upload->data();
+                $result['result'] = $data['raw_name'] . '_thumb' . $data['file_ext'];
+                $result['status'] = 'success';
+                $result['msg'] = 'File Uploaded Successfully';
+            }
+        }
+        return $result;
     }
 
     
@@ -509,25 +560,153 @@ class Webapi_model extends CI_Model {
         $this->db->from('f_morning_focus');
         $this->db->where('status','active');
         $this->db->where('added_by','1');
-        $count = $this->db->get()->result();
+        $count = $this->db->get()->result_array();
+        // $count[] ='ff';
         return $count;
         
     }
+        public function get_focus_meetings_list($dataInfo) {
+            extract($_POST); 
+            $this->db->select('*');
+            $this->db->from('f_focus_meeting');
+            $this->db->where('status','active');
+            $this->db->where('added_by',$user_id);
+            $count = $this->db->get()->result_array();
+            // $count[] ='ff';
+            return $count;
+            
+        }
+    public function get_days($dataInfo) {
+        extract($_POST); 
+        $this->db->select('*');
+        $this->db->from('f_days');
+        $count = $this->db->get()->result_array();
+        // $count[] ='ff';
+        return $count;
+        
+    }
+
+    public function get_meeting_details($dataInfo) {
+        extract($_POST);
+       
+        $this->db->select('ffm.*');
+
+        // $this->db->join('f_focus_meeting_goals as fmg','ffm.id = fmg.focus_meeting_id','left');
+        $this->db->where('ffm.id',$meeting_id);
+        $this->db->where('ffm.added_by',$user_id);
+        $this->db->from('f_focus_meeting ffm');
+        $count = $this->db->get()->row();
+       // echo $count->meeting_goals; die;
+        $goalid = explode(', ',$count->meeting_goals);
+        $goal_days = explode(', ',$count->days);
+        $totaldays = $this->db->get('f_days')->result();
+        foreach($goal_days as $key => $val){
+            $this->db->select('fmg.*');
+            $this->db->where('fmg.id',$val);
+            $this->db->from('f_days fmg');
+            $goal_dayss[] = $this->db->get()->row();
+       
+
+        }
+        foreach($goalid as $key => $val){
+            $this->db->select('fmg.*');
+            $this->db->where('fmg.id',$val);
+            $this->db->from('f_focus_meeting_goals fmg');
+            $goals[] = $this->db->get()->row();
+        }
+// die;
+        $data['focus_data'] = $count;
+        $data['goal_name'] = $goals;
+        $data['goal_days'] = $goal_dayss;
+        return $data;
+        
+    }
+
+    public function get_goal_detail($dataInfo) {
+        extract($_POST);
+       
+        $this->db->select('ffm.*');
+        $this->db->where('ffm.id',$goal_id);
+        $this->db->where('ffm.added_by',$user_id);
+        $this->db->from('f_my_goal ffm');
+        $count = $this->db->get()->row();
+        $goalid = explode(', ',$count->goal_steps);
+
+        foreach($goalid as $key => $val){
+            $this->db->select('fmg.*');
+            $this->db->where('fmg.id',$val);
+            $this->db->from('f_my_goal_steps fmg');
+            $goal_dayss[] = $this->db->get()->row();
+        }
+
+        foreach($goal_dayss as $key => $val){
+            $selected_day[] = explode(', ',$val->selected_day);
+            // pr($selected_day); 
+            // $this->db->select('fmg.*');
+            // $this->db->where('fmg.id',$selected_day[$key]);
+            // $this->db->from('f_days fmg');
+            // $goal_daysss[] = $this->db->get()->row();
+            // die;
+        }
+    //    pr( $goal_daysss);
+        foreach($selected_day as $key => $val){
+            foreach($val as $key => $val){
+                $resolve_day[] = $val; 
+                pr($resolve_day); 
+                $this->db->select('fmg.*');
+                $this->db->where('fmg.id',$val);
+                $this->db->from('f_days fmg');
+                $goal_daysss[] = $this->db->get()->row();
+
+           }
+            // $this->db->select('fmg.*');
+            // $this->db->where('fmg.id',$val[$key]);
+            // $this->db->from('f_days fmg');
+            // $goal_daysss[] = $this->db->get()->row();
+            // $selected_day[] = explode(', ',$val->selected_day);
+        }
+        
+       die;
+        $data['goal_data'] = $count;
+        $data['goal_action_step'] = $goal_dayss;
+        $data['goal_days'] = $selected_day;
+        return $data;
+        
+    }
+
+    
+    public function get_goal_list($dataInfo) {
+        extract($_POST);
+       
+        $this->db->select('ffm.*');
+        $this->db->where('ffm.added_by',$user_id);
+        $this->db->from('f_my_goal ffm');
+        $data = $this->db->get()->result();
+      
+        return $data;
+        
+    }
+
+
     public function save_my_goal($dataInfo) {
         extract($_POST); 
-        // pr($_POST); die;
+        //pr($_POST); die;
 
         $data['target_date'] = $target_date;
         $data['added_by'] = $user_id;
+        $data['goal_name'] = $goal_name;
+        $data['created_date'] = current_datetime();
         $this->db->insert('f_my_goal',$data);
         $goalId = $this->db->insert_id();
 
         $goalIdlog;
         for($i = 0; $i < count($action_step_title); $i++){
+
             $insertstep['title'] = $action_step_title[$i];
-            $insertstep['selected_day'] = $action_days[$i];
+            $insertstep['selected_day'] = implode(", ",$action_days[$i]);
             $insertstep['set_time'] = $action_time[$i];
             $insertstep['goal_id'] = $goalId;
+            $insertstep['created_date'] = current_datetime();
             $this->db->insert('f_my_goal_steps',$insertstep);
             $goalIdlog[] = $this->db->insert_id();
         }
@@ -558,13 +737,14 @@ class Webapi_model extends CI_Model {
     
     public function save_focus_meeting($dataInfo) {
         extract($_POST); 
-        // pr($_POST); die;
+       // pr($meeting_goals); 
 
         $data['days'] = implode(", ",$action_days);
         $data['meeting_name'] = $meeting_name;
         $data['set_time'] = $set_time;
         $data['set_reminder'] = $set_reminder;
         $data['set_notification'] = $set_notification;
+        $data['set_date'] = $set_date;
         $data['added_by'] = $user_id;
         $data['created_date'] = current_datetime();
         $this->db->insert('f_focus_meeting',$data);
@@ -572,7 +752,8 @@ class Webapi_model extends CI_Model {
 
         $goalIdlog;
         for($i = 0; $i < count($meeting_goals); $i++){
-            $insertstep['action_step'] = $meeting_goals[$i];
+          //  pr();
+            $insertstep['action_step'] = $meeting_goals[$i]['campuses'];
             $insertstep['added_by'] = $user_id;
             $insertstep['created_date'] = current_datetime();
             $insertstep['focus_meeting_id'] = $goalId;
@@ -584,6 +765,45 @@ class Webapi_model extends CI_Model {
         $this->db->update('f_focus_meeting', $getid);
         $quiz_result_id=    $this->db->affected_rows();
         return $quiz_result_id;
+        
+    }
+
+
+
+
+    public function update_focus_meeting($dataInfo) {
+        extract($_POST); 
+       // pr($meeting_goals); 
+
+        $data['days'] = implode(", ",$action_days);
+        $data['meeting_name'] = $meeting_name;
+        $data['set_time'] = $set_time;
+        $data['set_reminder'] = $set_reminder;
+        $data['set_notification'] = $set_notification;
+        $data['set_date'] = $set_date;
+        $data['added_by'] = $user_id;
+        $data['created_date'] = current_datetime();
+        $this->db->where('id', $meeting);
+        $this->db->update('f_focus_meeting',$data);
+        $goalId = $this->db->affected_rows();
+        $goalIdlog;
+
+        $this->db->where('id', $meeting);
+        $totaldays = $this->db->get('f_focus_meeting')->row();
+        $getid = explode(", ",$totaldays->meeting_goals);
+       // pr($getid); die;
+
+        for($i = 0; $i < count($getid); $i++){
+          
+            $insertstep['action_step'] = $meeting_goals[$i]['campuses'];
+            $insertstep['updated_date'] = current_datetime();
+            // pr($meeting_goals[$i]); die;
+            $this->db->where('id', $getid[$i]);
+            $this->db->update('f_focus_meeting_goals',$insertstep);
+            $goalIdlog = $this->db->affected_rows();
+        }
+      
+        return $goalIdlog;
         
     }
 
