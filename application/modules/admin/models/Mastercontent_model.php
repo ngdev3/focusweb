@@ -616,6 +616,7 @@ class Mastercontent_model extends CI_Model {
     public function category()
     {
         $res = $this->db->select("*")
+        ->where("status",'active')
                 ->from("f_coach_category")
                 ->get();
                // pr($res);die;
