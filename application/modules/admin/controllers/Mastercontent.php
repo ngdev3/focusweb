@@ -31,12 +31,15 @@ class Mastercontent extends MY_Controller {
 
     function add() {
     //  pr($_POST); die;
+
         $data['page_title'] = "Add Self Mastery Content";
         $data['page'] = "mastercontent/add";
         $data['title'] = "Add Self Mastery Content";
+        $data['category'] = $this->mastercontent_model->category();
         $data['breadcrumb'] = array("Dashboard" => base_url(), "Self Mastery Content Listing" => base_url('admin/mastercontent/listing'), "Add Self Mastery Content" => base_url('admin/mastercontent/add'));
 
-        $this->form_validation->set_rules('content_title', 'Content Ttle', "trim|required");
+        $this->form_validation->set_rules('category', 'Category', "trim|required");
+        $this->form_validation->set_rules('content_title', 'Content Title', "trim|required");
         $this->form_validation->set_rules('description', 'Description', 'trim|required');
         $this->form_validation->set_rules('status', 'Status', 'trim|required');
         if ($this->form_validation->run() == TRUE) {
@@ -51,6 +54,8 @@ class Mastercontent extends MY_Controller {
     public function edit() {
         $id = ID_decode($this->uri->segment('4'));
         $data['res'] = $this->mastercontent_model->viewData($id);
+        $data['category'] = $this->mastercontent_model->category();
+        $this->form_validation->set_rules('category', 'Category', "trim|required");
         $this->form_validation->set_rules('content_title', 'Video Ttle', "trim|required");
         // $this->form_validation->set_rules('video_url', 'Video Url', "trim|required");
         $this->form_validation->set_rules('description', 'Description', 'trim|required');

@@ -14,6 +14,23 @@
                     <div class="form-body">
                         <div class="row">
                            
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="form-group form-md-line-input form-md-floating-label">
+                                    <select class="form-control edited" name="category" id="category">
+                                        <option value="">Select Category Type</option>
+                                        <?php if(!empty($category)):?>
+                                        <?php foreach($category as $key => $val):?>
+                                        <option <?php if(@$res->category == $val->id){ echo "selected"; }?> value="<?php echo $val->id?>"> <?php echo $val->title;?></option>
+                                        <?php endforeach;?>
+                                        <?php endif;?>
+                                    </select>
+                                    <!-- <?php pr($res);?> -->
+                                    <div class="text-danger"><?php echo form_error("category"); ?></div>
+
+                                    <label for="type">Category Type<span class="red_sign">*</span></label>
+
+                                </div>
+                            </div>
                             
                             
                               <div class="col-md-6 col-sm-6 col-xs-12">
@@ -131,6 +148,11 @@
                                          },                                        
                                          
                                          
+                                         category:
+                                            {
+                                                required: true
+                                            },
+                                            
                                        status:
                                             {
                                                 required: true
@@ -171,6 +193,12 @@
                                             {
                                                 required: "Please Select Status!"
                                             },
+                                              
+                                            category:
+                                            {
+                                                required: "Please Select Category!"
+                                            },
+                                            
                                             
                                            
                                             

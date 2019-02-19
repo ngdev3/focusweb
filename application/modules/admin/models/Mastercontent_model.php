@@ -93,6 +93,7 @@ class Mastercontent_model extends CI_Model {
         $ins['description'] = $description;
         $ins['status'] = $status;
         $ins['added_by'] = getUserInfos()->id;
+        $ins['category'] = $category;
         $ins['created_date'] = current_datetime();
         // pr($ins); 
         
@@ -110,6 +111,7 @@ class Mastercontent_model extends CI_Model {
         $ins['status'] = $status;
         $ins['added_by'] = getUserInfos()->id;
         $ins['updated_date'] = current_datetime();
+        $ins['category'] = $category;
         $whr['id'] = $id;
         $this->db->update("f_self_mastery", $ins, $whr);
     }
@@ -609,6 +611,15 @@ class Mastercontent_model extends CI_Model {
                 ->row();
                // pr($res);die;
         return $res->quoted_amount;
+    }
+
+    public function category()
+    {
+        $res = $this->db->select("*")
+                ->from("f_coach_category")
+                ->get();
+               // pr($res);die;
+        return $res->result();
     }
 
     

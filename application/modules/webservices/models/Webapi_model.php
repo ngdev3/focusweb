@@ -633,43 +633,41 @@ class Webapi_model extends CI_Model {
         $goalid = explode(', ',$count->goal_steps);
 
         foreach($goalid as $key => $val){
-            $this->db->select('fmg.*');
+            $this->db->select('fmg.title, fmg.selected_day, fmg.set_time');
             $this->db->where('fmg.id',$val);
             $this->db->from('f_my_goal_steps fmg');
-            $goal_dayss[] = $this->db->get()->row();
+            $cde = $this->db->get()->row();
+            $active_record[]['set']  =  $cde;
+            $goal_dayss[] =  $cde;
         }
+
 
         foreach($goal_dayss as $key => $val){
             $selected_day[] = explode(', ',$val->selected_day);
-            // pr($selected_day); 
-            // $this->db->select('fmg.*');
-            // $this->db->where('fmg.id',$selected_day[$key]);
-            // $this->db->from('f_days fmg');
-            // $goal_daysss[] = $this->db->get()->row();
-            // die;
         }
-    //    pr( $goal_daysss);
-        foreach($selected_day as $key => $val){
-            foreach($val as $key => $val){
-                $resolve_day[] = $val; 
-                pr($resolve_day); 
-                $this->db->select('fmg.*');
-                $this->db->where('fmg.id',$val);
+        for($i=0; $i< count($selected_day); $i++){
+            
+            for($j=0; $j<count($selected_day[$i]);$j++){
+                $this->db->select('fmg.id, fmg.short_name');
+                $this->db->where('fmg.id',$selected_day[$i][$j]);
                 $this->db->from('f_days fmg');
-                $goal_daysss[] = $this->db->get()->row();
-
-           }
-            // $this->db->select('fmg.*');
-            // $this->db->where('fmg.id',$val[$key]);
-            // $this->db->from('f_days fmg');
-            // $goal_daysss[] = $this->db->get()->row();
-            // $selected_day[] = explode(', ',$val->selected_day);
+                $abc[$i][$j]= $this->db->get()->row();
+            }
+       }
+        foreach($selected_day as $key => $val){
+            //  pr($val); 
+            //  $this->db->select('fmg.*');
+            //  $this->db->where('fmg.id',$val);
+            //  $this->db->from('f_days fmg');
+            //  $goal_daysss[] = $this->db->get()->row();
+           
         }
         
-       die;
+    //    die;
         $data['goal_data'] = $count;
         $data['goal_action_step'] = $goal_dayss;
-        $data['goal_days'] = $selected_day;
+        $data['goal_days'] = $abc;
+        // $data['active_record'] = $active_record[]$abc;
         return $data;
         
     }
@@ -715,6 +713,40 @@ class Webapi_model extends CI_Model {
         $this->db->update('f_my_goal', $getid);
         $quiz_result_id=    $this->db->affected_rows();
         return $quiz_result_id;
+        
+    }
+    public function update_my_goal($dataInfo) {
+        extract($_POST); 
+        //pr($_POST); die;
+
+        $data['target_date'] = $target_date;
+        $data['goal_name'] = $goal_name;
+        $data['updated_date'] = current_datetime();
+        // $data['added_by'] = $user_id;
+        $this->db->where('id', $goal_id);
+        $this->db->where('added_by', $user_id);
+        $this->db->update('f_my_goal',$data);
+        $goalId = $this->db->affected_rows();
+
+        $goalIdlog;
+        
+        $this->db->where('id', $goal_id);
+        $totaldays = $this->db->get('f_my_goal')->row();
+        $getid = explode(", ",$totaldays->goal_steps);
+        for($i = 0; $i < count($getid); $i++){
+          // pr($getid);
+            $insertstep['title'] = $action_step_title[$i];
+            $insertstep['selected_day'] = implode(", ",$action_days[$i]);
+            $insertstep['set_time'] = $action_time[$i];
+            $insertstep['goal_id'] = $goalId;
+            $insertstep['updated_date'] = current_datetime();
+            // pr($insertstep); die;
+             $this->db->where('id', $getid[$i]);
+            $this->db->update('f_my_goal_steps',$insertstep);
+            $goalIdlog[] = $this->db->affected_rows();
+        }
+        
+        return $goalIdlog;
         
     }
     public function save_weekly_focus($dataInfo) {

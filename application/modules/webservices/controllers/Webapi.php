@@ -1086,6 +1086,49 @@ class Webapi extends REST_Controller {
         }
     }
 
+    public function update_my_goal_post() {
+        $apikey = $this->input->post('apikey');
+        $id = $this->input->post('id');
+       // pr($_POST); die;
+        if (isPostBack()) {
+            $this->form_validation->set_rules('apikey', 'apikey', "required");
+            $this->form_validation->set_rules('user_id', 'User Id', 'required');
+            $this->form_validation->set_rules('goal_id', 'Goal Id', 'required');
+            $this->form_validation->set_rules('goal_name', 'Goal Name', 'required');
+            $this->form_validation->set_rules('target_date', 'Target Date', 'required');
+            $this->form_validation->set_rules('action_step_title[]', 'Step Title', 'required');
+            $this->form_validation->set_rules('action_days[]', 'Set Days', 'required');
+            $this->form_validation->set_rules('action_time[]', 'Set Time', 'required');
+            if ($this->form_validation->run()) {
+
+                if ($apikey == APIKEY) {
+
+                    $getdata = $this->Webapi_model->update_my_goal();
+                    //pr($getdata); die;
+                    if($getdata){
+
+                        $success = array('ErrorCode' => 0, "message" => "Your Goal Updated Successfully", 'data' => $getdata);
+                        $this->response($success, 200);
+                    }else{
+                        
+                        $success = array('ErrorCode' => 1, "message" => "Your Goal Not Saved", 'data' => "");
+                        $this->response($success, 200);
+                    }
+
+                } else {
+                    $error = array('ErrorCode' => 1, 'message' => 'Api Key does not exist');
+                    $this->response($error, 200);
+                }
+            } else {
+                $error = array('ErrorCode' => 1, 'message' => validation_errors());
+                $this->response($error, 200);
+            }
+        } else {
+            $error = array('ErrorCode' => 1, 'message' => 'Use Post Method Only');
+            $this->response($error, 200);
+        }
+    }
+
 
     public function save_weekly_focus_post() {
         $apikey = $this->input->post('apikey');
