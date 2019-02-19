@@ -487,6 +487,17 @@ class Webapi_model extends CI_Model {
     }
 
     
+    public function category($type)
+    {
+        $res = $this->db->select("*")
+                 ->where("status",'active')
+                 ->where("type",$type)
+                ->from("f_coach_category")
+                ->get();
+               // pr($res);die;
+        return $res->result();
+    }
+
 
     public function get_self_mastery($dataInfo) {
         extract($_POST); 
@@ -498,13 +509,29 @@ class Webapi_model extends CI_Model {
         }else{
             return;
         }
-        $this->db->select('*');
-        $this->db->from('f_self_mastery');
-        $this->db->where('status','active');
-        $this->db->where('type',$type);
-        $this->db->where('added_by','1');
+        $this->db->select('ss.*, cc.title as cc_title, cc.id as cc_id');
+        $this->db->from('f_self_mastery ss');
+        $this->db->join('f_coach_category as cc','cc.id = ss.category','left');
+        $this->db->where('ss.status','active');
+        $this->db->where('ss.type',$type);
+        $this->db->where('ss.added_by','1');
         $count = $this->db->get()->result();
-        return $count;
+        foreach($count as $key => $val){
+            if($val->cc_id == 1){
+                $data['first'][] = $val;
+            }else if($val->cc_id == 2){
+                $data['second'][] = $val;
+            }else if($val->cc_id == 3){
+                $data['third'][] = $val;
+            }else if($val->cc_id == 4){
+                $data['fourth'][] = $val;
+            }
+
+            
+        }
+        $data['cat'] = $this->category('1');
+       // pr($count ); die;
+        return $data;
         
     }
     public function get_business($dataInfo) {
@@ -517,13 +544,29 @@ class Webapi_model extends CI_Model {
         }else{
             return;
         }
-        $this->db->select('*');
-        $this->db->from('f_leadership');
-        $this->db->where('type',$type);
-        $this->db->where('status','active');
-        $this->db->where('added_by','1');
+        $this->db->select('fl.*, cc.title as cc_title, cc.id as cc_id');
+        $this->db->from('f_leadership fl');
+        $this->db->join('f_coach_category as cc','cc.id = fl.category','left');
+        $this->db->where('fl.type',$type);
+        $this->db->where('fl.status','active');
+        $this->db->where('fl.added_by','1');
         $count = $this->db->get()->result();
-        return $count;
+        foreach($count as $key => $val){
+            if($val->cc_id == 5){
+                $data['first'][] = $val;
+            }else if($val->cc_id == 6){
+                $data['second'][] = $val;
+            }else if($val->cc_id == 7){
+                $data['third'][] = $val;
+            }else if($val->cc_id == 8){
+                $data['fourth'][] = $val;
+            }
+
+            
+        }
+        $data['cat'] = $this->category('2');
+    //    pr($count ); die;
+        return $data;
         
     }
 

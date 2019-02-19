@@ -685,7 +685,7 @@ class Webapi extends REST_Controller {
                 if ($apikey == APIKEY) {
 
                     $getdata = $this->Webapi_model->get_self_mastery();
-                    //pr($getdata); die;
+                  //  pr($getdata); die;
                     if($getdata){
 
                         $success = array('ErrorCode' => 0, "message" => "Data Found !", 'data' => $getdata);

@@ -34,8 +34,10 @@ class Leadershipcontent extends MY_Controller {
         $data['page_title'] = "Add Leadership Content";
         $data['page'] = "leadershipcontent/add";
         $data['title'] = "Add Leadership Content";
+        $data['category'] = $this->leadershipcontent_model->category();
         $data['breadcrumb'] = array("Dashboard" => base_url(), "Leadership Content Listing" => base_url('admin/leadershipcontent/listing'), "Add Leadership Content" => base_url('admin/leadershipcontent/add'));
 
+        $this->form_validation->set_rules('category', 'Category', "trim|required");
         $this->form_validation->set_rules('content_title', 'Content Ttle', "trim|required");
         $this->form_validation->set_rules('description', 'Description', 'trim|required');
         $this->form_validation->set_rules('status', 'Status', 'trim|required');
@@ -51,8 +53,9 @@ class Leadershipcontent extends MY_Controller {
     public function edit() {
         $id = ID_decode($this->uri->segment('4'));
         $data['res'] = $this->leadershipcontent_model->viewData($id);
+        $data['category'] = $this->leadershipcontent_model->category();
         $this->form_validation->set_rules('content_title', 'Video Ttle', "trim|required");
-        // $this->form_validation->set_rules('video_url', 'Video Url', "trim|required");
+        $this->form_validation->set_rules('category', 'Category', "trim|required");
         $this->form_validation->set_rules('description', 'Description', 'trim|required');
         $this->form_validation->set_rules('status', 'Status', 'trim|required');
 

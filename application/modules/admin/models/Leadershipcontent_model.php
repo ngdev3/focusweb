@@ -92,6 +92,7 @@ class Leadershipcontent_model extends CI_Model {
         $ins['title'] = $content_title;
         $ins['description'] = $description;
         $ins['status'] = $status;
+        $ins['category'] = $category;
         $ins['added_by'] = getUserInfos()->id;
         $ins['created_date'] = current_datetime();
         // pr($ins); 
@@ -106,6 +107,7 @@ class Leadershipcontent_model extends CI_Model {
 
         $ins['title'] = $content_title;
         // $ins['url'] = $video_url;
+        $ins['category'] = $category;
         $ins['description'] = $description;
         $ins['status'] = $status;
         $ins['added_by'] = getUserInfos()->id;
@@ -609,6 +611,17 @@ class Leadershipcontent_model extends CI_Model {
                 ->row();
                // pr($res);die;
         return $res->quoted_amount;
+    }
+
+    public function category()
+    {
+        $res = $this->db->select("*")
+                 ->where("status",'active')
+                 ->where("type",'2')
+                ->from("f_coach_category")
+                ->get();
+               // pr($res);die;
+        return $res->result();
     }
 
     
