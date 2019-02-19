@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 19, 2019 at 10:21 AM
+-- Generation Time: Feb 19, 2019 at 10:39 AM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 5.6.36
 
@@ -85,6 +85,7 @@ CREATE TABLE `f_coach_category` (
   `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `status` enum('active','inactive','delete') DEFAULT 'active',
+  `type` enum('1','2') NOT NULL COMMENT '1=>''mastery'',2=>''leadership''',
   `created_date` datetime DEFAULT NULL,
   `updated_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -93,11 +94,11 @@ CREATE TABLE `f_coach_category` (
 -- Dumping data for table `f_coach_category`
 --
 
-INSERT INTO `f_coach_category` (`id`, `title`, `status`, `created_date`, `updated_date`) VALUES
-(1, 'Personal Development', 'active', NULL, '2019-02-19 07:28:22'),
-(2, 'Dating and Relationship', 'active', NULL, '2019-02-19 07:28:32'),
-(3, 'Goal Settings', 'active', NULL, '2019-02-19 07:28:58'),
-(4, 'Financial Investing', 'active', NULL, '2019-02-19 07:28:58');
+INSERT INTO `f_coach_category` (`id`, `title`, `status`, `type`, `created_date`, `updated_date`) VALUES
+(1, 'Personal Development', 'active', '1', NULL, '2019-02-19 07:28:22'),
+(2, 'Dating and Relationship', 'active', '1', NULL, '2019-02-19 07:28:32'),
+(3, 'Goal Settings', 'active', '1', NULL, '2019-02-19 07:28:58'),
+(4, 'Financial Investing', 'active', '1', NULL, '2019-02-19 07:28:58');
 
 -- --------------------------------------------------------
 

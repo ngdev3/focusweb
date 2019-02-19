@@ -130,7 +130,8 @@ class Mastercontent_model extends CI_Model {
     }
 
     function view($id) {
-        $res = $this->db->select("cu.*")
+        $res = $this->db->select("cu.*, cu.title as cu_title, fc.*, fc.title as fc_title")
+                    ->join('f_coach_category as fc','cu.category = fc.id','left')
                 ->from("f_self_mastery cu")
                 ->where(array("cu.id" => $id))
                 ->get()
@@ -616,7 +617,8 @@ class Mastercontent_model extends CI_Model {
     public function category()
     {
         $res = $this->db->select("*")
-        ->where("status",'active')
+                 ->where("status",'active')
+                 ->where("type",'1')
                 ->from("f_coach_category")
                 ->get();
                // pr($res);die;

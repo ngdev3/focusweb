@@ -19,11 +19,19 @@
             <div class="portlet-body form add_prodcut_form">
 
                 <form class="form-horizontal" role="form">
+                <div class="form-group col-md-12 col-sm-12">
+                        <label for="inputEmail12" class="col-md-3 control-label">Category :</label>
+                        <div class="col-md-9">
+                            <div class="input-icon" >
+                                <p><?php echo ucwords($res->fc_title); ?></p>                          
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-group col-md-12 col-sm-12">
                         <label for="inputEmail12" class="col-md-3 control-label">Video Title :</label>
                         <div class="col-md-9">
                             <div class="input-icon" >
-                                <p><?php echo ucwords($res->title) ?></p>                          
+                                <p><?php echo ucwords($res->cu_title) ?></p>                          
                             </div>
                         </div>
                     </div>
@@ -36,6 +44,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     
                
                 
