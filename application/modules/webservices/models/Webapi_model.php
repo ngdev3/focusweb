@@ -621,33 +621,25 @@ class Webapi_model extends CI_Model {
         }
         public function get_weekly_list($dataInfo) {
             extract($_POST); 
-            $this->db->select('*');
-            $this->db->from('f_weekly_focus');
-            $this->db->where('status','active');
-            $this->db->where('added_by',$user_id);
+            $this->db->select('wf.*');
+            $this->db->from('f_weekly_focus wf');
+            $this->db->where('wf.status','active');
+            $this->db->where('wf.added_by',$user_id);
             $count = $this->db->get()->result();
-
             foreach($count as $count_key => $count_val){
                 $goal_days = explode(', ',$count_val->days);
-                foreach($count_val as $key => $val){
-                   pr($val);
+                $count[$count_key]->days = $goal_days;
+                for($i =0; $i < count($count[$count_key]->days) ; $i++){
+                    $this->db->select('fmg.*');
+                    $this->db->where('fmg.id',$count[$count_key]->days[$i]);
+                    $this->db->from('f_days fmg');
+                    $count[$count_key]->days[$i] = $this->db->get()->row();
                 }
-
-             //   pr($count); 
-               // pr($count_val); 
-
-                $data['abcs'] = $count;
             }
-
-            pr($data);
-            die;
-            // $count[] ='ff';
             $data['focus_data'] = $count;
-           // $data['goal_name'] = $goal_dayss;
-      //  $data['goal_days'] = $goal_dayss;
             return $data;
-            
         }
+
     public function get_days($dataInfo) {
         extract($_POST); 
         $this->db->select('*');
@@ -690,6 +682,34 @@ class Webapi_model extends CI_Model {
         $data['focus_data'] = $count;
         $data['goal_name'] = $goals;
         $data['goal_days'] = $goal_dayss;
+        return $data;
+        
+    }
+
+    public function get_weekly_details($dataInfo) {
+        extract($_POST);
+       
+        $this->db->select('ffm.*');
+
+        // $this->db->join('f_focus_meeting_goals as fmg','ffm.id = fmg.focus_meeting_id','left');
+        $this->db->where('ffm.id',$weekly_id);
+        $this->db->where('ffm.added_by',$user_id);
+        $this->db->from('f_weekly_focus ffm');
+        $count = $this->db->get()->row();
+        $goal_days = explode(', ',$count->days);
+       // pr($count); die;
+
+        foreach($goal_days as $key => $val){
+            $this->db->select('fmg.*');
+            $this->db->where('fmg.id',$val);
+            $this->db->from('f_days fmg');
+            $goal_dayss[] = $this->db->get()->row();
+        }
+       
+        $data['focus_data'] = $count;
+        $data['goal_days'] = $goal_dayss;
+
+    //    pr($data); die;
         return $data;
         
     }
@@ -909,6 +929,54 @@ class Webapi_model extends CI_Model {
       
         return $goalIdlog;
         
+    }
+
+    public function update_weekly_focus($dataInfo) {
+        extract($_POST); 
+       // pr($meeting_goals); 
+
+       $data['days'] = implode(", ",$action_days);
+       $data['weekly_title'] = $weekly_focus_title;
+       $data['set_time'] = $set_time;
+       $data['set_reminder'] = $set_reminder;
+       $data['set_notification'] = $set_notification;
+       $data['status'] = 'active';
+       $data['updated_date'] = current_datetime();
+
+        $this->db->where('added_by', $user_id);
+        $this->db->where('id', $weekly_id);
+        $this->db->update('f_weekly_focus',$data);
+
+        $goalId = $this->db->affected_rows();
+        return $goalId;
+        
+    }
+
+    public function check_subscription(Type $var = null)
+    {
+        # code...
+        extract($_POST);   
+        $this->db->select('*');     
+        $this->db->from('users');     
+        $this->db->where('id',$user_id);     
+        $query = $this->db->get();    
+        // pr($query->row()->is_member); die;  
+        if($query->num_rows() > 0){
+
+            if($query->row()->is_member == '1'){
+                $data['status'] = 'active';
+                $data['subscription'] = 'active';
+                $data['user_result'] = $query->row();
+            }
+
+            if($query->row()->status != 'active'){
+                $data['status'] = 'inactive';
+                $data['user_result'] = $query->row();
+            }
+        }
+
+        return $data;
+
     }
 
     //my vision 

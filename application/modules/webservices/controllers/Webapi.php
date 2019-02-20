@@ -1005,6 +1005,44 @@ class Webapi extends REST_Controller {
         }
     }
 
+
+    public function get_weekly_detail_post() {
+        $apikey = $this->input->post('apikey');
+        $id = $this->input->post('id');
+
+        if (isPostBack()) {
+            $this->form_validation->set_rules('apikey', 'apikey', "required");
+            $this->form_validation->set_rules('user_id', 'User Id', 'required');
+            $this->form_validation->set_rules('weekly_id', 'Weekly Focus ID', 'required');
+            if ($this->form_validation->run()) {
+
+                if ($apikey == APIKEY) {
+
+                    $getdata = $this->Webapi_model->get_weekly_details();
+                    if($getdata){
+
+                        $success = array('ErrorCode' => 0, "message" => "Data Found !", 'data' => $getdata);
+                        $this->response($success, 200);
+                    }else{
+                        
+                        $success = array('ErrorCode' => 1, "message" => "Data No Found", 'data' => "");
+                        $this->response($success, 200);
+                    }
+
+                } else {
+                    $error = array('ErrorCode' => 1, 'message' => 'Api Key does not exist');
+                    $this->response($error, 200);
+                }
+            } else {
+                $error = array('ErrorCode' => 1, 'message' => validation_errors());
+                $this->response($error, 200);
+            }
+        } else {
+            $error = array('ErrorCode' => 1, 'message' => 'Use Post Method Only');
+            $this->response($error, 200);
+        }
+    }
+
     public function get_goal_detail_post() {
         $apikey = $this->input->post('apikey');
         $id = $this->input->post('id');
@@ -1277,6 +1315,85 @@ class Webapi extends REST_Controller {
                     if($getdata){
 
                         $success = array('ErrorCode' => 0, "message" => "Your Focus Meeting Saved Successfully", 'data' => $getdata);
+                        $this->response($success, 200);
+                    }else{
+                        
+                        $success = array('ErrorCode' => 1, "message" => "Your Goal Not Saved", 'data' => "");
+                        $this->response($success, 200);
+                    }
+
+                } else {
+                    $error = array('ErrorCode' => 1, 'message' => 'Api Key does not exist');
+                    $this->response($error, 200);
+                }
+            } else {
+                $error = array('ErrorCode' => 1, 'message' => validation_errors());
+                $this->response($error, 200);
+            }
+        } else {
+            $error = array('ErrorCode' => 1, 'message' => 'Use Post Method Only');
+            $this->response($error, 200);
+        }
+    }
+
+    public function update_weekly_post() {
+        $apikey = $this->input->post('apikey');
+        $id = $this->input->post('id');
+       // pr($_POST); die;
+        if (isPostBack()) {
+            $this->form_validation->set_rules('user_id', 'User Id', 'required');
+            $this->form_validation->set_rules('weekly_id', 'Weekly ID', 'required');
+            $this->form_validation->set_rules('apikey', 'apikey', "required");
+            $this->form_validation->set_rules('action_days[]', 'Set Days', 'required');
+            $this->form_validation->set_rules('weekly_focus_title', 'Add Title ', 'required');
+            $this->form_validation->set_rules('set_time', 'Set Time', 'required');
+            $this->form_validation->set_rules('set_reminder', 'Set Reminder', 'required');
+            $this->form_validation->set_rules('set_notification', 'Set Notification', 'required');
+            if ($this->form_validation->run()) {
+
+                if ($apikey == APIKEY) {
+
+                    $getdata = $this->Webapi_model->update_weekly_focus();
+                    //pr($getdata); die;
+                    if($getdata){
+
+                        $success = array('ErrorCode' => 0, "message" => "Your Weekly Focus Updated Successfully", 'data' => $getdata);
+                        $this->response($success, 200);
+                    }else{
+                        
+                        $success = array('ErrorCode' => 1, "message" => "Your Goal Not Saved", 'data' => "");
+                        $this->response($success, 200);
+                    }
+
+                } else {
+                    $error = array('ErrorCode' => 1, 'message' => 'Api Key does not exist');
+                    $this->response($error, 200);
+                }
+            } else {
+                $error = array('ErrorCode' => 1, 'message' => validation_errors());
+                $this->response($error, 200);
+            }
+        } else {
+            $error = array('ErrorCode' => 1, 'message' => 'Use Post Method Only');
+            $this->response($error, 200);
+        }
+    }
+
+    public function check_subscription_post() {
+        $apikey = $this->input->post('apikey');
+        $id = $this->input->post('id');
+        if (isPostBack()) {
+            $this->form_validation->set_rules('user_id', 'User Id', 'required');
+            $this->form_validation->set_rules('apikey', 'apikey', "required");
+            if ($this->form_validation->run()) {
+
+                if ($apikey == APIKEY) {
+
+                    $getdata = $this->Webapi_model->check_subscription();
+                    pr($getdata); die;
+                    if($getdata){
+
+                        $success = array('ErrorCode' => 0, "message" => "Your Weekly Focus Updated Successfully", 'data' => $getdata);
                         $this->response($success, 200);
                     }else{
                         
