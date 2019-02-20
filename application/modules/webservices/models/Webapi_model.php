@@ -619,6 +619,35 @@ class Webapi_model extends CI_Model {
             return $count;
             
         }
+        public function get_weekly_list($dataInfo) {
+            extract($_POST); 
+            $this->db->select('*');
+            $this->db->from('f_weekly_focus');
+            $this->db->where('status','active');
+            $this->db->where('added_by',$user_id);
+            $count = $this->db->get()->result();
+
+            foreach($count as $count_key => $count_val){
+                $goal_days = explode(', ',$count_val->days);
+                foreach($count_val as $key => $val){
+                   pr($val);
+                }
+
+             //   pr($count); 
+               // pr($count_val); 
+
+                $data['abcs'] = $count;
+            }
+
+            pr($data);
+            die;
+            // $count[] ='ff';
+            $data['focus_data'] = $count;
+           // $data['goal_name'] = $goal_dayss;
+      //  $data['goal_days'] = $goal_dayss;
+            return $data;
+            
+        }
     public function get_days($dataInfo) {
         extract($_POST); 
         $this->db->select('*');
