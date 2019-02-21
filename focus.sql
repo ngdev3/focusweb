@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 19, 2019 at 10:39 AM
+-- Generation Time: Feb 21, 2019 at 02:08 PM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 5.6.36
 
@@ -98,7 +98,11 @@ INSERT INTO `f_coach_category` (`id`, `title`, `status`, `type`, `created_date`,
 (1, 'Personal Development', 'active', '1', NULL, '2019-02-19 07:28:22'),
 (2, 'Dating and Relationship', 'active', '1', NULL, '2019-02-19 07:28:32'),
 (3, 'Goal Settings', 'active', '1', NULL, '2019-02-19 07:28:58'),
-(4, 'Financial Investing', 'active', '1', NULL, '2019-02-19 07:28:58');
+(4, 'Financial Investing', 'active', '1', NULL, '2019-02-19 07:28:58'),
+(5, 'Business Intelligence', 'active', '2', NULL, '2019-02-19 10:39:23'),
+(6, 'Brand Development', 'active', '2', NULL, '2019-02-19 10:39:28'),
+(7, 'Marketing', 'active', '2', NULL, '2019-02-19 10:39:31'),
+(8, 'Video Production', 'active', '2', NULL, '2019-02-19 10:39:15');
 
 -- --------------------------------------------------------
 
@@ -212,10 +216,11 @@ CREATE TABLE `f_focus_meeting` (
 --
 
 INSERT INTO `f_focus_meeting` (`id`, `days`, `meeting_name`, `meeting_goals`, `set_time`, `set_date`, `set_reminder`, `set_notification`, `status`, `added_by`, `created_date`, `updated_date`) VALUES
-(1, '1', 'Rajat', '1, 2', 'Tue Feb 12 2019 05:07:30 GMT+0530 (India Standard Time)', 'Sat Feb 16 2019 17:25:19 GMT+0530 (India Standard ...', '30', 'Tue Feb 12 2019 05:07:30 GMT+0530 (India Standard Time)', 'active', 1, '2019-02-12 05:08:06', '2019-02-12 14:16:22'),
+(1, '1, 6, 7, 3, 4', 'Rajat', '1, 2', 'Tue Feb 12 2019 05:07:30 GMT+0530 (India Standard Time)', 'Sat Feb 16 2019 17:25:19 GMT+0530 (India Standard Time)', '30', 'Tue Feb 12 2019 05:07:30 GMT+0530 (India Standard Time)', 'active', 1, '2019-02-19 09:03:27', '2019-02-19 15:33:27'),
 (2, '1, 2, 3, 4, 5', 'Week Days Week Days', '3, 4, 5', 'Tue Feb 12 2019 12:19:07 GMT+0530 (India Standard Time)', 'Sat Feb 16 2019 17:25:19 GMT+0530 (India Standard ...', '15', 'Tue Feb 12 2019 21:19:07 GMT+0530 (India Standard Time)', 'active', 1, '2019-02-12 05:20:19', '2019-02-12 14:16:15'),
 (3, '1, 2, 5', 'rrrrrrrrrrrrr', '6, 7', '01:00:00', '14-02-2019', '15 min', '01:00:00', 'active', 17, '2019-02-13 12:41:01', '2019-02-13 07:11:01'),
-(4, '1, 5, 7, 2, 6, 3, 4', 'Week Days Week Days 0', '8, 9, 10', 'Tue Feb 12 2019 12:26:07 GMT+0530 (India Standard Time)', 'Sun Feb 16 2020 17:25:19 GMT+0530 (India Standard Time)', '01', 'Tue Feb 12 2019 21:23:07 GMT+0530 (India Standard Time)', 'active', 1, '2019-02-13 12:47:46', '2019-02-13 07:17:46');
+(4, '1, 5, 7, 2, 6, 3, 4', 'Week Days Week Days 0', '8, 9, 10', 'Tue Feb 12 2019 12:26:07 GMT+0530 (India Standard Time)', 'Sun Feb 16 2020 17:25:19 GMT+0530 (India Standard Time)', '01', 'Tue Feb 12 2019 21:23:07 GMT+0530 (India Standard Time)', 'active', 1, '2019-02-13 12:47:46', '2019-02-13 07:17:46'),
+(5, '1, 6, 7, 3', 'Nnnn', '11, 12, 13', 'Tue Feb 19 2019 09:03:31 GMT+0530 (India Standard Time)', 'Tue Feb 19 2019 21:03:31 GMT+0530 (India Standard Time)', '01', 'Tue Feb 19 2019 09:03:31 GMT+0530 (India Standard Time)', 'active', 1, '2019-02-19 09:04:10', '2019-02-19 15:34:10');
 
 -- --------------------------------------------------------
 
@@ -238,8 +243,8 @@ CREATE TABLE `f_focus_meeting_goals` (
 --
 
 INSERT INTO `f_focus_meeting_goals` (`id`, `focus_meeting_id`, `action_step`, `status`, `added_by`, `created_date`, `updated_date`) VALUES
-(1, 1, 'Early Wake Up', 'active', 1, '2019-02-12 05:08:06', NULL),
-(2, 1, 'Daily Excersie', 'active', 1, '2019-02-12 05:08:07', NULL),
+(1, 1, 'Early Wake Up', 'active', 1, '2019-02-12 05:08:06', '2019-02-19 03:33:27'),
+(2, 1, 'Daily Excersie', 'active', 1, '2019-02-12 05:08:07', '2019-02-19 03:33:27'),
 (3, 2, 'Week Days Week Days', 'active', 1, '2019-02-12 05:20:19', NULL),
 (4, 2, 'Week DaysWeek Days', 'active', 1, '2019-02-12 05:20:19', NULL),
 (5, 2, 'Week Days Week Days', 'active', 1, '2019-02-12 05:20:19', NULL),
@@ -247,7 +252,10 @@ INSERT INTO `f_focus_meeting_goals` (`id`, `focus_meeting_id`, `action_step`, `s
 (7, 3, 'T', 'active', 1, '2019-02-12 05:25:38', '2019-02-13 07:11:01'),
 (8, 4, 'One 1', 'active', 1, '2019-02-13 12:43:14', '2019-02-13 07:17:46'),
 (9, 4, 'Two 2', 'active', 1, '2019-02-13 12:43:14', '2019-02-13 07:17:46'),
-(10, 4, 'Three 3', 'active', 1, '2019-02-13 12:43:14', '2019-02-13 07:17:46');
+(10, 4, 'Three 3', 'active', 1, '2019-02-13 12:43:14', '2019-02-13 07:17:46'),
+(11, 5, 'Nmmm', 'active', 1, '2019-02-19 09:03:47', '2019-02-19 03:34:10'),
+(12, 5, 'Mmmm', 'active', 1, '2019-02-19 09:03:48', '2019-02-19 03:34:10'),
+(13, 5, 'Bnfnfnfnf', 'active', 1, '2019-02-19 09:03:48', '2019-02-19 03:34:10');
 
 -- --------------------------------------------------------
 
@@ -259,6 +267,7 @@ CREATE TABLE `f_leadership` (
   `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `url` longtext NOT NULL,
+  `category` int(11) DEFAULT NULL,
   `description` varchar(255) NOT NULL,
   `added_by` int(11) NOT NULL,
   `type` enum('1','2') NOT NULL COMMENT '''1''=>''content'', ''2''=>''video''',
@@ -271,9 +280,17 @@ CREATE TABLE `f_leadership` (
 -- Dumping data for table `f_leadership`
 --
 
-INSERT INTO `f_leadership` (`id`, `title`, `url`, `description`, `added_by`, `type`, `status`, `created_date`, `updated_date`) VALUES
-(3, 'Leadership Content Listing', '', 'Leadership Content Listing', 1, '1', 'active', '2019-01-18 12:59:15', NULL),
-(4, 'Add Business Leadership video', 'Add Business Leadership video', 'http://www.capaligisyk.tv', 1, '2', 'active', '2019-01-18 12:59:59', NULL);
+INSERT INTO `f_leadership` (`id`, `title`, `url`, `category`, `description`, `added_by`, `type`, `status`, `created_date`, `updated_date`) VALUES
+(3, 'Leadership Content Listing', '', 5, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '1', 'active', '2019-01-18 12:59:15', '2019-02-19 06:27:35'),
+(4, 'Add Business Leadership video', 'Add Business Leadership video', NULL, 'http://www.capaligisyk.tv', 1, '2', 'active', '2019-01-18 12:59:59', '2019-02-19 10:47:25'),
+(5, 'First', '', 5, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '1', 'active', '2019-02-19 11:45:14', NULL),
+(6, 'First', '', 5, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '1', 'active', '2019-02-19 11:45:30', NULL),
+(7, 'Second', '', 6, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '1', 'active', '2019-02-19 11:46:14', NULL),
+(8, 'Second', '', 6, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '1', 'active', '2019-02-19 11:46:25', NULL),
+(9, 'Third', '', 7, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '1', 'active', '2019-02-19 11:46:35', NULL),
+(10, 'Third', '', 7, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '1', 'active', '2019-02-19 11:46:45', NULL),
+(11, 'Fourth', '', 8, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '1', 'active', '2019-02-19 11:46:55', NULL),
+(12, 'Fourth', '', 8, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '1', 'active', '2019-02-19 11:47:05', '2019-02-19 06:18:50');
 
 -- --------------------------------------------------------
 
@@ -382,10 +399,10 @@ INSERT INTO `f_my_goal` (`id`, `target_date`, `goal_name`, `goal_steps`, `added_
 (1, 'Mon Mar 02 2020 00:00:00 GMT+0530 (India Standard Time)', 'Rajat gupta', '1, 2, 3', 1, '2019-02-13 08:13:09', '2019-02-13 14:43:09'),
 (2, 'Fri Nov 24 1995 00:00:00 GMT+0530 (India Standard Time)', 'Nash Gillespie', '4, 5, 6', 1, '2019-02-13 08:16:30', '2019-02-13 14:46:31'),
 (3, 'Sat Aug 25 2029 00:00:00 GMT+0530 (India Standard Time)', 'Rajat New Goal Set', '7, 8, 9', 1, '2019-02-13 08:31:02', '2019-02-14 05:14:23'),
-(4, 'Fri Nov 24 1995 00:00:00 GMT+0530 (India Standard Time)', 'Nash Gillespie', '10, 11, 12', 1, '2019-02-14 10:16:00', '2019-02-14 04:46:00'),
+(4, 'Fri Nov 24 1995 00:00:00 GMT+0530 (India Standard Time)', 'Nash Gillespie', '10, 11, 12', 1, '2019-02-14 10:16:00', '2019-02-20 00:46:08'),
 (5, 'Thu Nov 24 2011 00:00:00 GMT+0530 (India Standard Time)', 'Nash Gillespie Update', '13, 14, 15', 1, '2019-02-14 10:21:56', '2019-02-14 05:22:37'),
 (6, 'Thu Nov 24 2011 00:00:00 GMT+0530 (India Standard Time)', 'Nash Gillespie Update', '16, 17, 18', 1, '2019-02-14 10:54:12', '2019-02-14 05:24:13'),
-(7, 'Thu Nov 24 2011 00:00:00 GMT+0530 (India Standard Time)', 'Nash Gillespie Update', '19, 20, 21', 1, '2019-02-14 10:54:53', '2019-02-14 05:24:53'),
+(7, 'Thu Nov 24 2011 00:00:00 GMT+0530 (India Standard Time)', 'Nash Gillespie Update', '19, 20, 21', 1, '2019-02-14 10:54:53', '2019-02-19 03:16:11'),
 (8, 'Fri Nov 24 1995 00:00:00 GMT+0530 (India Standard Time)', 'Nash Gillespie', '22, 23, 24', 1, '2019-02-14 10:55:03', '2019-02-14 05:25:04');
 
 -- --------------------------------------------------------
@@ -418,18 +435,18 @@ INSERT INTO `f_my_goal_steps` (`id`, `title`, `selected_day`, `set_time`, `goal_
 (7, 'Kameko Pruitt', '3, 7', 'Wed Feb 13 2019 08:29:39 GMT+0530 (India Standard Time)', 3, '2019-02-13 08:31:02', '2019-02-13 15:01:02'),
 (8, 'Caryn Byrd', '4, 5', 'Wed Feb 13 2019 13:29:39 GMT+0530 (India Standard Time)', 3, '2019-02-13 08:31:02', '2019-02-13 15:01:02'),
 (9, 'Pamela Rojas', '7, 1, 2', 'Wed Feb 13 2019 14:29:39 GMT+0530 (India Standard Time)', 3, '2019-02-13 08:31:02', '2019-02-13 15:01:02'),
-(10, 'Grace Clayton', '5, 4, 3', 'Wed Feb 13 2019 00:15:54 GMT+0530 (India Standard Time)', 4, '2019-02-14 10:16:00', '2019-02-14 04:46:00'),
-(11, 'Xavier Kent', '7, 2, 5', 'Wed Feb 13 2019 08:14:54 GMT+0530 (India Standard Time)', 4, '2019-02-14 10:16:00', '2019-02-14 04:46:00'),
-(12, 'Hope Eaton', '7', 'Wed Feb 13 2019 08:15:54 GMT+0530 (India Standard Time)', 4, '2019-02-14 10:16:00', '2019-02-14 04:46:00'),
+(10, 'Grace Clayton', '5, 4, 3', 'Wed Feb 13 2019 18:21:54 GMT+0530 (India Standard Time)', 1, '2019-02-14 10:16:00', '2019-02-20 00:46:08'),
+(11, 'Xavier Kent', '7, 2, 5', 'Wed Feb 13 2019 08:14:54 GMT+0530 (India Standard Time)', 1, '2019-02-14 10:16:00', '2019-02-20 00:46:08'),
+(12, 'Hope Eaton', '7', 'Wed Feb 13 2019 08:15:54 GMT+0530 (India Standard Time)', 1, '2019-02-14 10:16:00', '2019-02-20 00:46:08'),
 (13, 'Rajat One', '5, 4, 3, 2, 7', 'Wed Feb 13 2019 19:15:54 GMT+0530 (India Standard Time)', 1, '2019-02-14 10:21:56', '2019-02-14 05:22:37'),
 (14, 'Rajat Two', '7, 2, 5, 6, 3, 4', 'Wed Feb 13 2019 08:14:54 GMT+0530 (India Standard Time)', 1, '2019-02-14 10:21:56', '2019-02-14 05:22:37'),
 (15, 'Rajat Three', '7, 6, 1, 2, 3, 4, 5', 'Wed Feb 13 2019 08:15:54 GMT+0530 (India Standard Time)', 1, '2019-02-14 10:21:56', '2019-02-14 05:22:37'),
 (16, 'Rajat One', '5, 4, 3, 2, 7', 'Wed Feb 13 2019 19:15:54 GMT+0530 (India Standard Time)', 6, '2019-02-14 10:54:13', '2019-02-14 05:24:13'),
 (17, 'Rajat Two', '7, 2, 5, 6, 3, 4', 'Wed Feb 13 2019 08:14:54 GMT+0530 (India Standard Time)', 6, '2019-02-14 10:54:13', '2019-02-14 05:24:13'),
 (18, 'Rajat Three', '7, 6, 1, 2, 3, 4, 5', 'Wed Feb 13 2019 08:15:54 GMT+0530 (India Standard Time)', 6, '2019-02-14 10:54:13', '2019-02-14 05:24:13'),
-(19, 'Rajat One', '5, 4, 3, 2, 7', 'Wed Feb 13 2019 19:15:54 GMT+0530 (India Standard Time)', 7, '2019-02-14 10:54:53', '2019-02-14 05:24:53'),
-(20, 'Rajat Two', '7, 2, 5, 6, 3, 4', 'Wed Feb 13 2019 08:14:54 GMT+0530 (India Standard Time)', 7, '2019-02-14 10:54:53', '2019-02-14 05:24:53'),
-(21, 'Rajat Three', '7, 6, 1, 2, 3, 4, 5', 'Wed Feb 13 2019 08:15:54 GMT+0530 (India Standard Time)', 7, '2019-02-14 10:54:53', '2019-02-14 05:24:53'),
+(19, 'Rajat One', '5, 4, 3, 2, 7', 'Wed Feb 13 2019 19:15:54 GMT+0530 (India Standard Time)', 1, '2019-02-14 10:54:53', '2019-02-19 03:16:12'),
+(20, 'Rajat Two', '7, 2, 5, 6, 3, 4', 'Wed Feb 13 2019 08:14:54 GMT+0530 (India Standard Time)', 1, '2019-02-14 10:54:53', '2019-02-19 03:16:12'),
+(21, 'Rajat Three', '7, 6, 1, 2, 3, 4, 5', 'Wed Feb 13 2019 08:15:54 GMT+0530 (India Standard Time)', 1, '2019-02-14 10:54:53', '2019-02-19 03:16:12'),
 (22, 'Grace Clayton', '5, 4, 3', 'Wed Feb 13 2019 00:15:54 GMT+0530 (India Standard Time)', 8, '2019-02-14 10:55:04', '2019-02-14 05:25:04'),
 (23, 'Xavier Kent', '7, 2, 5', 'Wed Feb 13 2019 08:14:54 GMT+0530 (India Standard Time)', 8, '2019-02-14 10:55:04', '2019-02-14 05:25:04'),
 (24, 'Hope Eaton', '7', 'Wed Feb 13 2019 08:15:54 GMT+0530 (India Standard Time)', 8, '2019-02-14 10:55:04', '2019-02-14 05:25:04');
@@ -493,6 +510,7 @@ CREATE TABLE `f_plans` (
   `title` varchar(255) NOT NULL,
   `amount` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL,
+  `status` enum('active','inactive') DEFAULT 'active',
   `currency` varchar(255) NOT NULL,
   `created_date` datetime DEFAULT NULL,
   `updated_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -502,9 +520,35 @@ CREATE TABLE `f_plans` (
 -- Dumping data for table `f_plans`
 --
 
-INSERT INTO `f_plans` (`id`, `title`, `amount`, `type`, `currency`, `created_date`, `updated_date`) VALUES
-(1, 'Per Month', '4.99', 'monthly', '$', NULL, '2019-01-15 12:18:03'),
-(2, 'Per Year', '4.90', 'year', '$', NULL, '2019-01-15 12:18:27');
+INSERT INTO `f_plans` (`id`, `title`, `amount`, `type`, `status`, `currency`, `created_date`, `updated_date`) VALUES
+(1, 'Per Month', '4.99', 'monthly', 'active', '$', NULL, '2019-01-15 12:18:03'),
+(2, 'Per Year', '49.90', 'year', 'active', '$', NULL, '2019-02-21 04:40:19');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `f_plans_method`
+--
+
+CREATE TABLE `f_plans_method` (
+  `id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `method` varchar(255) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `status` enum('active','inactive') DEFAULT 'active',
+  `created_date` datetime DEFAULT NULL,
+  `updated_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `f_plans_method`
+--
+
+INSERT INTO `f_plans_method` (`id`, `title`, `method`, `type`, `status`, `created_date`, `updated_date`) VALUES
+(1, 'Paypal', 'online', 'online', 'active', '2019-02-21 11:15:59', '2019-02-21 05:45:59'),
+(2, 'Google Pay', 'online', 'online', 'active', NULL, '2019-02-21 05:45:59'),
+(3, 'Apple Pay', 'online', 'online', 'active', '2019-02-21 11:16:05', '2019-02-21 05:46:18'),
+(4, 'Zelle Pay', 'online', 'online', 'active', NULL, '2019-02-21 05:46:24');
 
 -- --------------------------------------------------------
 
@@ -568,16 +612,17 @@ CREATE TABLE `f_self_mastery` (
 --
 
 INSERT INTO `f_self_mastery` (`id`, `title`, `url`, `category`, `description`, `added_by`, `type`, `status`, `created_date`, `updated_date`) VALUES
-(1, 'one', 'http://www.fulafy.uscb', NULL, 'Mollit cupidatat quis neque eius laudantium ut reprehenderit tempora voluptatibus ullamco qui quae', 1, '1', 'inactive', '2019-01-16 01:57:18', '2019-02-19 08:03:54'),
-(2, 'Officia in quae voluptatibus tempora tempor molestias ut irure cum tenetur', 'http://www.fulafy.uscb', 1, 'Dolorem odit lorem animi cupidatat fugit dolore qui consectetur molestiae natus aliquip expedita commodi minus officia', 1, '1', 'active', '2019-01-18 11:42:15', '2019-02-19 04:26:54'),
-(3, 'In proident nostrum numquam in qui aut nisi aliquip quia enim laboris aute et', 'http://www.fulafy.uscb', NULL, 'Ea adipisci consequuntur irure non dolor ea et sit doloribus autem', 1, '1', 'active', '2019-01-18 11:42:25', '2019-02-19 08:04:02'),
-(4, 'Animi voluptate eligendi numquam voluptatum in ut quo consectetur omnis beatae voluptatem id do dolor magnam dolor', 'http://www.fulafy.uscb', NULL, 'Adipisicing voluptatem sint enim quis dolorem', 1, '2', 'active', '2019-01-18 12:11:02', '2019-02-19 08:04:02'),
-(5, 'Fugiat et omnis dolor rerum et esse 1', 'http://www.fulafy.uscb', NULL, 'Rerum molestiae nesciunt explicabo Incididunt ut quasi dolor', 1, '1', 'active', '2019-01-18 12:11:54', '2019-02-19 08:04:02'),
-(6, 'Aspernatur voluptas non id fugit rerum irure sit quibusdam dolor velit iure blanditiis officia dolor fuga Eligendi quidem2', 'http://www.fulafy.uscb', NULL, 'Enim itaque accusamus ullam libero quas harum accusantium amet reprehenderit et quaerat eius aut ut id molestias', 1, '2', 'active', '2019-01-18 12:12:00', '2019-02-19 08:04:02'),
-(7, 'Consequatur irure a nihil iusto similique optio natus labore sunt quod adipisicing pariatur Qui vitae aut in vel Nam', 'http://www.fulafy.uscb', NULL, 'Nam molestiae corrupti reprehenderit similique voluptas nulla consequuntur', 1, '2', 'active', '2019-01-18 12:32:01', '2019-02-19 08:04:02'),
-(8, 'Self Mastery video Listing', 'http://www.xurofafywuniq.co.uk', NULL, 'Self Mastery video Listing', 1, '2', 'active', '2019-01-18 12:42:16', '2019-02-19 08:04:02'),
-(9, 'Add Self Mastery video', 'http://www.pogyq.org.au', NULL, 'Add Self Mastery video', 1, '2', 'active', '2019-01-18 12:44:00', '2019-02-19 08:04:02'),
-(10, 'sdfsdfdgdgdgggd', '', 1, 'sdfsdfssdsdgdgg', 1, '1', 'active', '2019-02-19 09:28:17', '2019-02-19 04:46:51');
+(1, 'one', 'http://www.fulafy.uscb', 1, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '1', 'inactive', '2019-01-16 01:57:18', '2019-02-19 10:32:55'),
+(2, 'Officia in quae voluptatibus tempora tempor molestias ut irure cum tenetur', 'http://www.fulafy.uscb', 2, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '1', 'active', '2019-01-18 11:42:15', '2019-02-19 10:32:55'),
+(3, 'In proident nostrum numquam in qui aut nisi aliquip quia enim laboris aute et', 'http://www.fulafy.uscb', 3, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '1', 'active', '2019-01-18 11:42:25', '2019-02-19 10:32:55'),
+(4, 'Animi voluptate eligendi numquam voluptatum in ut quo consectetur omnis beatae voluptatem id do dolor magnam dolor', 'http://www.fulafy.uscb', 3, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '2', 'active', '2019-01-18 12:11:02', '2019-02-19 10:32:55'),
+(5, 'Fugiat et omnis dolor rerum et esse 1', 'http://www.fulafy.uscb', 4, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '1', 'active', '2019-01-18 12:11:54', '2019-02-19 10:32:46'),
+(6, 'Aspernatur voluptas non id fugit rerum irure sit quibusdam dolor velit iure blanditiis officia dolor fuga Eligendi quidem2', 'http://www.fulafy.uscb', 3, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '2', 'active', '2019-01-18 12:12:00', '2019-02-19 10:32:55'),
+(7, 'Consequatur irure a nihil iusto similique optio natus labore sunt quod adipisicing pariatur Qui vitae aut in vel Nam', 'http://www.fulafy.uscb', 1, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '2', 'active', '2019-01-18 12:32:01', '2019-02-19 10:32:55'),
+(8, 'Self Mastery video Listing', 'http://www.xurofafywuniq.co.uk', 4, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '2', 'active', '2019-01-18 12:42:16', '2019-02-19 10:32:55'),
+(9, 'Add Self Mastery video', 'http://www.pogyq.org.au', 1, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '2', 'active', '2019-01-18 12:44:00', '2019-02-19 10:32:55'),
+(10, 'sdfsdfdgdgdgggd', '', 1, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '1', 'active', '2019-02-19 09:28:17', '2019-02-19 06:02:08'),
+(11, 'Adding', '', 1, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '1', 'active', '2019-02-19 11:19:56', '2019-02-19 06:01:46');
 
 -- --------------------------------------------------------
 
@@ -653,8 +698,8 @@ CREATE TABLE `f_weekly_focus` (
 --
 
 INSERT INTO `f_weekly_focus` (`id`, `days`, `weekly_title`, `set_time`, `set_reminder`, `set_notification`, `status`, `added_by`, `created_date`, `updated_date`) VALUES
-(1, '', 'Weekly Focus', '01:00:00', '15 min', '01:00:00', 'active', 17, NULL, NULL),
-(2, '1, 2', 'Weekly Focus', '01:00:00', '15 min', '01:00:00', 'active', 17, NULL, NULL);
+(1, '1, 2, 7, 6, 3, 4', 'sl;f;dflkfjhdkghjfdhgkhkhk', 'Wed Feb 20 2019 02:42:08 GMT+0530 (India Standard Time)', '15', 'Wed Feb 20 2019 02:42:08 GMT+0530 (India Standard Time)', 'active', 1, '2019-02-19 09:49:45', '2019-02-19 21:13:02'),
+(2, '6, 2, 3, 1, 5, 7, 4', 'Rajat Gupta', 'Tue Feb 19 2019 09:49:12 GMT+0530 (India Standard Time)', '15', 'Tue Feb 19 2019 09:49:12 GMT+0530 (India Standard Time)', 'active', 1, '2019-02-19 09:49:45', '2019-02-19 21:13:14');
 
 -- --------------------------------------------------------
 
@@ -691,7 +736,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `fname`, `lname`, `email`, `is_coach`, `coach_cat`, `password`, `available_sizes`, `token`, `token_valid`, `profile_image`, `mobile_no`, `is_member`, `status`, `modified_time`, `added_date`, `added_by`, `updated_date`, `last_login`, `login_from`, `user_type`) VALUES
-(1, 'Rajat', 'Gupta', 'admin@yopmail.com', 0, NULL, 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, '20190118-012925.jpg', '8506003445', 0, 'active', NULL, '2019-01-11 05:33:24', 0, NULL, '2019-02-19 12:43:06', 'Android', '1'),
+(1, 'Rajat', 'Gupta', 'admin@yopmail.com', 0, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '20190118-012925.jpg', '8506003445', 0, 'active', NULL, '2019-01-11 05:33:24', 0, '2019-02-19 08:42:14', '2019-02-20 08:47:31', 'Android', '1'),
 (15, 'Xaviera', 'Scott', 'cedypikiru@yopmail.com', 0, NULL, '26c8b760b746633ac4bb6ebee967a8df', NULL, NULL, NULL, '', '8506003444', 1, 'active', NULL, '2019-01-15 05:38:27', 1, '2019-01-15 00:00:00', NULL, '', '2'),
 (16, 'Coach', 'Hogan', 'coach@yopmail.com', 0, NULL, '40b9dfa806aed160f6047cffad3180c8', NULL, NULL, NULL, '', '8056465458', 0, 'active', NULL, '2019-01-15 05:41:03', 1, NULL, NULL, '', '2'),
 (17, 'End', 'User', 'user@yopmail.com', 1, 2, '922508177e9c7e017697c15fb57c5601', NULL, NULL, NULL, '', '8523697845', 0, 'active', NULL, '2019-01-15 05:42:05', 1, '2019-01-15 00:00:00', NULL, '', '3'),
@@ -809,6 +854,12 @@ ALTER TABLE `f_plans`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `f_plans_method`
+--
+ALTER TABLE `f_plans_method`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `f_queries`
 --
 ALTER TABLE `f_queries`
@@ -864,7 +915,7 @@ ALTER TABLE `f_coaches_center`
 -- AUTO_INCREMENT for table `f_coach_category`
 --
 ALTER TABLE `f_coach_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `f_coach_conversion_log`
@@ -888,19 +939,19 @@ ALTER TABLE `f_days`
 -- AUTO_INCREMENT for table `f_focus_meeting`
 --
 ALTER TABLE `f_focus_meeting`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `f_focus_meeting_goals`
 --
 ALTER TABLE `f_focus_meeting_goals`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `f_leadership`
 --
 ALTER TABLE `f_leadership`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `f_master_class`
@@ -951,6 +1002,12 @@ ALTER TABLE `f_plans`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `f_plans_method`
+--
+ALTER TABLE `f_plans_method`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `f_queries`
 --
 ALTER TABLE `f_queries`
@@ -960,7 +1017,7 @@ ALTER TABLE `f_queries`
 -- AUTO_INCREMENT for table `f_self_mastery`
 --
 ALTER TABLE `f_self_mastery`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `f_temp_image_upload`
