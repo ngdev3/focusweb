@@ -650,6 +650,24 @@ class Webapi_model extends CI_Model {
         
     }
 
+    public function get_plans($dataInfo) {
+        extract($_POST); 
+        $this->db->select('*');
+        $this->db->from('f_plans');
+        $count = $this->db->get()->result_array();
+        return $count;
+        
+    }
+
+    public function get_pay_method($dataInfo) {
+        extract($_POST); 
+        $this->db->select('*');
+        $this->db->from('f_plans_method');
+        $count = $this->db->get()->result_array();
+        return $count;
+        
+    }
+
     public function get_meeting_details($dataInfo) {
         extract($_POST);
        
