@@ -906,7 +906,7 @@ class Webapi extends REST_Controller {
 
                     $getdata = $this->Webapi_model->get_weekly_list();
                 //    pr($getdata); die;
-                if(count($getdata) >0){
+                if(count($getdata) < 0){
                     $getdata = [];
                 } 
                     if($getdata){
