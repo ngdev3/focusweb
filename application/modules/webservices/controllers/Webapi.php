@@ -908,7 +908,7 @@ class Webapi extends REST_Controller {
                 //    pr($getdata); die;
                 if(count($getdata) >0){
                     $getdata = [];
-                }
+                } 
                     if($getdata){
 
                         $success = array('ErrorCode' => 0, "message" => "Data Found !", 'data' => $getdata);
