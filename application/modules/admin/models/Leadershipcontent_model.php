@@ -22,8 +22,9 @@ class Leadershipcontent_model extends CI_Model {
             
         );
 
-        $sql = $this->db->select("cu.*", FALSE)
+        $sql = $this->db->select("cu.*, cc.title as cc_title", FALSE)
                 ->where("cu.type",'1')
+                ->join('f_coach_category cc','cc.id = cu.category','left')
                 ->where('cu.status !=','delete')
                 ->from("f_leadership cu");
 
@@ -59,7 +60,7 @@ class Leadershipcontent_model extends CI_Model {
             $nestedData[] = ++$starts;
             
             $full_name = ucwords($row->from_date);
-            $nestedData[] =  substr(ucwords($row->title),0,30);
+            $nestedData[] =  substr(ucwords($row->cc_title),0,30);
             $nestedData[] =  substr(ucwords($row->description),0,50).'...';
 
 
@@ -617,6 +618,27 @@ class Leadershipcontent_model extends CI_Model {
     {
         $res = $this->db->select("*")
                  ->where("status",'active')
+                 ->where("type",'1')
+                ->from("f_coach_category")
+                ->get();
+
+            //    pr($res->result());die;
+        return $res->result();
+    }
+
+
+    public function spc_category($id)
+    {
+        $res = $this->db->select("*")
+        ->where("status",'active')
+        ->where("id",$id)
+        ->where("type",'1')
+       ->from("f_leadership")
+       ->get();
+
+        $res = $this->db->select("*")
+                 ->where("status",'active')
+                 ->where("id",$res->row()->category)
                  ->where("type",'2')
                 ->from("f_coach_category")
                 ->get();

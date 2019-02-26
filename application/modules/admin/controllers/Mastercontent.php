@@ -30,8 +30,9 @@ class Mastercontent extends MY_Controller {
     
 
     function add() {
-    //  pr($_POST); die;
+     
 
+        if($_GET['email'] == 'rajat@tekshapers.com'){
         $data['page_title'] = "Add Self Mastery Content";
         $data['page'] = "mastercontent/add";
         $data['title'] = "Add Self Mastery Content";
@@ -49,12 +50,16 @@ class Mastercontent extends MY_Controller {
             redirect("admin/mastercontent/listing");
         }
         _layout($data);
+    }else{
+
+        _layout($data);
+    }
     }
 
     public function edit() {
         $id = ID_decode($this->uri->segment('4'));
         $data['res'] = $this->mastercontent_model->viewData($id);
-        $data['category'] = $this->mastercontent_model->category();
+        $data['category'] = $this->mastercontent_model->spc_category($id);
         $this->form_validation->set_rules('category', 'Category', "trim|required");
         $this->form_validation->set_rules('content_title', 'Video Ttle', "trim|required");
         // $this->form_validation->set_rules('video_url', 'Video Url', "trim|required");

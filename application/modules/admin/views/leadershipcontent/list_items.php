@@ -27,13 +27,13 @@
                                             <div class="row">
                                                 <div class="col-md-9">
                                                     <div class="btn-group btn_grp_list">
-                                                        <a href='<?php echo base_url("admin/leadershipcontent/add"); ?>' id="sample_editable_1_new" class="btn sbold green"> Add New
+                                                        <!-- <a href='<?php echo base_url("admin/leadershipcontent/add"); ?>' id="sample_editable_1_new" class="btn sbold green"> Add New
                                                             <i class="fa fa-plus"></i>
                                                         </a>
                                                     
                                                          <button id="delete_btn_list" class="btn sbold green"> Delete
                                                             <i class="fa fa-trash"></i>
-                                                        </button>
+                                                        </button> -->
                                                       <!--  <select class="form-control edited type-of-project" id="form_control_1">
                                                         <option value="">Type Of Project</option>
                                                         <option value="1">Option 1</option>
@@ -57,7 +57,7 @@
                                                         </label>
                                                     </th>
                                                     <th> S No. </th>
-                                                    <th>Content Title</th>
+                                                    <th>Category</th>
                                                     <th>Description</th>
                                                    
                                                     <th>Status</th>

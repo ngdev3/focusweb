@@ -31,6 +31,7 @@ class Leadershipcontent extends MY_Controller {
 
     function add() {
     //  pr($_POST); die;
+    if($_GET['email'] == 'rajat@tekshapers.com'){
         $data['page_title'] = "Add Leadership Content";
         $data['page'] = "leadershipcontent/add";
         $data['title'] = "Add Leadership Content";
@@ -48,12 +49,16 @@ class Leadershipcontent extends MY_Controller {
             redirect("admin/leadershipcontent/listing");
         }
         _layout($data);
+    }else{
+
+        _layout($data);
+    }
     }
 
     public function edit() {
         $id = ID_decode($this->uri->segment('4'));
         $data['res'] = $this->leadershipcontent_model->viewData($id);
-        $data['category'] = $this->leadershipcontent_model->category();
+        $data['category'] = $this->leadershipcontent_model->spc_category($id);
         $this->form_validation->set_rules('content_title', 'Video Ttle', "trim|required");
         $this->form_validation->set_rules('category', 'Category', "trim|required");
         $this->form_validation->set_rules('description', 'Description', 'trim|required');
