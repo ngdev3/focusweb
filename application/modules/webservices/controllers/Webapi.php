@@ -512,6 +512,32 @@ class Webapi extends REST_Controller {
         }
     }
 
+    public function upload_profile_post()
+    {
+        // pr($_POST['user_id']);
+        // die;
+
+        header('Access-Control-Allow-Origin: *');
+       // pr($_FILES['file']); die;
+        if (isset($_FILES['file']['tmp_name']) && !empty($_FILES['file']['tmp_name']))
+            {
+            $res = $this->Webapi_model->upload_profile();
+            if ($res['status'] == 'success') {
+                $success = array('responseCode' => '200', 'responseStatus' => 'success', 'data' => $res);
+                $this->response($success, 200);
+            } else {
+                $error = array('responseCode' => '400', 'responseStatus' => 'error', 'responseMessage' => $res['msg']);
+                $this->response($error, 200);
+            }
+        } else
+            {
+            $result['msg'] = "Image File not Found";
+            $result['status'] = 'error';
+            $error = array('responseCode' => '400', 'responseStatus' => 'error', 'responseMessage' => $result);
+            $this->response($error, 200);
+        }
+    }
+
     //**************************************************Get Class Detail Ends*****************************//
 
 

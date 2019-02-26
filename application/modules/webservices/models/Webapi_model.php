@@ -486,6 +486,42 @@ class Webapi_model extends CI_Model {
         return $result;
     }
 
+    public function upload_profile()
+    {
+
+        $this->load->library('upload');
+
+        $asd = $_FILES['file'];
+        $path = $_FILES['file']['name'];
+        $name = md5(time());
+        $file_name = $_FILES['file']['name'];
+        $_FILES['file']['name'] = $file_name;
+
+        $imageconfig['upload_path'] = 'uploads/profile_image';
+        $imageconfig['allowed_types'] = 'jpg|jpeg|png|gif';
+        $imageconfig['encrypt_name'] = TRUE;
+
+        $this->upload->initialize($imageconfig);
+
+        if (!$this->upload->do_upload('file')) {
+            $result['msg'] = $this->upload->display_errors();
+            $result['status'] = 'error';
+        } else {
+            $upload_data = $this->upload->data();
+            $file_name = $upload_data['file_name'];
+            $upd['profile_image'] = $file_name . $data['file_ext'];
+
+            $this->db->where('id',$_POST['user_id']);
+            $this->db->update('users',$upd);
+
+            $result['result'] = base_url('uploads/profile_image/'.$file_name . $data['file_ext']);
+            $result['status'] = 'success';
+            $result['msg'] = 'File Uploaded Successfully';
+
+        }
+        return $result;
+    }
+
     
     public function category($type)
     {
