@@ -10,6 +10,11 @@ class Users_model extends CI_Model {
         $this->load->helper('string');
     }
 
+    function get_cat($id){
+        $this->db->where('type',$id);
+        return $this->db->get('f_coach_category')->result();
+    }
+
     function list_items_ajax() {
         // die;
         $requestData = $_REQUEST;
@@ -93,7 +98,9 @@ class Users_model extends CI_Model {
                 $nestedData[] = '<label class="label-danger label">Delete</label>';
             }
            
-            $nestedData[] = $this->load->view("users/_action", array("data" => $row), true);
+// pr($this->get_cat('1')); die;
+
+            $nestedData[] = $this->load->view("users/_action", array("data" => $row, "sub" => $this->get_cat('1')), true);
             $data[] = $nestedData;
         }
         $json_data = array(
@@ -227,13 +234,16 @@ class Users_model extends CI_Model {
         $upd['is_coach'] = "1";
 
         if($type == 'mastery'){
+
             $upd['coach_cat'] = "1";
+
         }else if($type == 'leader'){
             $upd['coach_cat'] = "2";
         }else{
             $upd['coach_cat'] = null;
         }
         $upd['user_type'] = "3";
+        $upd['coach_subcat'] = $_POST['data']['sub_cat'];
         $whr['id'] = $id;
         $this->db->update("users", $upd, $whr);
         
@@ -256,6 +266,7 @@ class Users_model extends CI_Model {
     function assign_user($id) {
         $upd['is_coach'] = "0";
         $upd['coach_cat'] = null;
+        $upd['coach_subcat'] = null;
         $upd['user_type'] = "2";
         $whr['id'] = $id;
         $this->db->update("users", $upd, $whr);

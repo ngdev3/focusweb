@@ -29,6 +29,8 @@
                                                         </div>
 
 
+                                                     
+
  <!-- /.modal -->
  <!-- <a class="btn blue btn-outline sbold" data-toggle="modal" href="#small"> View Demo </a> -->
  <div class="modal fade bs-modal-sm" id="small_<?php echo ($data->id); ?>" tabindex="-1" role="dialog" aria-hidden="true">
@@ -45,19 +47,28 @@
                                                     <div class="form-group form-md-radios">
                                                 <!-- <label>Checkboxes</label> -->
                                                 <div class="md-radio-list">
-                                                    <div class="md-radio">
-                                                        <input type="radio" id="radio1" value="mastery" checked name="radio1" class="md-radiobtn" required>
-                                                        <label for="radio1">
+                                                    <div class="md-radio"  >
+                                                        <input type="radio"  id="firstradio_<?php echo ($data->id); ?>"  value="mastery" checked name="radio1" class="md-radiobtn" required>
+                                                        <label for="radio1" onClick="select_radio(<?php echo ($data->id); ?>,'firstradio_','1')">
                                                             <span></span>
                                                             <span class="check"></span>
-                                                            <span class="box"></span>Self Mastery</label>
+                                                            <span class="box" ></span>Self Mastery</label>
+                                                    </div>
+                                                    <div class="md-radio" >
+                                                        <input type="radio"   id="secondradio_<?php echo ($data->id); ?>" value="leader" name="radio1" class="md-radiobtn" required>
+                                                        <label for="radio2" onClick="select_radio(<?php echo ($data->id); ?>,'secondradio_','2')">
+                                                            <span></span>
+                                                            <span class="check"></span>
+                                                            <span class="box" ></span>Business Leadership </label>
                                                     </div>
                                                     <div class="md-radio">
-                                                        <input type="radio" id="radio2" value="leader" name="radio1" class="md-radiobtn" required>
-                                                        <label for="radio2">
-                                                            <span></span>
-                                                            <span class="check"></span>
-                                                            <span class="box"></span>Business Leadership </label>
+                                                       <select name="sab_cat" id="sab_cat_<?php echo ($data->id); ?>" class="form-control " required>
+                                                                <option value="">Select Sub Category</option>
+                                                               
+                                                            <?php foreach($sub as $key => $val):?>
+                                                                <option value="<?php echo $val->id;?>"><?php echo $val->title;?></option>
+                                                            <?php endforeach;?>
+                                                       </select>
                                                     </div>
                                                    
                                                 </div>
@@ -78,16 +89,26 @@
                                         <?php }?>
 
                                         <script>
+                                        function select_radio(id, type, typeid){
+                                            console.log('#'+type+id)
+                                            oncallajaxhit(typeid, id);
+                                            $('#'+type+id).attr('checked', 'checked');
+                                            //$(type+id).checked();
+                                        }
 $("#reject_button1<?=$data->id?>").click(function(){   
    
    var ids = <?php echo ID_encode($data->id);?>  //$(this).attr('data');
    var balance = $("input[name='radio1']:checked").val()
-//    alert(ids);
+//    alert($('#sab_cat').val());
+   if($('#sab_cat').val() < 1){
+    jAlert('Select Sub Catgory')
+   }
    var sendData = {
        ids:ids,
-       type:balance
+       type:balance,
+       sub_cat:$('#sab_cat').val()
    }
-//    return          
+  // return          
    $.ajax({
                         url:"<?php echo base_url('admin/users/becomecoach'); ?>",
                         type:"POST",
@@ -97,7 +118,7 @@ $("#reject_button1<?=$data->id?>").click(function(){
                             console.log()
                             if(JSON.parse(data).status){
 
-                            window.location.href="<?php echo base_url('admin/users/listing'); ?>";
+                         window.location.href="<?php echo base_url('admin/users/listing'); ?>";
                             }else{
 
                             alert("Row was not deleted");
@@ -110,31 +131,44 @@ $("#reject_button1<?=$data->id?>").click(function(){
 
 
 
-//    console.log(ids + balance);
-   $.ajax({
-           url: "<?php echo base_url("admin/advertiser/addBalance"); ?>",
-           type: "POST",
-           data: 'id='+ids+'&balance='+balance,
-           success: function(result){
-            if(result == 1){
-
-                window.location="<?php echo base_url("admin/advertiser"); ?>";
-            }
-
-               var obj=JSON.parse(result);
-               if(obj.validation_error.balance!=null){
-
-                   $('#comment_error<?=$data->id?>').html(obj.validation_error.balance);
-               }else{
-                   $('.comment_error<?=$data->id?>').html("");
-               }
-
-               
-           }
-       });
 
 });
 
+function oncallajaxhit(id, toolid){
+    // alert();
+
+    var sendData = {
+       id:id,
+      
+   }
+
+    $.ajax({
+                        url:"<?php echo base_url('admin/users/get_cat'); ?>",
+                        type:"POST",
+                        data:sendData,
+                        success:function(data){
+                            //table.draw();
+                            console.log(JSON.parse(data).length)
+                            if(JSON.parse(data).length > 0){
+
+                                var $city = $('#sab_cat_'+toolid);
+                                data = JSON.parse(data)
+                                
+                            $city.empty();
+                            for (var i = 0; i < data.length; i++) {
+                               // alert(data[i].id)
+                                $city.append('<option id=' + data[i].id + ' value=' + data[i].id + '>' + data[i].title + '</option>');
+                            }
+                            }else{
+
+                            jAlert("No Sub Category Found");
+                            }
+                        },
+                        error:function(){
+                            alert("Row was not deleted");
+                        }
+                    });
+}
 
 
 $(document).keypress(function(event){

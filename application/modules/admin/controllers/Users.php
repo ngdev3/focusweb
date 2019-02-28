@@ -140,6 +140,20 @@ class Users extends MY_Controller {
             echo json_encode($res);
         }
     }
+    function get_cat() {
+      //  pr(($_POST['data'])); die;
+
+        $id = $_POST['id'];
+        $res = $this->users_model->get_cat($id);
+        if ($res['status'] != "false") {
+
+            $this->session->set_flashdata("alert", array("c" => "s", "m" => "User Converted Successfully. "));
+            echo json_encode($res);
+        } else {
+            $this->session->set_flashdata("alert", array("c" => "d", "m" => "User Not Converted Successfully !"));
+            echo json_encode($res);
+        }
+    }
     function becomeuser() {
         $id = $_POST['id'];
         $res = $this->users_model->assign_user($id);
