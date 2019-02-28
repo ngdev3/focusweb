@@ -99,14 +99,14 @@ $("#reject_button1<?=$data->id?>").click(function(){
    
    var ids = <?php echo ID_encode($data->id);?>  //$(this).attr('data');
    var balance = $("input[name='radio1']:checked").val()
-//    alert($('#sab_cat').val());
-   if($('#sab_cat').val() < 1){
+  // alert($('#sab_cat_'+ <?php echo ($data->id);?>).val());
+   if($('#sab_cat_'+<?php echo ($data->id);?>).val() < 1){
     jAlert('Select Sub Catgory')
    }
    var sendData = {
        ids:ids,
        type:balance,
-       sub_cat:$('#sab_cat').val()
+       sub_cat:$('#sab_cat_'+<?php echo ($data->id);?>).val()
    }
   // return          
    $.ajax({

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 26, 2019 at 12:38 PM
+-- Generation Time: Feb 28, 2019 at 10:44 AM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 5.6.36
 
@@ -48,6 +48,31 @@ INSERT INTO `f_category` (`id`, `full_name`, `short_name`, `created_date`, `upda
 (5, 'Friday', 'FRI', NULL, '2019-01-28 12:00:12'),
 (6, 'Saturday', 'SAT', NULL, '2019-01-28 12:00:24'),
 (7, 'Sunday', 'SUN', NULL, '2019-01-28 12:00:34');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `f_cms`
+--
+
+CREATE TABLE `f_cms` (
+  `id` int(11) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `cms_id` enum('1','2','3') NOT NULL DEFAULT '1',
+  `description` longtext NOT NULL,
+  `added_by` int(11) NOT NULL,
+  `status` enum('active','inactive','delete') DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `updated_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `f_cms`
+--
+
+INSERT INTO `f_cms` (`id`, `type`, `cms_id`, `description`, `added_by`, `status`, `created_date`, `updated_date`) VALUES
+(1, 'About Us', '1', 'About Us Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32', 1, 'active', NULL, '2019-02-27 05:58:35'),
+(2, 'Terms and Condition', '2', 'Terms and Condition, Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32', 1, 'active', '2019-02-27 10:26:03', '2019-02-27 05:58:24');
 
 -- --------------------------------------------------------
 
@@ -134,7 +159,27 @@ INSERT INTO `f_coach_conversion_log` (`id`, `became`, `type`, `converted_by`, `w
 (7, 'is_add_user', NULL, 1, 18, '2019-01-17 01:02:28', '2019-01-17 12:02:28'),
 (8, 'is_user', NULL, 1, 17, '2019-01-18 01:31:44', '2019-01-18 12:31:44'),
 (9, 'is_coach', 2, 1, 18, '2019-01-18 01:42:30', '2019-01-18 12:42:30'),
-(10, 'is_coach', 2, 1, 17, '2019-01-18 01:42:37', '2019-01-18 12:42:37');
+(10, 'is_coach', 2, 1, 17, '2019-01-18 01:42:37', '2019-01-18 12:42:37'),
+(11, 'is_coach', 1, 1, 23, '2019-02-28 07:16:15', '2019-02-28 06:16:15'),
+(12, 'is_user', NULL, 1, 23, '2019-02-28 07:16:25', '2019-02-28 06:16:25'),
+(13, 'is_coach', 2, 1, 23, '2019-02-28 07:46:56', '2019-02-28 06:46:56'),
+(14, 'is_user', NULL, 1, 23, '2019-02-28 07:47:03', '2019-02-28 06:47:03'),
+(15, 'is_coach', 2, 1, 23, '2019-02-28 07:48:05', '2019-02-28 06:48:05'),
+(16, 'is_user', NULL, 1, 23, '2019-02-28 07:48:21', '2019-02-28 06:48:21'),
+(17, 'is_coach', 2, 1, 23, '2019-02-28 07:48:27', '2019-02-28 06:48:27'),
+(18, 'is_user', NULL, 1, 23, '2019-02-28 07:49:19', '2019-02-28 06:49:19'),
+(19, 'is_coach', 2, 1, 23, '2019-02-28 07:49:25', '2019-02-28 06:49:25'),
+(20, 'is_user', NULL, 1, 23, '2019-02-28 07:49:59', '2019-02-28 06:49:59'),
+(21, 'is_coach', 2, 1, 23, '2019-02-28 07:50:09', '2019-02-28 06:50:09'),
+(22, 'is_user', NULL, 1, 23, '2019-02-28 07:50:33', '2019-02-28 06:50:33'),
+(23, 'is_coach', 2, 1, 23, '2019-02-28 07:51:13', '2019-02-28 06:51:13'),
+(24, 'is_user', NULL, 1, 23, '2019-02-28 07:51:22', '2019-02-28 06:51:22'),
+(25, 'is_coach', 2, 1, 23, '2019-02-28 07:52:02', '2019-02-28 06:52:02'),
+(26, 'is_user', NULL, 1, 23, '2019-02-28 07:52:07', '2019-02-28 06:52:07'),
+(27, 'is_coach', 2, 1, 23, '2019-02-28 07:53:30', '2019-02-28 06:53:30'),
+(28, 'is_user', NULL, 1, 23, '2019-02-28 07:55:16', '2019-02-28 06:55:16'),
+(29, 'is_coach', 1, 1, 22, '2019-02-28 10:41:14', '2019-02-28 09:41:14'),
+(30, 'is_user', NULL, 1, 22, '2019-02-28 10:41:18', '2019-02-28 09:41:18');
 
 -- --------------------------------------------------------
 
@@ -626,12 +671,7 @@ INSERT INTO `f_self_mastery` (`id`, `title`, `url`, `category`, `description`, `
 CREATE TABLE `f_temp_image_upload` (
   `id` int(11) NOT NULL,
   `file_name` longtext NOT NULL,
-  `thumbnail_name` longtext NOT NULL,
-  `file_ext` text NOT NULL,
   `added_by` int(11) NOT NULL,
-  `file_size` varchar(255) NOT NULL,
-  `raw_name` longtext NOT NULL,
-  `image_type` varchar(255) NOT NULL,
   `status` enum('active','inactive','delete') DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
   `updated_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
@@ -641,10 +681,9 @@ CREATE TABLE `f_temp_image_upload` (
 -- Dumping data for table `f_temp_image_upload`
 --
 
-INSERT INTO `f_temp_image_upload` (`id`, `file_name`, `thumbnail_name`, `file_ext`, `added_by`, `file_size`, `raw_name`, `image_type`, `status`, `created_date`, `updated_date`) VALUES
-(2, 'd2bb3481b6c43afdee7e53c98b0c8899.jpg', 'd2bb3481b6c43afdee7e53c98b0c8899_thumb.jpg', '.jpg', 17, '486.91', 'd2bb3481b6c43afdee7e53c98b0c8899', 'jpeg', NULL, '2019-01-28 08:57:34', NULL),
-(3, 'fe90a528d06d0cd55697b5da5befcfc0.jpg', 'fe90a528d06d0cd55697b5da5befcfc0_thumb.jpg', '.jpg', 17, '486.91', 'fe90a528d06d0cd55697b5da5befcfc0', 'jpeg', NULL, '2019-01-28 08:58:39', NULL),
-(4, '04bbb6819cdf3aea0e7c8b6dbc439554.jpg', '04bbb6819cdf3aea0e7c8b6dbc439554_thumb.jpg', '.jpg', 17, '102.61', '04bbb6819cdf3aea0e7c8b6dbc439554', 'jpeg', NULL, '2019-02-08 11:00:10', NULL);
+INSERT INTO `f_temp_image_upload` (`id`, `file_name`, `added_by`, `status`, `created_date`, `updated_date`) VALUES
+(1, '409849a183f78ab47a6f5112602dd446.jpg', 1, 'active', '2019-02-27 09:35:21', NULL),
+(2, '211aabf72813fbc1440539a6dcdccd22.jpg', 1, 'active', '2019-02-27 09:40:58', NULL);
 
 -- --------------------------------------------------------
 
@@ -707,6 +746,7 @@ CREATE TABLE `users` (
   `email` varchar(255) DEFAULT NULL,
   `is_coach` int(11) NOT NULL DEFAULT '0',
   `coach_cat` int(11) DEFAULT NULL,
+  `coach_subcat` int(11) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `available_sizes` varchar(255) DEFAULT NULL,
   `token` longtext,
@@ -728,17 +768,17 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `fname`, `lname`, `email`, `is_coach`, `coach_cat`, `password`, `available_sizes`, `token`, `token_valid`, `profile_image`, `mobile_no`, `is_member`, `status`, `modified_time`, `added_date`, `added_by`, `updated_date`, `last_login`, `login_from`, `user_type`) VALUES
-(1, 'Rajat', 'Gupta', 'admin@yopmail.com', 0, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '8982e679f1cfe9c8054f122808fe23f2.jpg', '8506003445', 0, 'active', NULL, '2019-01-11 05:33:24', 0, '2019-02-19 08:42:14', '2019-02-26 02:27:49', 'Android', '1'),
-(15, 'Xaviera', 'Scott', 'cedypikiru@yopmail.com', 0, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8506003444', 1, 'active', NULL, '2019-01-15 05:38:27', 1, '2019-01-15 00:00:00', NULL, '', '2'),
-(16, 'Coach', 'Hogan', 'coach@yopmail.com', 0, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8056465458', 0, 'active', NULL, '2019-01-15 05:41:03', 1, NULL, NULL, '', '2'),
-(17, 'End', 'User', 'user@yopmail.com', 1, 2, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8523697845', 0, 'active', NULL, '2019-01-15 05:42:05', 1, '2019-01-15 00:00:00', NULL, '', '3'),
-(18, 'Eden', 'Frye', 'lohysudy@yopmail.com', 1, 2, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8887905070', 0, 'inactive', NULL, '2019-01-16 19:32:21', 1, NULL, NULL, '', '3'),
-(19, 'Post', 'Rajat', 'rajat51@yopmail.com', 0, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8506003696', 0, 'active', NULL, '2019-01-20 22:57:41', 0, NULL, NULL, '', '2'),
-(20, 'Post', 'Rajat', 'rajat52@yopmail.com', 0, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8506003696', 0, 'active', NULL, '2019-01-20 23:00:02', 0, NULL, NULL, '', NULL),
-(21, 'Post', 'Rajat', 'rajat53@yopmail.com', 0, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8506003696', 0, 'active', NULL, '2019-01-20 23:06:49', 0, NULL, NULL, '', NULL),
-(22, 'Post', 'Rajat', 'rajat54@yopmail.com', 0, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8506003696', 0, 'active', NULL, '2019-01-20 23:10:30', 0, NULL, NULL, '', '2'),
-(23, 'Post', 'Rajat', 'rajat55@yopmail.com', 0, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8506003696', 0, 'active', NULL, '2019-01-20 23:12:26', 0, '2019-01-21 00:00:00', '2019-02-01 03:20:17', 'android', '2');
+INSERT INTO `users` (`id`, `fname`, `lname`, `email`, `is_coach`, `coach_cat`, `coach_subcat`, `password`, `available_sizes`, `token`, `token_valid`, `profile_image`, `mobile_no`, `is_member`, `status`, `modified_time`, `added_date`, `added_by`, `updated_date`, `last_login`, `login_from`, `user_type`) VALUES
+(1, 'Rajat', 'Gupta', 'admin@yopmail.com', 0, NULL, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, 'c22f51760da0174b5dd2d9a5d2476bd4.jpg', '8506003445', 0, 'active', NULL, '2019-01-11 05:33:24', 0, '2019-02-19 08:42:14', '2019-02-27 09:29:12', 'Android', '1'),
+(15, 'Xaviera', 'Scott', 'cedypikiru@yopmail.com', 0, NULL, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8506003444', 1, 'active', NULL, '2019-01-15 05:38:27', 1, '2019-01-15 00:00:00', NULL, '', '2'),
+(16, 'Coach', 'Hogan', 'coach@yopmail.com', 0, NULL, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8056465458', 0, 'active', NULL, '2019-01-15 05:41:03', 1, NULL, NULL, '', '2'),
+(17, 'End', 'User', 'user@yopmail.com', 1, 2, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8523697845', 0, 'active', NULL, '2019-01-15 05:42:05', 1, '2019-01-15 00:00:00', NULL, '', '3'),
+(18, 'Eden', 'Frye', 'lohysudy@yopmail.com', 1, 2, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8887905070', 0, 'inactive', NULL, '2019-01-16 19:32:21', 1, NULL, NULL, '', '3'),
+(19, 'Post', 'Rajat', 'rajat51@yopmail.com', 0, NULL, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8506003696', 0, 'active', NULL, '2019-01-20 22:57:41', 0, NULL, NULL, '', '2'),
+(20, 'Post', 'Rajat', 'rajat52@yopmail.com', 0, NULL, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8506003696', 0, 'active', NULL, '2019-01-20 23:00:02', 0, NULL, NULL, '', NULL),
+(21, 'Post', 'Rajat', 'rajat53@yopmail.com', 0, NULL, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8506003696', 0, 'active', NULL, '2019-01-20 23:06:49', 0, NULL, NULL, '', NULL),
+(22, 'Post', 'Rajat', 'rajat54@yopmail.com', 0, NULL, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8506003696', 0, 'active', NULL, '2019-01-20 23:10:30', 0, NULL, NULL, '', '2'),
+(23, 'Post', 'Rajat', 'rajat55@yopmail.com', 0, NULL, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8506003696', 0, 'active', NULL, '2019-01-20 23:12:26', 0, '2019-01-21 00:00:00', '2019-02-01 03:20:17', 'android', '2');
 
 --
 -- Indexes for dumped tables
@@ -748,6 +788,12 @@ INSERT INTO `users` (`id`, `fname`, `lname`, `email`, `is_coach`, `coach_cat`, `
 -- Indexes for table `f_category`
 --
 ALTER TABLE `f_category`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `f_cms`
+--
+ALTER TABLE `f_cms`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -899,6 +945,12 @@ ALTER TABLE `f_category`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT for table `f_cms`
+--
+ALTER TABLE `f_cms`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `f_coaches_center`
 --
 ALTER TABLE `f_coaches_center`
@@ -914,7 +966,7 @@ ALTER TABLE `f_coach_category`
 -- AUTO_INCREMENT for table `f_coach_conversion_log`
 --
 ALTER TABLE `f_coach_conversion_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `f_color_schemes`
@@ -1016,7 +1068,7 @@ ALTER TABLE `f_self_mastery`
 -- AUTO_INCREMENT for table `f_temp_image_upload`
 --
 ALTER TABLE `f_temp_image_upload`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `f_vision_image_upload`
