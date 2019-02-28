@@ -440,47 +440,40 @@ class Webapi_model extends CI_Model {
     public function upload_banner_image()
     {
 
+        // pr($_FILES);
+        // pr($_POST);
+        // die;
+            $this->load->library('upload');
             $asd = $_FILES['file'];
             $path = $_FILES['file']['name'];
-            //  $ext = pathinfo($path, PATHINFO_EXTENSION);
             $name = md5(time());
             $file_name = $_FILES['file']['name'];
-            //  $thumb = $name . "_thumb." . $ext;
             $_FILES['file']['name'] = $file_name;
             $imageconfig['upload_path'] = 'uploads/temp_upload_images';
             $imageconfig['allowed_types'] = 'jpg|jpeg|png|gif';
             $imageconfig['encrypt_name'] = TRUE;
 
-        $this->upload->initialize($imageconfig);
-        if (!$this->upload->do_upload('file')) {
-            $result['msg'] = $this->upload->display_errors();
-          //  $result['msg'] =  json_encode($asd);
-            $result['status'] = 'error';
+            $this->upload->initialize($imageconfig);
+            if (!$this->upload->do_upload('file')) {
+                $result['msg'] = $this->upload->display_errors();
+                $result['status'] = 'error';
+            } else {
 
-
-        } else {
             $upload_data = $this->upload->data();
             $file_name = $upload_data['file_name'];
+            $data = $this->upload->data();
+            if(!empty($data['file_name'])){
+                $full_name = $file_name;
+                $upd['file_name'] = $full_name;
+                $upd['added_by'] = $_POST['user_id'];
+                $upd['status'] = 'active';
+                $upd['created_date'] = current_datetime();
 
-            $config['image_library'] = 'gd2';
-            @$config['source_image'] = "./uploads/temp_files/$file_name";
-            $config['maintain_ratio'] = '0';
-            $config['create_thumb'] = true;
-            $config['width'] = 100;
-            $config['height'] = 100;
-            $this->image_lib->clear(); // added this line
-            $this->image_lib->initialize($config); // added this line 
-
-            if (!$this->image_lib->resize())
-                {
-                $result['msg'] = $this->image_lib->display_errors();
-                $result['status'] = 'error';
-            } else
-                {
-                $data = $this->upload->data();
-                $result['result'] = $data['raw_name'] . '_thumb' . $data['file_ext'];
+                $this->db->insert('f_temp_image_upload',$upd);
+                $result['result'] = $file_name;
                 $result['status'] = 'success';
                 $result['msg'] = 'File Uploaded Successfully';
+            
             }
         }
         return $result;
@@ -532,6 +525,18 @@ class Webapi_model extends CI_Model {
                 ->get();
                // pr($res);die;
         return $res->result();
+    }
+
+    public function cms_profile()
+    { 
+         extract($_POST); 
+        $res = $this->db->select("*")
+                 ->where("status",'active')
+                 ->where("cms_id",$cms_id)
+                ->from("f_cms")
+                ->get();
+               // pr($res);die;
+        return $res->row();
     }
 
 

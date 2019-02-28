@@ -361,6 +361,18 @@ class Webapi extends REST_Controller {
         }
     }
 
+    public function cms_profile_post() {
+        $apikey = $this->input->post('apikey');
+        if ($apikey == APIKEY) {
+            $abc = $this->Webapi_model->cms_profile();
+            $success = array('ErrorCode' => 0, "message" => "data", 'data' => $abc);
+            $this->response($success, 200);
+        } else {
+            $error = array('ErrorCode' => 1, 'message' => 'Api Key does not exist');
+            $this->response($error, 200);
+        }
+    }
+
     /* -----------------------------------------------Get Class Closed--------------------------------------------- */
 
     //*************************************************Get Class Detail ****************************//
@@ -537,6 +549,8 @@ class Webapi extends REST_Controller {
             $this->response($error, 200);
         }
     }
+
+    
 
     //**************************************************Get Class Detail Ends*****************************//
 

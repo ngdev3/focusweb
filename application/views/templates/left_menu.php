@@ -158,6 +158,14 @@ $uri3 = @uri_segment(3);
                                                                      
                                 </ul>
                             </li>
+
+                            <li class="nav-item  <?php if($uri1=="admin" &&  $uri2=="cms") {echo "active open";} ?>">
+                                <a href="<?php echo base_url("admin/cms"); ?>" class="nav-link nav-toggle">
+                                    <i class="icon-puzzle"></i>
+                                    <span class="title">CMS</span>
+                                </a>
+                                
+                            </li>
                            
                         </ul>
                        
