@@ -102,6 +102,7 @@ $("#reject_button1<?=$data->id?>").click(function(){
   // alert($('#sab_cat_'+ <?php echo ($data->id);?>).val());
    if($('#sab_cat_'+<?php echo ($data->id);?>).val() < 1){
     jAlert('Select Sub Catgory')
+    return;
    }
    var sendData = {
        ids:ids,
