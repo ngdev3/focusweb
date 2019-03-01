@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 01, 2019 at 12:00 PM
+-- Generation Time: Mar 01, 2019 at 12:51 PM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 5.6.36
 
@@ -519,19 +519,6 @@ CREATE TABLE `f_my_vision` (
   `updated_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `f_my_vision`
---
-
-INSERT INTO `f_my_vision` (`id`, `image_id`, `vision_title`, `background_id`, `goal_date`, `status`, `added_by`, `created_date`, `updated_date`) VALUES
-(1, '0', '', 0, '', NULL, 17, '2019-01-28 05:57:37', '2019-01-28 12:27:37'),
-(2, '', 'ksdhkhskdhk kjhsk hksh sk hkshk hskh kshk sh', 1, '22-01-2019', 'active', 0, NULL, NULL),
-(3, '', 'ksdhkhskdhk kjhsk hksh sk hkshk hskh kshk sh', 1, '22-01-2019', 'active', 0, NULL, NULL),
-(4, '', 'ksdhkhskdhk kjhsk hksh sk hkshk hskh kshk sh', 1, '22-01-2019', 'active', 0, NULL, NULL),
-(5, '', 'ksdhkhskdhk kjhsk hksh sk hkshk hskh kshk sh', 1, '22-01-2019', 'active', 0, NULL, NULL),
-(6, '', 'ksdhkhskdhk kjhsk hksh sk hkshk hskh kshk sh', 1, '22-01-2019', 'active', 0, NULL, NULL),
-(7, '', 'ksdhkhskdhk kjhsk hksh sk hkshk hskh kshk sh', 1, '22-01-2019', 'active', 0, NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -1029,7 +1016,7 @@ ALTER TABLE `f_my_goal_steps`
 -- AUTO_INCREMENT for table `f_my_vision`
 --
 ALTER TABLE `f_my_vision`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `f_payment_log`

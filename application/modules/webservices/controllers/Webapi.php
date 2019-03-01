@@ -1040,6 +1040,48 @@ class Webapi extends REST_Controller {
         }
     }
 
+    
+    public function get_vision_list_post() {
+        $apikey = $this->input->post('apikey');
+        $id = $this->input->post('id');
+
+        if (isPostBack()) {
+            $this->form_validation->set_rules('apikey', 'apikey', "required");
+            $this->form_validation->set_rules('user_id', 'User Id', 'required');
+            if ($this->form_validation->run()) {
+
+                if ($apikey == APIKEY) {
+
+                    $getdata = $this->Webapi_model->get_vision_list();
+                //    pr($getdata); die;
+                if(count($getdata) < 1){
+                    $getdata = [];
+                } 
+                    if($getdata){
+
+                        $success = array('ErrorCode' => 0, "message" => "Data Found !", 'data' => $getdata);
+                        $this->response($success, 200);
+                    }else{
+                        
+                        $success = array('ErrorCode' => 1, "message" => "Data No Found", 'data' => "");
+                        $this->response($success, 200);
+                    }
+
+                } else {
+                    $error = array('ErrorCode' => 1, 'message' => 'Api Key does not exist');
+                    $this->response($error, 200);
+                }
+            } else {
+                $error = array('ErrorCode' => 1, 'message' => validation_errors());
+                $this->response($error, 200);
+            }
+        } else {
+            $error = array('ErrorCode' => 1, 'message' => 'Use Post Method Only');
+            $this->response($error, 200);
+        }
+    }
+
+
     public function get_days_post() {
         $apikey = $this->input->post('apikey');
         $id = $this->input->post('id');

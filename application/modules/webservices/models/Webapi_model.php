@@ -686,6 +686,27 @@ class Webapi_model extends CI_Model {
             return $data;
         }
 
+         function get_vision_list($dataInfo) {
+            extract($_POST); 
+            $this->db->select('wf.*');
+            $this->db->from('f_my_vision wf');
+            $this->db->where('wf.status','active');
+            $this->db->where('wf.added_by',$user_id);
+            $count = $this->db->get()->result();
+            // foreach($count as $count_key => $count_val){
+            //     $goal_days = explode(', ',$count_val->days);
+            //     $count[$count_key]->days = $goal_days;
+            //     for($i =0; $i < count($count[$count_key]->days) ; $i++){
+            //         $this->db->select('fmg.*');
+            //         $this->db->where('fmg.id',$count[$count_key]->days[$i]);
+            //         $this->db->from('f_days fmg');
+            //         $count[$count_key]->days[$i] = $this->db->get()->row();
+            //     }
+            // }
+            $data['focus_data'] = $count;
+            return $data;
+        }
+
     public function get_days($dataInfo) {
         extract($_POST); 
         $this->db->select('*');
@@ -1045,37 +1066,55 @@ class Webapi_model extends CI_Model {
 
     //my vision 
     public function upload_vision($dataInfo) {
-        extract($_POST); 
-
-        // $data['vision_title'] = $vision_title;
-        // $data['background_id'] = $background_id;
-        // $data['textforimage'] = $textforimage;
-        // $data['goal_date'] = $goal_date;
-        // $this->db->insert('f_my_vision', $data);
-        // $lastid = $this->db->insert_id();
-        
-        $totalresult = $this->db->get('f_temp_image_upload')->result();
-        foreach($totalresult as $val => $key){
-            pr($val);
-        }
+        extract($_POST);
        
-        $query = $this->db->query($sql);
-        echo $sql;
-        echo $this->db->last_query();
-        die;
-        $q = $this->db->get('f_temp_image_upload')->result();
-        $temp_folder = 'uploads/temp_upload_images';
-        $folder = 'uploads/upload_images';
-        foreach($q as $key => $val){
-            chmod($temp_folder, 0755);
-            chmod($folder, 0755);
-            copy('uploads/temp_upload_images/'.$val->file_name,'uploads/upload_images/'.$val->file_name);
-            unlink("uploads/temp_upload_images/".$val->file_name);
+        $data['vision_title'] = $vision_title;
+        $data['background_id'] = $background_id;
+        $data['goal_date'] = $goal_date;
+        $data['added_by'] = $user_id;
+        $this->db->insert('f_my_vision', $data);
+        $lastid = $this->db->insert_id();
+      //  die;
+
+                $this->db->where('uuid',$uuid);
+                $this->db->where('created_date',current_date());
+                $this->db->where('added_by',$user_id);
+       $rq =    $this->db->get('f_temp_image_upload');
+       $result = $rq->result();
+       $temp_folder = 'uploads/temp_upload_images';
+       $folder = 'uploads/upload_images';
+       foreach($result as $key => $val){
+           chmod($temp_folder, 0755);
+           chmod($folder, 0755);
+           copy('uploads/temp_upload_images/'.$val->file_name,'uploads/upload_images/'.$val->file_name);
+           unlink("uploads/temp_upload_images/".$val->file_name);
+       }
+
+    
+        foreach($result as $key => $val){
+        //    pr($val);
+            $datas['file_name'] = $val->file_name;
+            $datas['added_by'] = $user_id;
+            $datas['vision_id'] = $lastid;
+            $datas['status'] = 'active';
+            $datas['created_date'] = $val->created_date;
+            $this->db->insert('f_vision_image_upload', $datas);
+            $imagelastid[] = $this->db->insert_id();
         }
-        $sql = 'DELETE FROM f_temp_image_upload WHERE added_by='.$user_id;
+       // die;
+        $lastdata = implode(',',$imagelastid);
+
+        $ins['image_id'] = $lastdata;
+        $ins['updated_date'] = current_datetime();
+        $whr['id'] = $lastid;
+        $this->db->update("f_my_vision", $ins, $whr);
+        $prof = $this->db->affected_rows();
+
+        $sql = 'DELETE FROM f_temp_image_upload WHERE added_by ='.$user_id;
         $query = $this->db->query($sql);
         $quiz_result_id = $this->db->affected_rows();
-        echo $quiz_result_id;
+        return $quiz_result_id;
+
     }
 
     function delete_vision_pics_temp(){
