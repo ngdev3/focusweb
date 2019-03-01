@@ -504,10 +504,11 @@ class Webapi extends REST_Controller {
     public function upload_banner_image_post()
     {
         header('Access-Control-Allow-Origin: *');
-       /// pr($_FILES['file']); die;
+        // pr($_FILES['file']); die;
         if (isset($_FILES['file']['tmp_name']) && !empty($_FILES['file']['tmp_name']))
             {
             $res = $this->Webapi_model->upload_banner_image();
+            // die;
             if ($res['status'] == 'success') {
                 $success = array('responseCode' => '200', 'responseStatus' => 'success', 'data' => $res);
                 $this->response($success, 200);
@@ -568,7 +569,40 @@ class Webapi extends REST_Controller {
 
                 if ($apikey == APIKEY) {
 
-                    $getdata = $this->Webapi_model->get_upload();
+                    $getdata['list'] = $this->Webapi_model->get_upload();
+                    $getdata['url'] = base_url("uploads/temp_upload_images/");
+                    $success = array('ErrorCode' => 0, "message" => "Get Value From !", 'data' => $getdata);
+                    $this->response($success, 200);
+
+                } else {
+                    $error = array('ErrorCode' => 1, 'message' => 'Api Key does not exist');
+                    $this->response($error, 200);
+                }
+            } else {
+                $error = array('ErrorCode' => 1, 'message' => validation_errors());
+                $this->response($error, 200);
+            }
+        } else {
+            $error = array('ErrorCode' => 1, 'message' => 'Use Post Method Only');
+            $this->response($error, 200);
+        }
+    }
+
+    public function delete_vision_pics_post()
+    {   
+        $apikey = $this->input->post('apikey');
+        $id = $this->input->post('id');
+
+        if (isPostBack()) {
+            $this->form_validation->set_rules('apikey', 'apikey', "required");
+            $this->form_validation->set_rules('user_id', 'User Id', 'required');
+            $this->form_validation->set_rules('typeofgoal', 'Type Goal', 'required');
+            if ($this->form_validation->run()) {
+
+                if ($apikey == APIKEY) {
+
+                    $getdata['list'] = $this->Webapi_model->delete_vision_pics_temp();
+                    $getdata['url'] = base_url("uploads/temp_upload_images/");
                     $success = array('ErrorCode' => 0, "message" => "Get Value From !", 'data' => $getdata);
                     $this->response($success, 200);
 
@@ -587,7 +621,41 @@ class Webapi extends REST_Controller {
     }
 
 
-    public function delete_vision_pics_post()
+    public function get_background_post()
+    {   
+        $apikey = $this->input->post('apikey');
+        $id = $this->input->post('id');
+
+        if (isPostBack()) {
+            $this->form_validation->set_rules('apikey', 'apikey', "required");
+            $this->form_validation->set_rules('user_id', 'User Id', 'required');
+            $this->form_validation->set_rules('typeofgoal', 'Type Goal', 'required');
+            $this->form_validation->set_rules('background', 'Background', 'required');
+            if ($this->form_validation->run()) {
+
+                if ($apikey == APIKEY) {
+
+                    $getdata = $this->Webapi_model->get_background();
+                   
+                    $success = array('ErrorCode' => 0, "message" => "Get Value From !", 'data' => $getdata);
+                    $this->response($success, 200);
+
+                } else {
+                    $error = array('ErrorCode' => 1, 'message' => 'Api Key does not exist');
+                    $this->response($error, 200);
+                }
+            } else {
+                $error = array('ErrorCode' => 1, 'message' => validation_errors());
+                $this->response($error, 200);
+            }
+        } else {
+            $error = array('ErrorCode' => 1, 'message' => 'Use Post Method Only');
+            $this->response($error, 200);
+        }
+    }
+
+
+    public function delete_vision_picss_post()
     {   
         $apikey = $this->input->post('apikey');
         $id = $this->input->post('id');

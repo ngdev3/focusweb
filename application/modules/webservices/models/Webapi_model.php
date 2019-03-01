@@ -439,44 +439,48 @@ class Webapi_model extends CI_Model {
 
     public function upload_banner_image()
     {
+        $this->db->where('added_by',$_POST['user_id']);
+        $this->db->where('uuid',$_POST['uuid']);
+        $this->db->where('created_date',current_date());
+        $req = $this->db->get('f_temp_image_upload')->num_rows();
+            if($req <= 9){
 
-        // pr($_FILES);
-        // pr($_POST);
-        // die;
-            $this->load->library('upload');
-            $asd = $_FILES['file'];
-            $path = $_FILES['file']['name'];
-            $name = md5(time());
-            $file_name = $_FILES['file']['name'];
-            $_FILES['file']['name'] = $file_name;
-            $imageconfig['upload_path'] = 'uploads/temp_upload_images';
-            $imageconfig['allowed_types'] = 'jpg|jpeg|png|gif';
-            $imageconfig['encrypt_name'] = TRUE;
-
-            $this->upload->initialize($imageconfig);
-            if (!$this->upload->do_upload('file')) {
-                $result['msg'] = $this->upload->display_errors();
-                $result['status'] = 'error';
-            } else {
-
-            $upload_data = $this->upload->data();
-            $file_name = $upload_data['file_name'];
-            $data = $this->upload->data();
-            if(!empty($data['file_name'])){
+                $this->load->library('upload');
+                $asd = $_FILES['file'];
+                $path = $_FILES['file']['name'];
+                $name = md5(time());
+                $file_name = $_FILES['file']['name'];
+                $_FILES['file']['name'] = $file_name;
+                $imageconfig['upload_path'] = 'uploads/temp_upload_images';
+                $imageconfig['allowed_types'] = 'jpg|jpeg|png|gif';
+                $imageconfig['encrypt_name'] = TRUE;
+                $this->upload->initialize($imageconfig);
+                if (!$this->upload->do_upload('file')) {
+                    $result['msg'] = $this->upload->display_errors();
+                    $result['status'] = 'error';
+                } else {
+                $upload_data = $this->upload->data();
+                $file_name = $upload_data['file_name'];
+                $data = $this->upload->data();
                 $full_name = $file_name;
                 $upd['file_name'] = $full_name;
                 $upd['added_by'] = $_POST['user_id'];
+                $upd['uuid'] = $_POST['uuid'];
                 $upd['status'] = 'active';
                 $upd['created_date'] = current_datetime();
-
                 $this->db->insert('f_temp_image_upload',$upd);
                 $result['result'] = $file_name;
                 $result['status'] = 'success';
                 $result['msg'] = 'File Uploaded Successfully';
-            
             }
-        }
+            
+            }else{
+                $result['result'] = $file_name;
+                $result['status'] = 'error';
+                $result['msg'] = 'Already 10 Images Uploaded';
+            }
         return $result;
+
     }
 
     public function upload_profile()
@@ -1069,8 +1073,38 @@ class Webapi_model extends CI_Model {
         echo $quiz_result_id;
     }
 
+    function delete_vision_pics_temp(){
+        
+        $this->db->where('id',$_POST['id']);
+        $result =   $this->db->get('f_temp_image_upload')->row();
+        
+        $this->db->where('id', $_POST['id']);
+        $this->db->delete('f_temp_image_upload');
+
+        if(unlink("uploads/temp_upload_images/".$result->file_name)){
+            return true;
+        }else{
+            return false;
+            
+        }
+    }
+
+    function get_background(){
+        
+        $this->db->where('id',$_POST['background']);
+        $result =   $this->db->get('f_color_schemes')->row();
+        if($result){
+            return  $result;
+        }else{
+            return false;
+            
+        }
+    }
+
     public function get_upload($dataInfo) {
 
+        // pr(current_datetime()); 
+        // die;
         extract($_POST); 
         $this->db->select('*');
         if($typeofgoal == 'vision'){
@@ -1082,8 +1116,11 @@ class Webapi_model extends CI_Model {
             
             $this->db->from('f_temp_image_upload');
         }
+        $this->db->where('DATE(created_date)', current_date());
+        $this->db->where('uuid',$uuid);
         $this->db->where('added_by',$user_id);
         $prof = $this->db->get()->result();
+        // pr($this->db->last_query()); die;
         return $prof;
     }
     public function delete_upload($dataInfo) {

@@ -318,6 +318,10 @@ function current_datetime() {
     $res = date('Y-m-d h:i:s');
     return $res;
 }
+function current_date() {
+    $res = date('Y-m-d');
+    return $res;
+}
 
 function get_where($table, $where = NULL, $order = NULL, $column = NULL) {
     $CI = &get_instance();
