@@ -93,17 +93,8 @@ $uri3 = @uri_segment(3);
                                             <span class="title <?php if($uri1=="admin" && ($uri2=="masterclass" && $uri3=="listing")){echo "text text-danger";} ?>">Focus Master class</span>
                                         </a>
                                     </li>
-                                    <!-- <li class="nav-item  ">
-                                        <a href="<?php echo base_url("admin/education/listing"); ?>" class="nav-link ">
-                                            <span class="title <?php if($uri1=="admin" && ($uri2=="education" && $uri3=="listing")){echo "text text-danger";} ?>">Focus Education</span>
-                                        </a>
-                                    </li> -->
-                                                                     
-                                </ul>
-                            </li>
-                           
-                            <!-- <li class="nav-item open"> -->
-                            <li class="nav-item  <?php if($uri1=="admin" && ($uri2 =="mastercontent" || $uri2 =="mastervideo" || $uri2 =="leadershipcontent" || $uri2 =="leadershipvideo")) {echo "active open";} ?>">
+									
+									<li class="nav-item  <?php if($uri1=="admin" && ($uri2 =="mastercontent" || $uri2 =="mastervideo" || $uri2 =="leadershipcontent" || $uri2 =="leadershipvideo")) {echo "active open";} ?>">
                                 
                                 <a href="javascript:;" class="nav-link nav-toggle">
                                     <i class="icon-puzzle"></i>
@@ -158,6 +149,72 @@ $uri3 = @uri_segment(3);
                                                                      
                                 </ul>
                             </li>
+                                    <!-- <li class="nav-item  ">
+                                        <a href="<?php echo base_url("admin/education/listing"); ?>" class="nav-link ">
+                                            <span class="title <?php if($uri1=="admin" && ($uri2=="education" && $uri3=="listing")){echo "text text-danger";} ?>">Focus Education</span>
+                                        </a>
+                                    </li> -->
+                                                                     
+                                </ul>
+                            </li>
+							<li class="nav-item  <?php if($uri1=="admin" && ($uri2 =="mastercontent" || $uri2 =="mastervideo" || $uri2 =="leadershipcontent" || $uri2 =="leadershipvideo")) {echo "active open";} ?>">
+                                
+                                <a href="javascript:;" class="nav-link nav-toggle">
+                                    <i class="icon-puzzle"></i>
+                                    <span class="title">Focus Retreats</span>
+                                    <span class="arrow"></span>
+                                </a>
+
+                                <ul class="sub-menu">
+                                    <li class="nav-item <?php if(($uri1=="admin" && ($uri2 =="mastercontent" || $uri2 =="mastervideo"))){echo "active open";} ?>">
+                                      
+                                            <a href="javascript:;" class="nav-link nav-toggle">
+                                                <i class="icon-puzzle"></i>
+                                                <span class="title">Self Mastery</span>
+                                                <span class="arrow "></span>
+                                            </a>
+                                                <ul class="sub-menu">
+                                                    <li class="nav-item ">
+                                                        <a href="<?php echo base_url("admin/mastercontent/listing"); ?>" class="nav-link ">
+                                                            <span class="title <?php if($uri1=="admin" && ($uri2=="mastercontent")){echo "text text-danger";} ?>">Content</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-item  ">
+                                                        <a href="<?php echo base_url("admin/mastervideo/listing"); ?>" class="nav-link ">
+                                                            <span class="title <?php if($uri1=="admin" && ($uri2=="mastervideo")){echo "text text-danger";} ?>">Videos</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                     
+                            </li>
+                            <li class="nav-item <?php if(($uri1=="admin" && ($uri2 =="leadershipcontent" || $uri2 =="leadershipvideo" ))){echo "active open";} ?>">
+                                            <a href="javascript:;" class="nav-link nav-toggle">
+                                                <i class="icon-puzzle"></i>
+                                                <span class="title">Business Leadership</span>
+                                                <span class="arrow "></span>
+                                            </a>
+                                        <ul class="sub-menu">
+                                            <li class="nav-item">
+                                                <a href="<?php echo base_url("admin/leadershipcontent/listing"); ?>" class="nav-link ">
+                                                    <span class="title <?php if($uri1=="admin" && ($uri2=="leadershipcontent")){echo "text text-danger";} ?>">Content</span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item  ">
+                                                <a href="<?php echo base_url("admin/leadershipvideo/listing"); ?>" class="nav-link ">
+                                                    <span class="title <?php if($uri1=="admin" && ($uri2=="leadershipvideo")){echo "text text-danger";} ?>">Video</span>
+                                                </a>
+                                            </li>
+                                        
+                                                                            
+                                        </ul>
+                            </li>
+                        
+                                                                     
+                                </ul>
+                            </li>
+                           
+                            <!-- <li class="nav-item open"> -->
+                            
 
                             <li class="nav-item  <?php if($uri1=="admin" &&  $uri2=="cms") {echo "active open";} ?>">
                                 <a href="<?php echo base_url("admin/cms"); ?>" class="nav-link nav-toggle">
