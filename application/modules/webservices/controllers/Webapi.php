@@ -745,10 +745,9 @@ class Webapi extends REST_Controller {
         if (isPostBack()) {
             $this->form_validation->set_rules('apikey', 'apikey', "required");
             $this->form_validation->set_rules('user_id', 'User Id', 'required');
-            $this->form_validation->set_rules('vision_title', 'Vision Title', 'required');
-            $this->form_validation->set_rules('background_id', 'Background ID', 'required');
-            $this->form_validation->set_rules('textforimage', 'Text of Image', 'required');
             $this->form_validation->set_rules('goal_date', 'Goal Date', 'required');
+            $this->form_validation->set_rules('background_id', 'Background ID', 'required');
+            $this->form_validation->set_rules('vision_title', 'Vision Title', 'required');
             if ($this->form_validation->run()) {
 
                 if ($apikey == APIKEY) {

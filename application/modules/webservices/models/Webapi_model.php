@@ -471,6 +471,7 @@ class Webapi_model extends CI_Model {
                 $this->db->insert('f_temp_image_upload',$upd);
                 $result['result'] = $file_name;
                 $result['status'] = 'success';
+                $result['row'] = $req + 1;
                 $result['msg'] = 'File Uploaded Successfully';
             }
             
@@ -1046,14 +1047,18 @@ class Webapi_model extends CI_Model {
     public function upload_vision($dataInfo) {
         extract($_POST); 
 
-        $data['vision_title'] = $vision_title;
-        $data['background_id'] = $background_id;
-        $data['textforimage'] = $textforimage;
-        $data['goal_date'] = $goal_date;
-
-        $this->db->insert('f_my_vision', $data);
-        $lastid = $this->db->insert_id();
-        $sql = 'INSERT INTO f_vision_image_upload (file_name, thumbnail_name, file_ext, added_by, file_size, raw_name, image_type, status, created_date, updated_date, vision_id) SELECT file_name, thumbnail_name, file_ext, added_by, file_size, raw_name, image_type, status, created_date, updated_date FROM f_temp_image_upload WHERE added_by='.$user_id;
+        // $data['vision_title'] = $vision_title;
+        // $data['background_id'] = $background_id;
+        // $data['textforimage'] = $textforimage;
+        // $data['goal_date'] = $goal_date;
+        // $this->db->insert('f_my_vision', $data);
+        // $lastid = $this->db->insert_id();
+        
+        $totalresult = $this->db->get('f_temp_image_upload')->result();
+        foreach($totalresult as $val => $key){
+            pr($val);
+        }
+       
         $query = $this->db->query($sql);
         echo $sql;
         echo $this->db->last_query();
@@ -1107,15 +1112,8 @@ class Webapi_model extends CI_Model {
         // die;
         extract($_POST); 
         $this->db->select('*');
-        if($typeofgoal == 'vision'){
-          
-            $this->db->from('f_temp_image_upload');
-            
-            
-        }else{
-            
-            $this->db->from('f_temp_image_upload');
-        }
+        
+        $this->db->from('f_temp_image_upload');
         $this->db->where('DATE(created_date)', current_date());
         $this->db->where('uuid',$uuid);
         $this->db->where('added_by',$user_id);

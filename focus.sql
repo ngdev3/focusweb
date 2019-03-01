@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 28, 2019 at 10:44 AM
+-- Generation Time: Mar 01, 2019 at 12:00 PM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 5.6.36
 
@@ -179,7 +179,17 @@ INSERT INTO `f_coach_conversion_log` (`id`, `became`, `type`, `converted_by`, `w
 (27, 'is_coach', 2, 1, 23, '2019-02-28 07:53:30', '2019-02-28 06:53:30'),
 (28, 'is_user', NULL, 1, 23, '2019-02-28 07:55:16', '2019-02-28 06:55:16'),
 (29, 'is_coach', 1, 1, 22, '2019-02-28 10:41:14', '2019-02-28 09:41:14'),
-(30, 'is_user', NULL, 1, 22, '2019-02-28 10:41:18', '2019-02-28 09:41:18');
+(30, 'is_user', NULL, 1, 22, '2019-02-28 10:41:18', '2019-02-28 09:41:18'),
+(31, 'is_coach', 1, 1, 22, '2019-02-28 10:47:47', '2019-02-28 09:47:47'),
+(32, 'is_coach', 1, 1, 21, '2019-02-28 10:48:03', '2019-02-28 09:48:03'),
+(33, 'is_user', NULL, 1, 22, '2019-02-28 10:49:07', '2019-02-28 09:49:07'),
+(34, 'is_coach', 1, 1, 22, '2019-02-28 10:49:12', '2019-02-28 09:49:12'),
+(35, 'is_user', NULL, 1, 22, '2019-02-28 10:49:44', '2019-02-28 09:49:44'),
+(36, 'is_coach', 1, 1, 22, '2019-02-28 10:49:55', '2019-02-28 09:49:55'),
+(37, 'is_coach', 2, 1, 23, '2019-02-28 10:50:27', '2019-02-28 09:50:27'),
+(38, 'is_user', NULL, 1, 23, '2019-02-28 10:50:45', '2019-02-28 09:50:45'),
+(39, 'is_coach', 2, 1, 23, '2019-02-28 10:50:51', '2019-02-28 09:50:51'),
+(40, 'is_user', NULL, 1, 23, '2019-02-28 10:51:04', '2019-02-28 09:51:04');
 
 -- --------------------------------------------------------
 
@@ -502,7 +512,6 @@ CREATE TABLE `f_my_vision` (
   `image_id` varchar(255) NOT NULL,
   `vision_title` varchar(255) NOT NULL,
   `background_id` int(11) NOT NULL,
-  `textforimage` longtext NOT NULL,
   `goal_date` varchar(255) NOT NULL,
   `status` enum('active','inactive','delete') DEFAULT 'active',
   `added_by` int(11) NOT NULL,
@@ -514,14 +523,14 @@ CREATE TABLE `f_my_vision` (
 -- Dumping data for table `f_my_vision`
 --
 
-INSERT INTO `f_my_vision` (`id`, `image_id`, `vision_title`, `background_id`, `textforimage`, `goal_date`, `status`, `added_by`, `created_date`, `updated_date`) VALUES
-(1, '0', '', 0, '', '', NULL, 17, '2019-01-28 05:57:37', '2019-01-28 12:27:37'),
-(2, '', 'ksdhkhskdhk kjhsk hksh sk hkshk hskh kshk sh', 1, 'hdjkfghkjdhfkjg hk jfgk dkfgh kdfghkdfg hkd fgkhd fkgh dk fghkdfhg ', '22-01-2019', 'active', 0, NULL, NULL),
-(3, '', 'ksdhkhskdhk kjhsk hksh sk hkshk hskh kshk sh', 1, 'hdjkfghkjdhfkjg hk jfgk dkfgh kdfghkdfg hkd fgkhd fkgh dk fghkdfhg ', '22-01-2019', 'active', 0, NULL, NULL),
-(4, '', 'ksdhkhskdhk kjhsk hksh sk hkshk hskh kshk sh', 1, 'hdjkfghkjdhfkjg hk jfgk dkfgh kdfghkdfg hkd fgkhd fkgh dk fghkdfhg ', '22-01-2019', 'active', 0, NULL, NULL),
-(5, '', 'ksdhkhskdhk kjhsk hksh sk hkshk hskh kshk sh', 1, 'hdjkfghkjdhfkjg hk jfgk dkfgh kdfghkdfg hkd fgkhd fkgh dk fghkdfhg ', '22-01-2019', 'active', 0, NULL, NULL),
-(6, '', 'ksdhkhskdhk kjhsk hksh sk hkshk hskh kshk sh', 1, 'hdjkfghkjdhfkjg hk jfgk dkfgh kdfghkdfg hkd fgkhd fkgh dk fghkdfhg ', '22-01-2019', 'active', 0, NULL, NULL),
-(7, '', 'ksdhkhskdhk kjhsk hksh sk hkshk hskh kshk sh', 1, 'hdjkfghkjdhfkjg hk jfgk dkfgh kdfghkdfg hkd fgkhd fkgh dk fghkdfhg ', '22-01-2019', 'active', 0, NULL, NULL);
+INSERT INTO `f_my_vision` (`id`, `image_id`, `vision_title`, `background_id`, `goal_date`, `status`, `added_by`, `created_date`, `updated_date`) VALUES
+(1, '0', '', 0, '', NULL, 17, '2019-01-28 05:57:37', '2019-01-28 12:27:37'),
+(2, '', 'ksdhkhskdhk kjhsk hksh sk hkshk hskh kshk sh', 1, '22-01-2019', 'active', 0, NULL, NULL),
+(3, '', 'ksdhkhskdhk kjhsk hksh sk hkshk hskh kshk sh', 1, '22-01-2019', 'active', 0, NULL, NULL),
+(4, '', 'ksdhkhskdhk kjhsk hksh sk hkshk hskh kshk sh', 1, '22-01-2019', 'active', 0, NULL, NULL),
+(5, '', 'ksdhkhskdhk kjhsk hksh sk hkshk hskh kshk sh', 1, '22-01-2019', 'active', 0, NULL, NULL),
+(6, '', 'ksdhkhskdhk kjhsk hksh sk hkshk hskh kshk sh', 1, '22-01-2019', 'active', 0, NULL, NULL),
+(7, '', 'ksdhkhskdhk kjhsk hksh sk hkshk hskh kshk sh', 1, '22-01-2019', 'active', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -672,18 +681,11 @@ CREATE TABLE `f_temp_image_upload` (
   `id` int(11) NOT NULL,
   `file_name` longtext NOT NULL,
   `added_by` int(11) NOT NULL,
+  `uuid` mediumtext,
   `status` enum('active','inactive','delete') DEFAULT NULL,
-  `created_date` datetime DEFAULT NULL,
+  `created_date` date DEFAULT NULL,
   `updated_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `f_temp_image_upload`
---
-
-INSERT INTO `f_temp_image_upload` (`id`, `file_name`, `added_by`, `status`, `created_date`, `updated_date`) VALUES
-(1, '409849a183f78ab47a6f5112602dd446.jpg', 1, 'active', '2019-02-27 09:35:21', NULL),
-(2, '211aabf72813fbc1440539a6dcdccd22.jpg', 1, 'active', '2019-02-27 09:40:58', NULL);
 
 -- --------------------------------------------------------
 
@@ -694,13 +696,8 @@ INSERT INTO `f_temp_image_upload` (`id`, `file_name`, `added_by`, `status`, `cre
 CREATE TABLE `f_vision_image_upload` (
   `id` int(11) NOT NULL,
   `file_name` longtext NOT NULL,
-  `thumbnail_name` longtext NOT NULL,
-  `file_ext` text NOT NULL,
   `added_by` int(11) NOT NULL,
   `vision_id` int(11) NOT NULL,
-  `file_size` varchar(255) NOT NULL,
-  `raw_name` longtext NOT NULL,
-  `image_type` varchar(255) NOT NULL,
   `status` enum('active','inactive','delete') DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
   `updated_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
@@ -769,15 +766,15 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `fname`, `lname`, `email`, `is_coach`, `coach_cat`, `coach_subcat`, `password`, `available_sizes`, `token`, `token_valid`, `profile_image`, `mobile_no`, `is_member`, `status`, `modified_time`, `added_date`, `added_by`, `updated_date`, `last_login`, `login_from`, `user_type`) VALUES
-(1, 'Rajat', 'Gupta', 'admin@yopmail.com', 0, NULL, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, 'c22f51760da0174b5dd2d9a5d2476bd4.jpg', '8506003445', 0, 'active', NULL, '2019-01-11 05:33:24', 0, '2019-02-19 08:42:14', '2019-02-27 09:29:12', 'Android', '1'),
+(1, 'Rajat', 'Gupta', 'admin@yopmail.com', 0, NULL, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, 'c22f51760da0174b5dd2d9a5d2476bd4.jpg', '8506003445', 0, 'active', NULL, '2019-01-11 05:33:24', 0, '2019-02-19 08:42:14', '2019-03-01 12:58:39', 'Android', '1'),
 (15, 'Xaviera', 'Scott', 'cedypikiru@yopmail.com', 0, NULL, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8506003444', 1, 'active', NULL, '2019-01-15 05:38:27', 1, '2019-01-15 00:00:00', NULL, '', '2'),
 (16, 'Coach', 'Hogan', 'coach@yopmail.com', 0, NULL, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8056465458', 0, 'active', NULL, '2019-01-15 05:41:03', 1, NULL, NULL, '', '2'),
 (17, 'End', 'User', 'user@yopmail.com', 1, 2, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8523697845', 0, 'active', NULL, '2019-01-15 05:42:05', 1, '2019-01-15 00:00:00', NULL, '', '3'),
 (18, 'Eden', 'Frye', 'lohysudy@yopmail.com', 1, 2, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8887905070', 0, 'inactive', NULL, '2019-01-16 19:32:21', 1, NULL, NULL, '', '3'),
 (19, 'Post', 'Rajat', 'rajat51@yopmail.com', 0, NULL, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8506003696', 0, 'active', NULL, '2019-01-20 22:57:41', 0, NULL, NULL, '', '2'),
 (20, 'Post', 'Rajat', 'rajat52@yopmail.com', 0, NULL, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8506003696', 0, 'active', NULL, '2019-01-20 23:00:02', 0, NULL, NULL, '', NULL),
-(21, 'Post', 'Rajat', 'rajat53@yopmail.com', 0, NULL, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8506003696', 0, 'active', NULL, '2019-01-20 23:06:49', 0, NULL, NULL, '', NULL),
-(22, 'Post', 'Rajat', 'rajat54@yopmail.com', 0, NULL, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8506003696', 0, 'active', NULL, '2019-01-20 23:10:30', 0, NULL, NULL, '', '2'),
+(21, 'Post', 'Rajat', 'rajat53@yopmail.com', 1, 1, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8506003696', 0, 'active', NULL, '2019-01-20 23:06:49', 0, NULL, NULL, '', '3'),
+(22, 'Post', 'Rajat', 'rajat54@yopmail.com', 1, 1, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8506003696', 0, 'active', NULL, '2019-01-20 23:10:30', 0, NULL, NULL, '', '3'),
 (23, 'Post', 'Rajat', 'rajat55@yopmail.com', 0, NULL, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8506003696', 0, 'active', NULL, '2019-01-20 23:12:26', 0, '2019-01-21 00:00:00', '2019-02-01 03:20:17', 'android', '2');
 
 --
@@ -966,7 +963,7 @@ ALTER TABLE `f_coach_category`
 -- AUTO_INCREMENT for table `f_coach_conversion_log`
 --
 ALTER TABLE `f_coach_conversion_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `f_color_schemes`
