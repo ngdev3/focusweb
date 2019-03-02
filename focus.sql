@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 01, 2019 at 12:51 PM
+-- Generation Time: Mar 01, 2019 at 02:43 PM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 5.6.36
 
@@ -1052,7 +1052,7 @@ ALTER TABLE `f_self_mastery`
 -- AUTO_INCREMENT for table `f_temp_image_upload`
 --
 ALTER TABLE `f_temp_image_upload`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `f_vision_image_upload`

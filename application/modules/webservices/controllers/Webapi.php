@@ -529,7 +529,7 @@ class Webapi extends REST_Controller {
     {
         // pr($_POST['user_id']);
         // die;
-
+    
         header('Access-Control-Allow-Origin: *');
        // pr($_FILES['file']); die;
         if (isset($_FILES['file']['tmp_name']) && !empty($_FILES['file']['tmp_name']))
