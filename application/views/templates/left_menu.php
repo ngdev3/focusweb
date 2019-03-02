@@ -71,7 +71,15 @@ $uri3 = @uri_segment(3);
                             </a>
                            </li>
                            
-                            <li class="nav-item  <?php if($uri1=="admin" && ($uri2 =="morning" || $uri2 =="coaches" || $uri2 =="masterclass")) {echo "active open";} ?>">
+                            <li class="nav-item  <?php if($uri1=="admin" && (
+                            $uri2 =="morning" || 
+                            $uri2 =="coaches" || 
+                            $uri2 =="masterclass" || 
+                            $uri2 =="mastercontent" || 
+                            $uri2 =="mastervideo"|| 
+                            $uri2 =="leadershipcontent"|| 
+                            $uri2 =="leadershipvideo"
+                            )) {echo "active open";} ?>">
                                 <a href="javascript:;" class="nav-link nav-toggle">
                                     <i class="icon-puzzle"></i>
                                     <span class="title">Masters Membership</span>
@@ -157,6 +165,7 @@ $uri3 = @uri_segment(3);
                                                                      
                                 </ul>
                             </li>
+<!--                             
 							<li class="nav-item  <?php if($uri1=="admin" && ($uri2 =="mastercontent" || $uri2 =="mastervideo" || $uri2 =="leadershipcontent" || $uri2 =="leadershipvideo")) {echo "active open";} ?>">
                                 
                                 <a href="javascript:;" class="nav-link nav-toggle">
@@ -212,7 +221,7 @@ $uri3 = @uri_segment(3);
                                                                      
                                 </ul>
                             </li>
-                           
+                            -->
                             <!-- <li class="nav-item open"> -->
                             
 
