@@ -854,6 +854,46 @@ class Webapi extends REST_Controller {
         }
     }
 
+
+    public function delete_old_pics_post() {
+        $apikey = $this->input->post('apikey');
+        $id = $this->input->post('id');
+
+        if (isPostBack()) {
+            $this->form_validation->set_rules('apikey', 'apikey', "required");
+            $this->form_validation->set_rules('user_id', 'User Id', 'required');
+            $this->form_validation->set_rules('typeofgoal', 'Type Goal', 'required');
+            $this->form_validation->set_rules('uuid', 'UUID', 'required');
+            if ($this->form_validation->run()) {
+
+                if ($apikey == APIKEY) {
+
+                    $getdata = $this->Webapi_model->delete_old_pics();
+                    //pr($getdata); die;
+                    if($getdata){
+
+                        $success = array('ErrorCode' => 0, "message" => "Data Found !", 'data' => $getdata);
+                        $this->response($success, 200);
+                    }else{
+                        
+                        $success = array('ErrorCode' => 1, "message" => "Data No Found", 'data' => "");
+                        $this->response($success, 200);
+                    }
+
+                } else {
+                    $error = array('ErrorCode' => 1, 'message' => 'Api Key does not exist');
+                    $this->response($error, 200);
+                }
+            } else {
+                $error = array('ErrorCode' => 1, 'message' => validation_errors());
+                $this->response($error, 200);
+            }
+        } else {
+            $error = array('ErrorCode' => 1, 'message' => 'Use Post Method Only');
+            $this->response($error, 200);
+        }
+    }
+
     public function get_focus_master_post() {
         $apikey = $this->input->post('apikey');
         $id = $this->input->post('id');

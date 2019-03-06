@@ -550,32 +550,40 @@ class Webapi_model extends CI_Model {
 
         if($typeofgoal == 'content'){
             $type = 1;
+            $this->db->select('ss.*, cc.title as cc_title, cc.id as cc_id');
+            $this->db->from('f_self_mastery ss');
+            $this->db->join('f_coach_category as cc','cc.id = ss.category','left');
+            $this->db->where('ss.status','active');
+            $this->db->where('ss.type',$type);
+            $this->db->where('ss.added_by','1');
+            $count = $this->db->get()->result();
+            foreach($count as $key => $val){
+                if($val->cc_id == 1){
+                    $data['first'][] = $val;
+                }else if($val->cc_id == 2){
+                    $data['second'][] = $val;
+                }else if($val->cc_id == 3){
+                    $data['third'][] = $val;
+                }else if($val->cc_id == 4){
+                    $data['fourth'][] = $val;
+                }
+    
+                
+            }
+            $data['cat'] = $this->category('1');
         }else if($typeofgoal == 'video'){
             $type = 2;
+            $this->db->select('ss.*');
+            $this->db->from('f_self_mastery ss');
+            $this->db->where('ss.status','active');
+            $this->db->where('ss.type',$type);
+            $this->db->where('ss.added_by','1');
+            $data = $this->db->get()->result();
+
         }else{
             return;
         }
-        $this->db->select('ss.*, cc.title as cc_title, cc.id as cc_id');
-        $this->db->from('f_self_mastery ss');
-        $this->db->join('f_coach_category as cc','cc.id = ss.category','left');
-        $this->db->where('ss.status','active');
-        $this->db->where('ss.type',$type);
-        $this->db->where('ss.added_by','1');
-        $count = $this->db->get()->result();
-        foreach($count as $key => $val){
-            if($val->cc_id == 1){
-                $data['first'][] = $val;
-            }else if($val->cc_id == 2){
-                $data['second'][] = $val;
-            }else if($val->cc_id == 3){
-                $data['third'][] = $val;
-            }else if($val->cc_id == 4){
-                $data['fourth'][] = $val;
-            }
-
-            
-        }
-        $data['cat'] = $this->category('1');
+       
        // pr($count ); die;
         return $data;
         
@@ -585,32 +593,41 @@ class Webapi_model extends CI_Model {
 
         if($typeofgoal == 'content'){
             $type = 1;
+            $this->db->select('fl.*, cc.title as cc_title, cc.id as cc_id');
+            $this->db->from('f_leadership fl');
+            $this->db->join('f_coach_category as cc','cc.id = fl.category','left');
+            $this->db->where('fl.type',$type);
+            $this->db->where('fl.status','active');
+            $this->db->where('fl.added_by','1');
+            $count = $this->db->get()->result();
+            foreach($count as $key => $val){
+                if($val->cc_id == 5){
+                    $data['first'][] = $val;
+                }else if($val->cc_id == 6){
+                    $data['second'][] = $val;
+                }else if($val->cc_id == 7){
+                    $data['third'][] = $val;
+                }else if($val->cc_id == 8){
+                    $data['fourth'][] = $val;
+                }
+    
+                
+            }
+            $data['cat'] = $this->category('2');
         }else if($typeofgoal == 'video'){
             $type = 2;
+            $this->db->select('fl.*');
+            $this->db->from('f_leadership fl');
+            $this->db->where('fl.type',$type);
+            $this->db->where('fl.status','active');
+            $this->db->where('fl.added_by','1');
+            $data = $this->db->get()->result();
+            
         }else{
             return;
         }
-        $this->db->select('fl.*, cc.title as cc_title, cc.id as cc_id');
-        $this->db->from('f_leadership fl');
-        $this->db->join('f_coach_category as cc','cc.id = fl.category','left');
-        $this->db->where('fl.type',$type);
-        $this->db->where('fl.status','active');
-        $this->db->where('fl.added_by','1');
-        $count = $this->db->get()->result();
-        foreach($count as $key => $val){
-            if($val->cc_id == 5){
-                $data['first'][] = $val;
-            }else if($val->cc_id == 6){
-                $data['second'][] = $val;
-            }else if($val->cc_id == 7){
-                $data['third'][] = $val;
-            }else if($val->cc_id == 8){
-                $data['fourth'][] = $val;
-            }
 
-            
-        }
-        $data['cat'] = $this->category('2');
+       
     //    pr($count ); die;
         return $data;
         
@@ -1120,6 +1137,24 @@ class Webapi_model extends CI_Model {
     function delete_vision_pics_temp(){
         
         $this->db->where('id',$_POST['id']);
+        $result =   $this->db->get('f_temp_image_upload')->row();
+        
+        $this->db->where('id', $_POST['id']);
+        $this->db->delete('f_temp_image_upload');
+
+        if(unlink("uploads/temp_upload_images/".$result->file_name)){
+            return true;
+        }else{
+            return false;
+            
+        }
+    }
+
+    function delete_old_pics(){
+        
+        $this->db->where('id',$_POST['id']);
+        $this->db->where('added_by',$_POST['id']);
+        $this->db->where('uuid',$_POST['uuid']);
         $result =   $this->db->get('f_temp_image_upload')->row();
         
         $this->db->where('id', $_POST['id']);
