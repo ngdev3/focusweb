@@ -59,14 +59,14 @@
                                 </div>
                               </div>
                             
-                            
-                        
-                                       <div class="col-md-6 col-sm-6 col-xs-12">
+
+                           <?php if(empty($res)){?>
+                              <div class="col-md-6 col-sm-6 col-xs-12">
                                 <div class="form-group form-md-line-input form-md-floating-label">
-                                    <select class="form-control edited" name="type" id="type">
+                                    <select class="form-control edited" name="type" id="type"  >
                                         <option value="">Select User Type</option>
                                         <option value="2"  <?php echo set_select('type', '2', @$res->gender == '2' && !empty(@$res) ? TRUE : FALSE); ?>>User</option>
-                                        <!-- <option value="3"  <?php echo set_select('type', '3', @$res->gender == '3' && !empty(@$res) ? TRUE : FALSE); ?>>Coach</option>               -->
+                                        <option value="3"  <?php echo set_select('type', '3', @$res->gender == '3' && !empty(@$res) ? TRUE : FALSE); ?>>Coach</option>              
                                     </select>
                                     <div class="text-danger"><?php echo form_error("type"); ?></div>
 
@@ -74,7 +74,27 @@
 
                                 </div>
                             </div>
+                           <?php }else{?>
                             
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="form-group form-md-line-input form-md-floating-label">
+                                    <input type="text" class="form-control" id="lname" disabled value="<?php 
+                                    if($res->gender == '3')
+                                    { 
+                                        echo 'Coach';
+                                    }
+                                     else 
+                                     { 
+                                         echo 'User';
+                                         }
+                                       ?>">
+
+                                    <label for="lname">User Type (Change it From Listing)<span class="red_sign">*</span></label>
+
+                                </div>
+                             </div>
+
+                           <?php }?>
                             
                             
   
@@ -113,13 +133,7 @@
                             </div>
                             
                             <!--view of Image in Manager Edit -->
-                            <?php if(@$res->id){ ?>
-                                              <div class="col-md-6 col-sm-6 col-xs-12">
-                                <div class="form-group form-md-line-input form-md-floating-label">
-                                 <img alt="" class="img-circle" src="<?php echo base_url(); ?>uploads/profile_image/<?php echo @$res->profile_image;?>" height="100">
-                                </div>
-                              </div>
-                            <?php }?>
+
                             <!--View of Image in admin/users edit -->
                             
                             

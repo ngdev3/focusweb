@@ -76,7 +76,7 @@ class Masterclass_model extends CI_Model {
                 $nestedData[] = '<label class="label-danger label">Delete</label>';
             }
            
-            $nestedData[] = $this->load->view("coaches/_action", array("data" => $row), true);
+            $nestedData[] = $this->load->view("masterclass/_action", array("data" => $row), true);
             $data[] = $nestedData;
         }
         $json_data = array(

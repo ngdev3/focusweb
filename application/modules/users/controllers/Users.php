@@ -71,13 +71,14 @@ class Users extends MY_Controller {
 
         public function changepassword() {
             $user_id = (@$this->uri->segment('3'))?decode($this->uri->segment('3')):currUserId(); 
+            // die;
             if($this->form_validation->run("users/change_password") == TRUE){
                 $user_id = currUserId(); 
                $this->Users_model->change_password($user_id);   
                $this->session->set_flashdata("alert",array("c"=>"s","m"=>"Password has been changed successfully. "));
                redirect(base_url("users/profile"));
            } 
-            
+            // die;
            // echo $user_id;die;
             $data['userData'] = $this->Users_model->profile($user_id);            
             $data['title'] = "Change Password";
@@ -102,7 +103,7 @@ class Users extends MY_Controller {
 
         if (!$this->upload->do_upload('upload')) {
 
-            $this->session->set_flashdata("alert", array("c" => "s", "m" => $this->upload->display_errors()));
+            $this->session->set_flashdata("alert", array("c" => "d", "m" => $this->upload->display_errors()));
         } else {
             $img_del = get_where('users', array('id' => currUserId()))['0']->profile_image;
 

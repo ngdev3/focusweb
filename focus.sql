@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 01, 2019 at 02:43 PM
+-- Generation Time: Mar 06, 2019 at 06:46 AM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 5.6.36
 
@@ -336,11 +336,11 @@ CREATE TABLE `f_leadership` (
 --
 
 INSERT INTO `f_leadership` (`id`, `title`, `url`, `category`, `description`, `added_by`, `type`, `status`, `created_date`, `updated_date`) VALUES
-(4, 'Add Business Leadership video', 'Add Business Leadership video', NULL, 'http://www.capaligisyk.tv', 1, '2', 'active', '2019-01-18 12:59:59', '2019-02-19 10:47:25'),
-(13, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', '', 5, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '1', 'active', '2019-02-26 05:37:52', NULL),
-(14, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', '', 6, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '1', 'active', '2019-02-26 05:37:57', NULL),
-(15, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', '', 7, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '1', 'active', '2019-02-26 05:38:01', NULL),
-(16, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', '', 8, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '1', 'active', '2019-02-26 05:38:07', NULL);
+(4, 'Add Business Leadership video', 'https://www.youtube.com/embed/UBMk30rjy0o', NULL, 'http://www.capaligisyk.tv', 1, '2', 'active', '2019-01-18 12:59:59', '2019-03-02 15:18:00'),
+(13, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 'https://www.youtube.com/embed/UBMk30rjy0o', 5, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '1', 'active', '2019-02-26 05:37:52', '2019-03-02 15:18:08'),
+(14, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 'https://www.youtube.com/embed/UBMk30rjy0o', 6, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '1', 'active', '2019-02-26 05:37:57', '2019-03-02 15:18:08'),
+(15, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 'https://www.youtube.com/embed/UBMk30rjy0o', 7, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '1', 'active', '2019-02-26 05:38:01', '2019-03-02 15:18:08'),
+(16, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 'https://www.youtube.com/embed/UBMk30rjy0o', 8, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '1', 'active', '2019-02-26 05:38:07', '2019-03-02 15:18:08');
 
 -- --------------------------------------------------------
 
@@ -364,7 +364,7 @@ CREATE TABLE `f_master_class` (
 --
 
 INSERT INTO `f_master_class` (`id`, `title`, `url`, `description`, `added_by`, `status`, `created_date`, `updated_date`) VALUES
-(1, 'Nam at doloribus ad velit laborum excepteur irure quo minima numquam qui rerum voluptates fugiat id expedita in obcaecati dolorum', 'http://www.fulafy.us', 'Mollit cupidatat quis neque eius laudantium ut reprehenderit tempora voluptatibus ullamco qui quae', 1, 'active', '2019-01-16 01:57:18', '2019-01-24 11:12:27');
+(1, 'Nam at doloribus ad velit laborum excepteur irure quo minima numquam qui rerum voluptates fugiat id expedita in obcaecati dolorum', 'https://www.youtube.com/embed/UBMk30rjy0o', 'Mollit cupidatat quis neque eius laudantium ut reprehenderit tempora voluptatibus ullamco qui quae', 1, 'active', '2019-01-16 01:57:18', '2019-03-02 15:11:38');
 
 -- --------------------------------------------------------
 
@@ -519,6 +519,13 @@ CREATE TABLE `f_my_vision` (
   `updated_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `f_my_vision`
+--
+
+INSERT INTO `f_my_vision` (`id`, `image_id`, `vision_title`, `background_id`, `goal_date`, `status`, `added_by`, `created_date`, `updated_date`) VALUES
+(1, '', 'dfgdf', 3, 'Mon Mar 04 2019 00:00:00 GMT+0530 (IST)', 'active', 1, NULL, '2019-03-02 01:55:55');
+
 -- --------------------------------------------------------
 
 --
@@ -648,15 +655,15 @@ CREATE TABLE `f_self_mastery` (
 --
 
 INSERT INTO `f_self_mastery` (`id`, `title`, `url`, `category`, `description`, `added_by`, `type`, `status`, `created_date`, `updated_date`) VALUES
-(4, 'Animi voluptate eligendi numquam voluptatum in ut quo consectetur omnis beatae voluptatem id do dolor magnam dolor', 'http://www.fulafy.uscb', 3, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '2', 'active', '2019-01-18 12:11:02', '2019-02-19 10:32:55'),
-(6, 'Aspernatur voluptas non id fugit rerum irure sit quibusdam dolor velit iure blanditiis officia dolor fuga Eligendi quidem2', 'http://www.fulafy.uscb', 3, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '2', 'active', '2019-01-18 12:12:00', '2019-02-19 10:32:55'),
-(7, 'Consequatur irure a nihil iusto similique optio natus labore sunt quod adipisicing pariatur Qui vitae aut in vel Nam', 'http://www.fulafy.uscb', 1, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '2', 'active', '2019-01-18 12:32:01', '2019-02-19 10:32:55'),
-(8, 'Self Mastery video Listing', 'http://www.xurofafywuniq.co.uk', 4, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '2', 'active', '2019-01-18 12:42:16', '2019-02-19 10:32:55'),
-(9, 'Add Self Mastery video', 'http://www.pogyq.org.au', 1, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '2', 'active', '2019-01-18 12:44:00', '2019-02-19 10:32:55'),
-(12, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', '', 1, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '1', 'active', '2019-02-26 05:00:07', NULL),
-(13, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', '', 2, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '1', 'active', '2019-02-26 05:00:16', NULL),
-(14, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', '', 3, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '1', 'active', '2019-02-26 05:00:24', NULL),
-(15, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', '', 4, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '1', 'active', '2019-02-26 05:00:29', '2019-02-25 23:51:03');
+(4, 'Animi voluptate eligendi numquam voluptatum in ut quo consectetur omnis beatae voluptatem id do dolor magnam dolor', 'https://www.youtube.com/embed/UBMk30rjy0o', 3, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '2', 'active', '2019-01-18 12:11:02', '2019-03-02 15:35:47'),
+(6, 'Aspernatur voluptas non id fugit rerum irure sit quibusdam dolor velit iure blanditiis officia dolor fuga Eligendi quidem2', 'https://www.youtube.com/embed/UBMk30rjy0o', 3, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '2', 'active', '2019-01-18 12:12:00', '2019-03-02 15:35:47'),
+(7, 'Consequatur irure a nihil iusto similique optio natus labore sunt quod adipisicing pariatur Qui vitae aut in vel Nam', 'https://www.youtube.com/embed/UBMk30rjy0o', 1, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '2', 'active', '2019-01-18 12:32:01', '2019-03-02 15:35:47'),
+(8, 'Self Mastery video Listing', 'https://www.youtube.com/embed/UBMk30rjy0o', 4, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '2', 'active', '2019-01-18 12:42:16', '2019-03-02 15:35:47'),
+(9, 'Add Self Mastery video', 'https://www.youtube.com/embed/UBMk30rjy0o', 1, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '2', 'active', '2019-01-18 12:44:00', '2019-03-02 15:35:47'),
+(12, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 'https://www.youtube.com/embed/UBMk30rjy0o', 1, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '1', 'active', '2019-02-26 05:00:07', '2019-03-02 15:35:41'),
+(13, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 'https://www.youtube.com/embed/UBMk30rjy0o', 2, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '1', 'active', '2019-02-26 05:00:16', '2019-03-02 15:35:47'),
+(14, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 'https://www.youtube.com/embed/UBMk30rjy0o', 3, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '1', 'active', '2019-02-26 05:00:24', '2019-03-02 15:35:47'),
+(15, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 'https://www.youtube.com/embed/UBMk30rjy0o', 4, 'Daily life can be made happier. It is a matter of choice. It is our attitude that makes us feel happy or unhappy. It is true, we meet all kinds of situations during the day, and some of them may happiness and what does it means to them answers....', 1, '1', 'active', '2019-02-26 05:00:29', '2019-03-02 15:35:47');
 
 -- --------------------------------------------------------
 
@@ -673,6 +680,13 @@ CREATE TABLE `f_temp_image_upload` (
   `created_date` date DEFAULT NULL,
   `updated_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `f_temp_image_upload`
+--
+
+INSERT INTO `f_temp_image_upload` (`id`, `file_name`, `added_by`, `uuid`, `status`, `created_date`, `updated_date`) VALUES
+(2, '14f89330649bb8c88098223f2dca1c3e.jpg', 17, '3f35781d101c2344', 'active', '2019-03-02', NULL);
 
 -- --------------------------------------------------------
 
@@ -753,16 +767,16 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `fname`, `lname`, `email`, `is_coach`, `coach_cat`, `coach_subcat`, `password`, `available_sizes`, `token`, `token_valid`, `profile_image`, `mobile_no`, `is_member`, `status`, `modified_time`, `added_date`, `added_by`, `updated_date`, `last_login`, `login_from`, `user_type`) VALUES
-(1, 'Rajat', 'Gupta', 'admin@yopmail.com', 0, NULL, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, 'c22f51760da0174b5dd2d9a5d2476bd4.jpg', '8506003445', 0, 'active', NULL, '2019-01-11 05:33:24', 0, '2019-02-19 08:42:14', '2019-03-01 12:58:39', 'Android', '1'),
+(1, 'Rajat', 'Gupta', 'admin@yopmail.com', 0, NULL, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '9f7cb0a8e29a1a18abd908b95e8f46f6.jpg', '8506003445', 0, 'active', NULL, '2019-01-11 05:33:24', 0, '2019-02-19 08:42:14', '2019-03-03 07:32:12', 'Android', '1'),
 (15, 'Xaviera', 'Scott', 'cedypikiru@yopmail.com', 0, NULL, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8506003444', 1, 'active', NULL, '2019-01-15 05:38:27', 1, '2019-01-15 00:00:00', NULL, '', '2'),
 (16, 'Coach', 'Hogan', 'coach@yopmail.com', 0, NULL, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8056465458', 0, 'active', NULL, '2019-01-15 05:41:03', 1, NULL, NULL, '', '2'),
-(17, 'End', 'User', 'user@yopmail.com', 1, 2, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8523697845', 0, 'active', NULL, '2019-01-15 05:42:05', 1, '2019-01-15 00:00:00', NULL, '', '3'),
+(17, 'End', 'User', 'user@yopmail.com', 1, 2, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '431584ba0f6d6092d5b6c0f48d7d3a18.jpg', '8523697845', 0, 'active', NULL, '2019-01-15 05:42:05', 1, '2019-01-15 00:00:00', '2019-03-04 11:28:23', 'Android', '3'),
 (18, 'Eden', 'Frye', 'lohysudy@yopmail.com', 1, 2, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8887905070', 0, 'inactive', NULL, '2019-01-16 19:32:21', 1, NULL, NULL, '', '3'),
 (19, 'Post', 'Rajat', 'rajat51@yopmail.com', 0, NULL, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8506003696', 0, 'active', NULL, '2019-01-20 22:57:41', 0, NULL, NULL, '', '2'),
 (20, 'Post', 'Rajat', 'rajat52@yopmail.com', 0, NULL, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8506003696', 0, 'active', NULL, '2019-01-20 23:00:02', 0, NULL, NULL, '', NULL),
-(21, 'Post', 'Rajat', 'rajat53@yopmail.com', 1, 1, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8506003696', 0, 'active', NULL, '2019-01-20 23:06:49', 0, NULL, NULL, '', '3'),
-(22, 'Post', 'Rajat', 'rajat54@yopmail.com', 1, 1, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8506003696', 0, 'active', NULL, '2019-01-20 23:10:30', 0, NULL, NULL, '', '3'),
-(23, 'Post', 'Rajat', 'rajat55@yopmail.com', 0, NULL, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8506003696', 0, 'active', NULL, '2019-01-20 23:12:26', 0, '2019-01-21 00:00:00', '2019-02-01 03:20:17', 'android', '2');
+(21, 'Post', 'Rajat', 'rajat53@yopmail.com', 1, 1, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '742d2c56bd070e41e71e10b396e57adc.jpg', '8506003696', 0, 'active', NULL, '2019-01-20 23:06:49', 0, NULL, '2019-03-02 08:36:14', 'Android', '3'),
+(22, 'Post', 'Rajat', 'rajat54@yopmail.com', 1, 1, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '596109ccc23d8502ccd50910848d52ea.jpg', '8506003696', 0, 'active', NULL, '2019-01-20 23:10:30', 0, NULL, '2019-03-02 08:00:21', 'Android', '3'),
+(23, 'Post', 'Rajat', 'rajat55@yopmail.com', 0, NULL, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8506003696', 0, 'active', NULL, '2019-01-20 23:12:26', 0, '2019-01-21 00:00:00', '2019-03-02 08:36:46', 'Android', '2');
 
 --
 -- Indexes for dumped tables
@@ -1016,7 +1030,7 @@ ALTER TABLE `f_my_goal_steps`
 -- AUTO_INCREMENT for table `f_my_vision`
 --
 ALTER TABLE `f_my_vision`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `f_payment_log`
@@ -1052,7 +1066,7 @@ ALTER TABLE `f_self_mastery`
 -- AUTO_INCREMENT for table `f_temp_image_upload`
 --
 ALTER TABLE `f_temp_image_upload`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `f_vision_image_upload`

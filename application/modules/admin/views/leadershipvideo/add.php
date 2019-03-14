@@ -144,16 +144,16 @@
                                    
                                     video_title:
                                             {
-                                                required: "Please Select Title!"
+                                                required: "Please Enter Video Title!"
                                             },
                                             video_url:
                                             {
-                                                required: "Please Select To Date !"
+                                                required: "Please Enter Video Url"
                                             },
                                             
                                              description:
                                             {
-                                                required: "Please Select Description",
+                                                required: "Please Enter Description",
                                             },
                                             quotation_title:
                                             {

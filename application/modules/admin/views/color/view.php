@@ -62,7 +62,7 @@
                         <div class="col-md-9">
                             <div class="input-icon">
                                 <p><?php
-                                    if ($res->status == 1) {
+                                    if ($res->status == 'active') {
                                         echo "Active";
                                     } else {
                                         echo "Inactive";

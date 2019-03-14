@@ -166,7 +166,7 @@
                                    
                                     content_title:
                                             {
-                                                required: "Please Select Title!"
+                                                required: "Please Select Content Title!"
                                             },
                                             video_url:
                                             {
@@ -175,7 +175,7 @@
                                             
                                              description:
                                             {
-                                                required: "Please Select Description",
+                                                required: "Please Enter Description",
                                             },
                                             quotation_title:
                                             {

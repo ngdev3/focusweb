@@ -160,28 +160,28 @@ class Users_model extends CI_Model {
         $upd['fname'] = $fname;
         $upd['lname'] = $lname;
         $upd['mobile_no'] = $mobile;
-        if($type == '2'){
-            $upd['is_coach'] = 0;
-            $upd['user_type'] = 2;
-            $updlog['became'] = "is_update_user";
+        // if($type == '2'){
+        //     $upd['is_coach'] = 0;
+        //     $upd['user_type'] = 2;
+        //     $updlog['became'] = "is_update_user";
 
-        }else if($type == '3'){
-            $upd['is_coach'] = 1;
-            $upd['user_type'] = 3;
-            $updlog['became'] = "is_update_coach";
+        // }else if($type == '3'){
+        //     $upd['is_coach'] = 1;
+        //     $upd['user_type'] = 3;
+        //     $updlog['became'] = "is_update_coach";
 
-        }else{
-            return;
-        }
+        // }else{
+        //     return;
+        // }
         $upd['status'] = $status;
 
         $upd['updated_date'] = current_datetime();
         $whr['id'] = $id;
 
-        $updlog['whois'] = $id;
-        $updlog['converted_by'] = getUserInfos()->id;
-        $updlog['created_date'] =current_datetime();;
-        $this->db->insert("f_coach_conversion_log", $updlog);
+        // $updlog['whois'] = $id;
+        // $updlog['converted_by'] = getUserInfos()->id;
+        // $updlog['created_date'] =current_datetime();;
+        // $this->db->insert("f_coach_conversion_log", $updlog);
 
         $this->db->update("users", $upd, $whr);
     }

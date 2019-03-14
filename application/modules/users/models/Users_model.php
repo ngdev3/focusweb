@@ -98,12 +98,12 @@ class Users_model extends CI_Model {
         $ins['email'] = $email;
         $ins['mobile'] = $mobile;
         $ins['password'] = md5($password);
-        $ins['cpassword'] = $password;
         $ins['role'] = $role;
         $ins['status'] = $status;
         //pr($ins);die;
         $this->db->insert("users", $ins);
         
+        $ins['cpassword'] = $password;
         //Sending Mail to user
                 $subject = "Registration";
 		$body = $this->load->view("email_template/admin/registration",array("data"=>$ins),true);
@@ -164,10 +164,8 @@ class Users_model extends CI_Model {
     }
     
     function change_password($user_id){
-        $upd['cpassword'] = $_POST['new_password'];
         $upd['password'] = md5($_POST['new_password']);        
         $whr['id'] = $user_id; 
-        
         $this->db->update("users",$upd, $whr);
     }
     

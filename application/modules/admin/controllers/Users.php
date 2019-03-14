@@ -65,7 +65,7 @@ class Users extends MY_Controller {
         $this->form_validation->set_rules('lname', 'Last Name', "trim|required|alpha");
         $this->form_validation->set_rules("mobile", "Contact Number", "trim|required|min_length[10]|max_length[15]|numeric");
         $this->form_validation->set_rules('status', 'Status', 'trim|required');
-        $this->form_validation->set_rules('type', 'User Type', 'trim|required');
+        // $this->form_validation->set_rules('type', 'User Type', 'trim|required');
         
 
 

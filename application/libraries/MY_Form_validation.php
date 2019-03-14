@@ -25,7 +25,7 @@ class MY_Form_validation extends CI_Form_validation {
                         ->get()->row();
 //         echo $this->CI->db->last_query(); die;
         if (empty($res)) {
-            $this->CI->form_validation->set_message('doLoginemail', "The Email Id is InCorrect.");
+            $this->CI->form_validation->set_message('doLoginemail', "The Email Id is Incorrect.");
             return FALSE;
         }
        
@@ -39,7 +39,7 @@ class MY_Form_validation extends CI_Form_validation {
                         ->get()->row();
                       
         if (empty($res)) {
-
+// die;
             $this->CI->form_validation->set_message('doLogin', "The Password is Incorrect.");
             return FALSE;
         }else if($res->user_type !== "1"){
@@ -56,7 +56,7 @@ class MY_Form_validation extends CI_Form_validation {
             $this->CI->form_validation->set_message('doLogin', "The Account is Inactive.");
             return FALSE;
         }else{
-
+// die;
         $this->CI->session->set_userdata("userinfo", $res);
         return true;
         }
@@ -74,11 +74,11 @@ class MY_Form_validation extends CI_Form_validation {
     }
 
     function checkCurrentPassword() {
-        $res = $this->CI->db->select("*")
-                        ->from("users")
-                        ->where(array("cpassword" => $_POST['current_password'], "id" => currUserId()))
-                        ->get()->row();
-//         echo $this->CI->db->last_query(); die;
+        $res =      $this->CI->db->select("*")
+                                ->from("users")
+                                ->where(array("password" => md5($_POST['current_password']), "id" => currUserId()))
+                                ->get()->row();
+                               // pr($res); die;
         if (empty($res)) {
             $this->CI->form_validation->set_message('checkCurrentPassword', "The Current Password is wrong.");
             return FALSE;
