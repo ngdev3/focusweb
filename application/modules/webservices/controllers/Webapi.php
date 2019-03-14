@@ -35,6 +35,7 @@ class Webapi extends REST_Controller {
         $this->form_validation->set_rules('email', 'Email', 'trim|xss_clean|required');
         $this->form_validation->set_rules('password', 'Password', 'trim|xss_clean|required');
         $this->form_validation->set_rules('login_type', 'Login Type', 'trim|xss_clean|required');
+        $this->form_validation->set_rules('login_token', 'Token Missing', 'trim|xss_clean|required');
         if ($this->form_validation->run() == TRUE) {
             $apikey = $this->input->post('apikey');
 
@@ -60,6 +61,7 @@ class Webapi extends REST_Controller {
                                 
                                 $upd['last_login']= current_datetime();
                                 $upd['login_from']= $_POST['login_type'];
+                                $upd['login_token']= $_POST['login_token'];
 
                                 $this->db->where('id', $query->id);
                                 $this->db->update('users', $upd);
@@ -221,24 +223,24 @@ class Webapi extends REST_Controller {
     public function register_post() {
 
         $apikey = $this->input->post('apikey');
-        $fname = $this->input->post('fname');
-        $lname = $this->input->post('lname');
-        $mobile_no = $this->input->post('mobile_no');
-        $email = $this->input->post('email');
-        $password = $this->input->post('password');
+        // $fname = $this->input->post('fname');
+        // $lname = $this->input->post('lname');
+        // $mobile_no = $this->input->post('mobile_number');
+        // $email = $this->input->post('email');
+        // $password = $this->input->post('password');
+        // $device_type = $this->input->post('device_type');
+        // $device_token = $this->input->post('device_token');
 
         if (isPostBack()) {
 
-            $this->form_validation->set_rules('fname', 'First Name', "required|alpha");
-            $this->form_validation->set_rules('lname', 'Last Name', "required|alpha");
+            $this->form_validation->set_rules('fname', 'First Name', "required");
+            $this->form_validation->set_rules('lname', 'Last Name', "required");
             $this->form_validation->set_rules('email', 'Email id', 'required|is_unique[users.email]|valid_email');
-            $this->form_validation->set_rules('mobile_no', 'Mobile no', 'required|min_length[8]|max_length[14]|numeric');
+            $this->form_validation->set_rules('mobile_number', 'Mobile no', 'required|min_length[8]|max_length[14]|numeric');
+            $this->form_validation->set_rules('device_type', 'Device Type', 'required');
+            $this->form_validation->set_rules('device_token', 'Device Token', 'required');
             $this->form_validation->set_rules('password', 'Password', 'required');
 
-            // $this->form_validation->set_rules('admission_number', 'Admission no', 'required|is_unique[users.admission_number]');
-            // $this->form_validation->set_rules('aadhar_no', 'Aadhar card no', 'required|min_length[12]|max_length[12]|is_unique[users.aadhar_no]|numeric');
-            // $this->form_validation->set_rules('class_id', 'Class Name', 'required');
-            // $this->form_validation->set_rules('section_id', 'Section Name', 'required');
             if ($this->form_validation->run()) {
                 if ($apikey == APIKEY) {
                     $user_id = $this->Webapi_model->add();
@@ -777,6 +779,15 @@ class Webapi extends REST_Controller {
             $this->response($error, 200);
         }
     }
+
+   
+    
+    // $response = sendMessage();
+    // $return["allresponses"] = $response;
+    // $return = json_encode( $return);
+    // print("\n\nJSON received:\n");
+    // print($return);
+    // print("\n");
 
 
     public function get_self_mastery_post() {

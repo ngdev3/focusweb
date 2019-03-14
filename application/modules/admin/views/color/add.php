@@ -1,6 +1,6 @@
 
 <!--New Form Starts-->
-<h1 class="page-title" style="font-weight: 500"> <?php echo $page_title; ?> 
+<h1 class="page-title" style="font-weight: 500"> <?php echo $page_title; ?>
                             <!-- <small>Lorem Ipsum is dummy text of the printing industry.</small> -->
 </h1>
 <div class="row">
@@ -13,26 +13,26 @@
                 <form role="form" id="add_form" method="post" enctype="multipart/form-data">
                     <div class="form-body">
                         <div class="row">
-                           
-                            
-                            
+
+
+
                               <div class="col-md-6 col-sm-6 col-xs-12">
                                 <div class="form-group form-md-line-input form-md-floating-label">
                                     <input type="text" class="form-control" id="colorname" name="colorname"  value="<?php echo set_value("colorname", @$res->colorname); ?>">
-                                   
+
                                     <div class="text-danger"><?php echo form_error("colorname"); ?></div>
 
                                     <label for="colorname">Color Scheme Name<span class="red_sign">*</span></label>
 
                                 </div>
                             </div>
-                            
+
                              <div class="col-md-6 col-sm-6 col-xs-12">
                                 <div class="form-group form-md-line-input form-md-floating-label">
                                     <input type="color" class="form-control" id="background_name" name="background_name"  value="<?php echo set_value("background_name", @$res->background_name); ?>">
                                     <div class="text-danger"><?php echo form_error("background_name"); ?></div>
 
-                                    <label for="background_name">Background Name<span class="red_sign">*</span></label>
+                                    <label for="background_name">Background Color<span class="red_sign">*</span></label>
 
                                 </div>
                              </div>
@@ -45,7 +45,7 @@
 
                                 </div>
                             </div>
-                                
+
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <div class="form-group form-md-line-input form-md-floating-label">
                                     <input type="color" class="form-control" id="button_color" name="button_color"  value="<?php echo set_value("button_color", @$res->button_color); ?>" >
@@ -55,10 +55,10 @@
 
                                 </div>
                             </div>
-                                
+
                             <!-- <div class="col-md-1 col-sm-6 col-xs-12">
                                 <div class="form-group form-md-line-input form-md-floating-label">
-                                    <input type="text" placeholder="" name="prefilled" value="+91" readonly class="form-control form-control-line"> 
+                                    <input type="text" placeholder="" name="prefilled" value="+91" readonly class="form-control form-control-line">
                                 </div>
                               </div>
                                <div class="col-md-5 col-sm-6 col-xs-12">
@@ -69,17 +69,17 @@
                                     <label for="mobile">Contact Number<span class="red_sign">*</span></label>
                                 </div>
                               </div> -->
-                            
-                            
-                        
-                            
-  
-                            
-                            
-                         
-                            
-                          
-                                                      
+
+
+
+
+
+
+
+
+
+
+
                              <!-- <div class="col-md-6 col-sm-6 col-xs-12">
                                 <div class="form-group form-md-line-input form-md-floating-label">
                                     <input type="file" class="form-control imageOnly" id="profile_image" name="profile_image[]"  value="<?php echo set_value("profile_image", @$res->profile_image); ?>">
@@ -88,17 +88,17 @@
                                     <label for="profile_image" style="margin-top:-25px;">Profile Image</label>
                                 </div>
                               </div>
-                            
+
                              -->
-                            
-                            
-                      
+
+
+
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <div class="form-group form-md-line-input form-md-floating-label">
                                     <select class="form-control edited" name="status" id="form_control_3">
                                         <option value="">Select Status</option>
-                                        <option value="active"  <?php echo set_select('status', 'active', @$res->status == 'active' && !empty(@$res) ? TRUE : FALSE); ?>>Active</option>
-                                        <option value="inactive"  <?php echo set_select('status', 'inactive', @$res->status == 'inactive' && !empty(@$res) ? TRUE : FALSE); ?>>Inactive</option>              
+                                        <option value="active"  <?php echo set_select('status', 'active', @$res->status == 'active' && !empty(@$res) ? true : false); ?>>Active</option>
+                                        <option value="inactive"  <?php echo set_select('status', 'inactive', @$res->status == 'inactive' && !empty(@$res) ? true : false); ?>>Inactive</option>
 
                                     </select>
                                     <div class="text-danger"><?php echo form_error("status"); ?></div>
@@ -107,18 +107,18 @@
 
                                 </div>
                             </div>
-                            
+
                             <!--view of Image in Manager Edit -->
-                            <?php if(@$res->id){ ?>
+                            <?php if (@$res->id) {?>
                                               <div class="col-md-6 col-sm-6 col-xs-12">
                                 <div class="form-group form-md-line-input form-md-floating-label">
-                                 <img alt="" class="img-circle" src="<?php echo base_url(); ?>uploads/profile_image/<?php echo @$res->profile_image;?>" height="100">
+                                 <img alt="" class="img-circle" src="<?php echo base_url(); ?>uploads/profile_image/<?php echo @$res->profile_image; ?>" height="100">
                                 </div>
                               </div>
                             <?php }?>
                             <!--View of Image in admin/users edit -->
-                            
-                            
+
+
                         </div>
                     </div>
                     <div class="row">
@@ -145,7 +145,7 @@
                         errorClass: 'text-danger', // default input error message class
                         rules:
                                 {
-                                   
+
                                     colorname:
                                             {
                                                 required: true
@@ -154,7 +154,7 @@
                                             {
                                                 required: true
                                          },
-                                        
+
                                         font_color:
                                             {
                                                 required: true,
@@ -170,29 +170,29 @@
 		                                maxlength:10,
                                                 number:true
                                          },
-                                         
-                                         
-                                         
+
+
+
                                        status:
                                             {
                                                 required: true
                                             },
-                                            
-                                            
-                                            
+
+
+
                                 },
                         messages:
                                 {
-                                   
+
                                     colorname:
                                             {
                                                 required: "Please Enter Color Scheme Name!"
                                             },
                                             background_name:
                                             {
-                                                required: "Please Enter Background Name!"
+                                                required: "Please Enter Background Color!"
                                             },
-                                            
+
                                              font_color:
                                             {
                                                 required: "Please Enter Font Color",
@@ -204,29 +204,29 @@
                                            maxlength: "The  Contact Number field cannot exceed 10 characters in length.",
                                            number: "The  Contact Number field must contain only numbers."
                                             },
-                                            
-                                            
+
+
                                     status:
                                             {
                                                 required: "Please Select Status!"
                                             },
-                                            
-                                           
-                                            
-                                            
-                                            
-                                            
+
+
+
+
+
+
                                 }
                     });
 
         </script>
-        
-        
+
+
         <script>
-            
+
             $(function(){
     $('.imageOnly').change( function(e) {
-        
+
        // alert();
       var files = e.originalEvent.target.files;
       var selected = $(this);
@@ -273,4 +273,4 @@
 
 
 
-</script> 
+</script>

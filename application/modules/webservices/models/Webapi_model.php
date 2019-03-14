@@ -84,19 +84,19 @@ class Webapi_model extends CI_Model {
         extract($_POST);
         $ins['fname'] = $fname;
         $ins['lname'] = $lname;
-        $ins['mobile_no'] = $mobile_no;
         $ins['email'] = $email;
-        $mail['email'] = $email;
-        // $ins['password'] = $password;
-        $ins['status'] = 'active';
-
-        $ins['added_date'] = current_datetime();
+        $ins['mobile_no'] = $mobile_number;
         $ins['user_type'] = '2';
-        $mail['cpassword'] = $password;
+        $ins['login_token'] = $device_token;
+        $ins['login_from'] = $device_type;
+        $ins['added_date'] = current_datetime();
         $ins['password'] = md5($mail['cpassword']);
-
+        $ins['status'] = 'active';
         $this->db->insert("users", $ins);
         $insert_id = $this->db->insert_id();
+        
+        
+        $mail['cpassword'] = $password;
         $subject = "Registration";
         $body = $this->load->view("email_template/admin/registration", array("data" => $mail), true);
         sendMail($ins['email'], $subject, $body);
