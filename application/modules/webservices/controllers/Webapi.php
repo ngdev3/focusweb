@@ -237,7 +237,7 @@ class Webapi extends REST_Controller {
             $this->form_validation->set_rules('lname', 'Last Name', "required");
             $this->form_validation->set_rules('email', 'Email id', 'required|is_unique[users.email]|valid_email');
             $this->form_validation->set_rules('mobile_number', 'Mobile no', 'required|min_length[8]|max_length[14]|numeric');
-            $this->form_validation->set_rules('device_type', 'Device Type', 'required');
+            // $this->form_validation->set_rules('device_type', 'Device Type', 'required');
             $this->form_validation->set_rules('device_token', 'Device Token', 'required');
             $this->form_validation->set_rules('password', 'Password', 'required');
 

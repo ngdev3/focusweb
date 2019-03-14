@@ -88,14 +88,15 @@ class Webapi_model extends CI_Model {
         $ins['mobile_no'] = $mobile_number;
         $ins['user_type'] = '2';
         $ins['login_token'] = $device_token;
-        $ins['login_from'] = $device_type;
+        // $ins['login_from'] = $device_type;
         $ins['added_date'] = current_datetime();
-        $ins['password'] = md5($mail['cpassword']);
+        $ins['password'] = md5($password);
         $ins['status'] = 'active';
         $this->db->insert("users", $ins);
         $insert_id = $this->db->insert_id();
         
         
+        $mail['email'] = $email;
         $mail['cpassword'] = $password;
         $subject = "Registration";
         $body = $this->load->view("email_template/admin/registration", array("data" => $mail), true);
