@@ -15,14 +15,14 @@ class Auth extends CI_Controller
 
     }
 
-    public function sendMessage()
+    public function sendMessage($appID)
     {
         $content = array(
             "en" => 'English kkljljlkjlkjljljljlkjlkjlkjMessage',
         );
  
         $fields = array(
-            'app_id' => "2e7aa0f2-7f25-4075-bd1c-f40b014db18f",
+            'app_id' => $appID,
             'included_segments' => array(
                 'All',
             ),
@@ -71,7 +71,7 @@ class Auth extends CI_Controller
 
         $response = curl_exec($ch);
         curl_close($ch);
-
+        //print($response);
         return $response;
 
        
@@ -90,13 +90,12 @@ class Auth extends CI_Controller
 
         $data = json_decode($response, true);
         echo "<pre>";
-       print_r($data);
+        print_r($data);
         $id = $data['id'];
-       print_r($id);
-
-       print("\n\nJSON received:\n");
-       print($return);
-       print("\n");
+        print_r($id);
+        print("\n\nJSON received:\n");
+        print($return);
+        print("\n");
         echo "</pre>";
     }
     public function index()

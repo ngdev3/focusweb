@@ -1297,6 +1297,16 @@ class Webapi_model extends CI_Model {
         return $prof;
     }
 
+    public function notification_list() {
+
+        extract($_POST);
+        $this->db->select('*');
+        $this->db->where("user_id",$user_id);
+        $hai = $this->db->from('f_notification');
+        $query = $this->db->get()->result();
+        return $query;
+    }
+
     /* ---------------------------------------Edit User Profile Closed---------------------------------------------- */
 
     public function idexists($id) {
