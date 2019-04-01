@@ -68,3 +68,30 @@ Acknowledgement
 
 The CodeIgniter team would like to thank EllisLab, all the
 contributors to the CodeIgniter project and you, the CodeIgniter user.
+
+*****************************************************************************************************************
+Details Provider
+*****************************************************************************************************************
+Author:- Rajat Gupta
+Mobile:- +91 8887905070
+Email:- tekshapers.rajat@gmail.com
+-----------------------------------------------------------------------------------------------------------------
+
+
+*****************
+Push Notification 
+*****************
+
+Provider:- OneSignal https://documentation.onesignal.com
+Email Used:- focustaskapp@gmail.com
+Mobile Number Used:- Gaurav Sir (+917906268257)
+
+*********************
+FireBase Notification 
+*********************
+Provider:- Google https://console.firebase.google.com
+Email Used:- focustaskapp@gmail.com
+Server Key :- AAAATb5BwzQ:APA91bEv4tr5o2TV2x0o85ZMa68PAb6ZPayLqdpZcVpEP1nYMcJ-wzRZ2EoxHnpXOkhr_s2IYV-d_j5hCnIam4o2LHpnOlb86M4w0k5IfiLHrM1t9yUC00EKzla1yevlpqZBRpltt5Ob
+Server ID:- 333904462644
+
+

@@ -18,50 +18,51 @@ class Auth extends CI_Controller
     public function sendMessage($appID)
     {
         $content = array(
-            "en" => 'English kkljljlkjlkjljljljlkjlkjlkjMessage',
+            "en" => random_string('alnum', 16),
         );
- 
+
         $fields = array(
-            'app_id' => $appID,
+            'app_id' => "ddeebac2-bdd8-4e81-8f3d-75f6e45f0e1b",
             'included_segments' => array(
                 'All',
             ),
             'data' => array(
                 "foo" => "bar",
             ),
-            'big_picture'=>'https://onesignal.com/images/notification_logo.png',
+            'big_picture' => 'https://onesignal.com/images/hero.png',
+            'small_icon' => 'https://onesignal.com/images/hero.png',
             'contents' => $content,
-            'buttons' =>  array(array( /* Buttons */
-                /* Choose any unique identifier for your button. The ID of the clicked button 			 is passed to you so you can identify which button is clicked */
-                id =>'like-button',
+            'buttons' => array(array( /* Buttons */
+                /* Choose any unique identifier for your button. The ID of the clicked button              is passed to you so you can identify which button is clicked */
+                id => 'like-button',
                 /* The text the button should display. Supports emojis. */
                 text => 'Like',
-                /* A valid publicly reachable URL to an icon. Keep this small because it's 				 downloaded on each notification display. */
-                icon => 'http://i.imgur.com/N8SN8ZS.png',
-                /* The URL to open when this action button is clicked. See the sections below 			 for special URLs that prevent opening any window. */
-                app_url => 'https://google.com'
-            ),array( /* Buttons */
-                /* Choose any unique identifier for your button. The ID of the clicked button 			 is passed to you so you can identify which button is clicked */
-                id =>'like-button-2',
+                /* A valid publicly reachable URL to an icon. Keep this small because it's                  downloaded on each notification display. */
+                icon => 'https://onesignal.com/images/hero.png',
+                /* The URL to open when this action button is clicked. See the sections below              for special URLs that prevent opening any window. */
+                app_url => 'https://google.com',
+            ), array( /* Buttons */
+                /* Choose any unique identifier for your button. The ID of the clicked button              is passed to you so you can identify which button is clicked */
+                id => 'like-button-2',
                 /* The text the button should display. Supports emojis. */
                 text => 'Like',
-                /* A valid publicly reachable URL to an icon. Keep this small because it's 				 downloaded on each notification display. */
-                icon => 'http://i.imgur.com/N8SN8ZS.png',
-                /* The URL to open when this action button is clicked. See the sections below 			 for special URLs that prevent opening any window. */
-                app_url => 'https://google.com'
-            ))
+                /* A valid publicly reachable URL to an icon. Keep this small because it's                  downloaded on each notification display. */
+                icon => 'https://onesignal.com/images/hero.png',
+                /* The URL to open when this action button is clicked. See the sections below              for special URLs that prevent opening any window. */
+                app_url => 'https://google.com',
+            )),
             // 'buttons' => ,
         );
 
         $fields = json_encode($fields);
-        // print("\nJSON sent:\n");
-        // print($fields);
+        print("\nJSON sent:\n");
+        print($fields);
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, "https://onesignal.com/api/v1/notifications");
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
             'Content-Type: application/json; charset=utf-8',
-            'Authorization: Basic NzA3NGEyMWItZDgzNS00ZWUxLWEzMTktYmEyMDYwZDM5Mzc0',
+            'Authorization: Basic OGIwMGJhYzctNmNjMy00ZmE4LTgyMGQtM2ZlZjY0YTU0ZDEx',
         ));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HEADER, false);
@@ -71,17 +72,13 @@ class Auth extends CI_Controller
 
         $response = curl_exec($ch);
         curl_close($ch);
-        //print($response);
+        print($response);
         return $response;
-
-       
 
     }
 
-    
 
-
-    function hitotcheck(Type $var = null)
+    public function hitotcheck(Type $var = null)
     {
         # code...
         $response = $this->sendMessage();
