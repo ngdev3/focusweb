@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 14, 2019 at 02:00 PM
+-- Generation Time: Mar 29, 2019 at 03:37 PM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 5.6.36
 
@@ -279,7 +279,8 @@ INSERT INTO `f_focus_meeting` (`id`, `days`, `meeting_name`, `meeting_goals`, `s
 (2, '1, 2, 3, 4, 5', 'Week Days Week Days', '3, 4, 5', 'Tue Feb 12 2019 12:19:07 GMT+0530 (India Standard Time)', 'Sat Feb 16 2019 17:25:19 GMT+0530 (India Standard ...', '15', 'Tue Feb 12 2019 21:19:07 GMT+0530 (India Standard Time)', 'active', 1, '2019-02-12 05:20:19', '2019-02-12 14:16:15'),
 (3, '1, 2, 5', 'rrrrrrrrrrrrr', '6, 7', '01:00:00', '14-02-2019', '15 min', '01:00:00', 'active', 17, '2019-02-13 12:41:01', '2019-02-13 07:11:01'),
 (4, '1, 5, 7, 2, 6, 3, 4', 'Week Days Week Days 0', '8, 9, 10', 'Tue Feb 12 2019 12:26:07 GMT+0530 (India Standard Time)', 'Sun Feb 16 2020 17:25:19 GMT+0530 (India Standard Time)', '01', 'Tue Feb 12 2019 21:23:07 GMT+0530 (India Standard Time)', 'active', 1, '2019-02-13 12:47:46', '2019-02-13 07:17:46'),
-(5, '1, 6, 7, 3', 'Nnnn', '11, 12, 13', 'Tue Feb 19 2019 09:03:31 GMT+0530 (India Standard Time)', 'Tue Feb 19 2019 21:03:31 GMT+0530 (India Standard Time)', '01', 'Tue Feb 19 2019 09:03:31 GMT+0530 (India Standard Time)', 'active', 1, '2019-02-19 09:04:10', '2019-02-19 15:34:10');
+(5, '1, 6, 7, 3', 'Nnnn', '11, 12, 13', 'Tue Feb 19 2019 09:03:31 GMT+0530 (India Standard Time)', 'Tue Feb 19 2019 21:03:31 GMT+0530 (India Standard Time)', '01', 'Tue Feb 19 2019 09:03:31 GMT+0530 (India Standard Time)', 'active', 1, '2019-02-19 09:04:10', '2019-02-19 15:34:10'),
+(6, '1', 'kkk', '14, 15, 16', 'Fri Mar 29 2019 04:24:51 GMT+0530 (India Standard Time)', 'Fri Mar 29 2019 16:24:51 GMT+0530 (India Standard Time)', '15', 'Fri Mar 29 2019 04:24:51 GMT+0530 (India Standard Time)', 'active', 1, '2019-03-29 04:25:08', '2019-03-29 10:55:09');
 
 -- --------------------------------------------------------
 
@@ -314,7 +315,10 @@ INSERT INTO `f_focus_meeting_goals` (`id`, `focus_meeting_id`, `action_step`, `s
 (10, 4, 'Three 3', 'active', 1, '2019-02-13 12:43:14', '2019-02-13 07:17:46'),
 (11, 5, 'Nmmm', 'active', 1, '2019-02-19 09:03:47', '2019-02-19 03:34:10'),
 (12, 5, 'Mmmm', 'active', 1, '2019-02-19 09:03:48', '2019-02-19 03:34:10'),
-(13, 5, 'Bnfnfnfnf', 'active', 1, '2019-02-19 09:03:48', '2019-02-19 03:34:10');
+(13, 5, 'Bnfnfnfnf', 'active', 1, '2019-02-19 09:03:48', '2019-02-19 03:34:10'),
+(14, 6, 'kkkk', 'active', 1, '2019-03-29 04:25:08', NULL),
+(15, 6, 'kkk', 'active', 1, '2019-03-29 04:25:08', NULL),
+(16, 6, 'kkk', 'active', 1, '2019-03-29 04:25:08', NULL);
 
 -- --------------------------------------------------------
 
@@ -528,7 +532,8 @@ CREATE TABLE `f_my_vision` (
 --
 
 INSERT INTO `f_my_vision` (`id`, `image_id`, `vision_title`, `background_id`, `goal_date`, `status`, `added_by`, `created_date`, `updated_date`) VALUES
-(1, '', 'dfgdf', 3, 'Mon Mar 04 2019 00:00:00 GMT+0530 (IST)', 'active', 1, NULL, '2019-03-02 01:55:55');
+(1, '', 'dfgdf', 3, 'Mon Mar 04 2019 00:00:00 GMT+0530 (IST)', 'active', 1, NULL, '2019-03-02 01:55:55'),
+(2, '', 'Nnj', 3, 'Fri Mar 29 2019 00:00:00 GMT+0530 (India Standard Time)', 'active', 1, NULL, '2019-03-29 01:38:58');
 
 -- --------------------------------------------------------
 
@@ -540,12 +545,21 @@ CREATE TABLE `f_notification` (
   `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `status` enum('pending','done') DEFAULT 'pending',
+  `notification_status` enum('1','2','3') NOT NULL,
+  `user_id` int(11) NOT NULL,
   `typeofcontent` varchar(255) NOT NULL COMMENT 'morningfocus, vision, goals etc',
   `contentid` int(11) NOT NULL,
-  `notification_datetime` datetime NOT NULL,
+  `notification_datetime` date NOT NULL,
   `created_date` datetime DEFAULT NULL,
   `updated_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `f_notification`
+--
+
+INSERT INTO `f_notification` (`id`, `title`, `status`, `notification_status`, `user_id`, `typeofcontent`, `contentid`, `notification_datetime`, `created_date`, `updated_date`) VALUES
+(1, 'Apple Content', 'pending', '1', 1, 'morning', 25, '2019-03-09', NULL, '2019-03-29 13:30:16');
 
 -- --------------------------------------------------------
 
@@ -751,7 +765,13 @@ CREATE TABLE `f_weekly_focus` (
 
 INSERT INTO `f_weekly_focus` (`id`, `days`, `weekly_title`, `set_time`, `set_reminder`, `set_notification`, `status`, `added_by`, `created_date`, `updated_date`) VALUES
 (1, '1, 2, 7, 6, 3, 4', 'sl;f;dflkfjhdkghjfdhgkhkhk', 'Wed Feb 20 2019 02:42:08 GMT+0530 (India Standard Time)', '15', 'Wed Feb 20 2019 02:42:08 GMT+0530 (India Standard Time)', 'active', 1, '2019-02-19 09:49:45', '2019-02-19 21:13:02'),
-(2, '6, 2, 3, 1, 5, 7, 4', 'Rajat Gupta', 'Tue Feb 19 2019 09:49:12 GMT+0530 (India Standard Time)', '15', 'Tue Feb 19 2019 09:49:12 GMT+0530 (India Standard Time)', 'active', 1, '2019-02-19 09:49:45', '2019-02-19 21:13:14');
+(2, '6, 2, 3, 1, 5, 7, 4', 'Rajat Gupta', 'Tue Feb 19 2019 09:49:12 GMT+0530 (India Standard Time)', '15', 'Tue Feb 19 2019 09:49:12 GMT+0530 (India Standard Time)', 'active', 1, '2019-02-19 09:49:45', '2019-02-19 21:13:14'),
+(3, '1', 'lkjl', 'Fri Mar 29 2019 01:48:20 GMT+0530 (India Standard Time)', '15', 'Fri Mar 29 2019 01:48:20 GMT+0530 (India Standard Time)', 'active', 1, '2019-03-29 01:48:35', NULL),
+(4, '6, 3', 'dddd', 'Fri Mar 29 2019 01:48:40 GMT+0530 (India Standard Time)', '15', 'Fri Mar 29 2019 01:48:40 GMT+0530 (India Standard Time)', 'active', 1, '2019-03-29 01:49:03', NULL),
+(5, '7', 'lklk', 'Fri Mar 29 2019 13:48:11 GMT+0530 (India Standard Time)', '15', 'Fri Mar 29 2019 13:48:11 GMT+0530 (India Standard Time)', 'active', 1, '2019-03-29 01:49:30', NULL),
+(6, '7', 'dfg', 'Fri Mar 29 2019 01:49:33 GMT+0530 (India Standard Time)', '15', 'Fri Mar 29 2019 01:49:33 GMT+0530 (India Standard Time)', 'active', 1, '2019-03-29 01:49:45', NULL),
+(7, '6', 'kkmk', 'Fri Mar 29 2019 01:50:39 GMT+0530 (India Standard Time)', '15', 'Fri Mar 29 2019 01:50:39 GMT+0530 (India Standard Time)', 'active', 1, '2019-03-29 01:50:51', NULL),
+(8, '6', 'eee', 'Fri Mar 29 2019 12:51:29 GMT+0530 (India Standard Time)', '15', 'Fri Mar 29 2019 12:51:29 GMT+0530 (India Standard Time)', 'active', 1, '2019-03-29 01:52:02', NULL);
 
 -- --------------------------------------------------------
 
@@ -790,7 +810,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `fname`, `lname`, `email`, `is_coach`, `coach_cat`, `coach_subcat`, `password`, `available_sizes`, `token`, `token_valid`, `profile_image`, `mobile_no`, `is_member`, `status`, `modified_time`, `added_date`, `added_by`, `updated_date`, `last_login`, `login_from`, `user_type`, `login_token`) VALUES
-(1, 'Archana', 'Arora', 'admin@yopmail.com', 0, NULL, NULL, 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, '20190313-050251.jpg', '8506003445', 0, 'active', NULL, '2019-01-11 05:33:24', 0, '2019-02-19 08:42:14', '2019-03-14 05:29:03', 'Android', '1', '70167e2c-8527-4172-8203-68d3712cb5f1'),
+(1, 'Archana', 'Arora', 'admin@yopmail.com', 0, NULL, NULL, 'e10adc3949ba59abbe56e057f20f883e', NULL, NULL, NULL, '1bb3ee85f2931e1657b5b0f59e071e65.jpg', '8506003445', 0, 'active', NULL, '2019-01-11 05:33:24', 0, '2019-02-19 08:42:14', '2019-03-29 06:41:18', 'Android', '1', '70167e2c-8527-4172-8203-68d3712cb5f1'),
 (15, 'Xaviera', 'Scott', 'cedypikiru@yopmail.com', 0, NULL, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8506003444', 1, 'active', NULL, '2019-01-15 05:38:27', 1, '2019-01-15 00:00:00', NULL, '', '2', ''),
 (16, 'Coach', 'Hogan', 'coach@yopmail.com', 0, NULL, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8056465458', 0, 'active', NULL, '2019-01-15 05:41:03', 1, NULL, NULL, '', '2', ''),
 (17, 'End', 'User', 'user@yopmail.com', 1, 2, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '431584ba0f6d6092d5b6c0f48d7d3a18.jpg', '8523697845', 0, 'active', NULL, '2019-01-15 05:42:05', 1, '2019-01-15 00:00:00', '2019-03-04 11:28:23', 'Android', '3', ''),
@@ -806,7 +826,8 @@ INSERT INTO `users` (`id`, `fname`, `lname`, `email`, `is_coach`, `coach_cat`, `
 (27, 'Gary Villarreal', 'Winifred Washington', 'tafotu@yopmail.com', 0, NULL, NULL, 'd41d8cd98f00b204e9800998ecf8427e', NULL, NULL, NULL, '', '7445454545', 0, 'active', NULL, '2019-03-13 22:50:32', 0, NULL, NULL, '', '2', ''),
 (28, 'Hnnnn', 'Bnnn', 'plockerappss@gmail.com', 0, NULL, NULL, 'd41d8cd98f00b204e9800998ecf8427e', NULL, NULL, NULL, '', '8569586958', 0, 'active', NULL, '2019-03-14 00:09:23', 0, NULL, NULL, '', '2', '70167e2c-8527-4172-8203-68d3712cb5f1'),
 (29, 'Hbbbb', 'Hjj', 'plockeirapps@gmail.com', 0, NULL, NULL, 'd41d8cd98f00b204e9800998ecf8427e', NULL, NULL, NULL, '', '2586958695', 0, 'active', NULL, '2019-03-14 00:14:10', 0, NULL, NULL, '', '2', '70167e2c-8527-4172-8203-68d3712cb5f1'),
-(30, 'Bnnn', 'Mmmj', 'plockerapps@gmail.com', 0, NULL, NULL, 'f0a90a2ab11fca93ae77c11d04ee08dd', NULL, NULL, NULL, 'ec8da2a459f124f9cbf96ba9eae1cd2f.jpg', '8569856325', 0, 'active', NULL, '2019-03-14 00:16:39', 0, NULL, '2019-03-14 05:49:02', 'Android', '2', '70167e2c-8527-4172-8203-68d3712cb5f1');
+(30, 'Bnnn', 'Mmmj', 'plockerapps@gmail.com', 0, NULL, NULL, 'f0a90a2ab11fca93ae77c11d04ee08dd', NULL, NULL, NULL, 'ec8da2a459f124f9cbf96ba9eae1cd2f.jpg', '8569856325', 0, 'active', NULL, '2019-03-14 00:16:39', 0, NULL, '2019-03-29 06:40:12', 'Android', '2', '70167e2c-8527-4172-8203-68d3712cb5f1'),
+(31, 'kjl', 'jljljlkjlk', 'admin@yopmail.comm', 0, NULL, NULL, '9cbf8a4dcb8e30682b927f352d6559a0', NULL, NULL, NULL, '', '8506003444', 0, 'active', NULL, '2019-03-28 22:59:43', 0, NULL, NULL, '', '2', 'yoye879ehdhhdf8dhdhkkndhiuhihubib');
 
 --
 -- Indexes for dumped tables
@@ -1018,13 +1039,13 @@ ALTER TABLE `f_days`
 -- AUTO_INCREMENT for table `f_focus_meeting`
 --
 ALTER TABLE `f_focus_meeting`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `f_focus_meeting_goals`
 --
 ALTER TABLE `f_focus_meeting_goals`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `f_leadership`
@@ -1066,13 +1087,13 @@ ALTER TABLE `f_my_goal_steps`
 -- AUTO_INCREMENT for table `f_my_vision`
 --
 ALTER TABLE `f_my_vision`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `f_notification`
 --
 ALTER TABLE `f_notification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `f_payment_log`
@@ -1108,7 +1129,7 @@ ALTER TABLE `f_self_mastery`
 -- AUTO_INCREMENT for table `f_temp_image_upload`
 --
 ALTER TABLE `f_temp_image_upload`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `f_vision_image_upload`
@@ -1120,13 +1141,13 @@ ALTER TABLE `f_vision_image_upload`
 -- AUTO_INCREMENT for table `f_weekly_focus`
 --
 ALTER TABLE `f_weekly_focus`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
