@@ -1307,6 +1307,38 @@ class Webapi_model extends CI_Model {
         return $query;
     }
 
+    public function get_weekly_stats() {
+
+        extract($_POST);
+        $this->db->select('*');
+        $this->db->where("added_by",$user_id);
+        $this->db->where("stats",'done');
+        $hai = $this->db->from('f_weekly_focus');
+        $quer['done'] = $this->db->get()->num_rows();
+        
+        
+        $this->db->select('*');
+        $this->db->where("added_by",$user_id);
+        $this->db->where("stats",'undone');
+        $hai = $this->db->from('f_weekly_focus');
+        $quer['undone'] = $this->db->get()->num_rows();
+
+        return $quer;
+    }
+
+
+    public function weekly_status_update($dataInfo) {
+        extract($_POST); 
+    
+        $data['stats'] = 'undone';
+        $data['updated_date'] = current_datetime();
+        $this->db->where('added_by', $user_id);
+        $this->db->where('id', $weekly_id);
+        $this->db->update('f_weekly_focus',$data);
+        $goalId = $this->db->affected_rows();
+        return $goalId;
+        
+    }
     /* ---------------------------------------Edit User Profile Closed---------------------------------------------- */
 
     public function idexists($id) {

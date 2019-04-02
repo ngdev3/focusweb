@@ -17,15 +17,17 @@ class Auth extends CI_Controller
 
     public function sendMessage($appID)
     {
+
+    //    echo $appID; die;
+
         $content = array(
             "en" => random_string('alnum', 16),
         );
 
         $fields = array(
             'app_id' => "ddeebac2-bdd8-4e81-8f3d-75f6e45f0e1b",
-            'included_segments' => array(
-                'All',
-            ),
+            'include_player_ids' => array($appID),
+            'contents' => "kjfdhgkjdhfkghkjdhfkjghkjdfg",
             'data' => array(
                 "foo" => "bar",
             ),
@@ -77,11 +79,10 @@ class Auth extends CI_Controller
 
     }
 
-
-    public function hitotcheck(Type $var = null)
+    public function hitotcheck($appID = null)
     {
         # code...
-        $response = $this->sendMessage();
+        $response = $this->sendMessage($appID);
         $return["allresponses"] = $response;
         $return = json_encode($return);
 
@@ -95,6 +96,91 @@ class Auth extends CI_Controller
         print("\n");
         echo "</pre>";
     }
+
+    public function utcToGMT($string){
+            $chkdtarr=explode("GMT",$string);
+            $newdt= strtotime($chkdtarr[0]);
+            $converted_date = date("Y-m-d",$newdt);
+            return $converted_date;
+    }
+    public function globalTestHit()
+    {
+        $this->db->select('*');
+        $this->db->from('f_focus_meeting');
+        $this->db->where('status', 'active');
+        $getdb = $this->db->get();
+        //  pr($getdb->result());
+        $fetch = $getdb->result();
+        foreach ($fetch as $key => $val) {
+          // pr($val->set_date);
+            $today = date("Y-m-d");
+            $todayDay = date("l");
+            // $CurrenttodayDay = date("D");
+            $date = $val->set_date;
+            $converted_date = $this->utcToGMT($val->set_date);
+         //   echo $converted_date;
+          //  echo "<br>";
+            $getdata = explode(", ", $val->days);
+            foreach ($getdata as $nkey => $nval) {
+             //   echo "<br>";
+             $this->db->select('*');
+             $this->db->from('users');
+             $this->db->where('id', $val->added_by);
+             $tokens =  $this->db->get()->row()->login_token;
+
+                $this->db->select('*');
+                $this->db->from('f_days');
+                $this->db->where('id', $nval);
+                $fname =  strtolower($this->db->get()->row()->full_name);
+              
+                // echo $todayDay;
+                $tomorrow_timestamp = strtotime('next ' .$fname, strtotime($converted_date));
+                $getlast_day = date("Y-m-d",$tomorrow_timestamp);
+                // $CurrenttodayDay = date("Y-m-d");
+                $CurrenttodayDay = date("Y-m-d",strtotime("2019-04-16"));
+                // echo $CurrenttodayDay; die;
+             // echo strtolower($getlast_day)."-------".strtolower($CurrenttodayDay)." ---- ".$nval;
+            //    echo ($getlast_day == $CurrenttodayDay);
+              $date = new DateTime("now");
+ 
+              $curr_date = $date->format('Y-m-d');
+
+                if ($getlast_day == $CurrenttodayDay) {
+                $this->db->select('*');
+                $this->db->from('f_notification');
+                $this->db->where('user_id', $val->added_by);
+                $this->db->where('contentid', $val->id);
+                // $this->db->where('DATE(notification_date)', $curr_date);
+                $contentid =  $this->db->get()->result();
+                pr($contentid);
+            //    echo $val->id; 
+               echo "<br>";
+               die;
+                if($contentid !== $val->id){
+                    echo "Sending Notification To User Ids:- ". $val->added_by." Its Token is ".$tokens;
+                    $data['title'] = 'ououououo';
+                    $data['status'] = 'done';
+                    $data['user_id'] = $val->added_by;
+                    $data['notification_date'] = $getlast_day;
+                    $data['typeofcontent'] = 'focus_meeting';
+                    $data['contentid'] = $val->id;
+                    $data['notification_datetime'] = $CurrenttodayDay;
+                    $this->hitotcheck($tokens);
+                    $this->db->insert('f_notification',$data);
+                }
+                    
+
+                }else{
+                    echo "<br>";
+             //       echo $val->id;
+                    echo "<br>";
+                }
+            }
+           
+            pr($getdata); //fetching Days from App
+        }
+    }
+
     public function index()
     {
 
