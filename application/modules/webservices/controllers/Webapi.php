@@ -56,7 +56,12 @@ class Webapi extends REST_Controller {
                     $password = md5($password);
                     if ($email == $query->email) {
                         if($password == $query->password)
-                        {
+                        {   
+                            if($query->user_type == 1){
+                                $success = array('ErrorCode' => 1, 'message' => 'Your are authorised to login');
+                                $this->response($success, 200);
+                            }
+
                             if($query->status == 'active'){
                                 
                                 $upd['last_login']= current_datetime();
