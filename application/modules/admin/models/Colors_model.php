@@ -32,11 +32,11 @@ class Colors_model extends CI_Model {
 
             $ser=str_replace("'",",","$ser");
           
-            $sql->or_where("cu.id like '%$ser%'");
-            $sql->or_where("cu.scheme_color_name like '%$ser%'");
-            $sql->or_where("cu.background_color like '%$ser%'");
-            $sql->or_where("cu.font_color like '%$ser%'");
-            $sql->or_where("cu.button_color like '%$ser%'");
+            $sql->where("cu.id LIKE '%$ser%'");
+            $sql->or_where("cu.scheme_color_name LIKE '%$ser%'");
+            $sql->or_where("cu.background_color LIKE '%$ser%'");
+            $sql->or_where("cu.font_color LIKE '%$ser%'");
+            $sql->or_where("cu.button_color LIKE '%$ser%'");
         }
         $sql->order_by($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir']);
         $sql1 = clone $sql;
@@ -268,17 +268,17 @@ class Colors_model extends CI_Model {
 
             $ser=str_replace("'",",","$ser");
 
-            $sql->where("(concat(cu.fname,' ',cu.lname) like '%$ser%'");
-            $sql->or_where("DATE_FORMAT(psq.created_date, '%d-%m-%y %h:%i %p')  like '%$ser%'");
-            $sql->or_where("psq.quote_no  like '%$ser%' ");
-            $sql->or_where("psq.kva  like '%$ser%' ");
-            $sql->or_where("psq.quantity  like '%$ser%' ");
-            $sql->or_where("psq.quote_age  like '%$ser%' ");
-            $sql->or_where("psq.requested_amount  like '%$ser%' ");
-            $sql->or_where("psq.quoted_amount  like '%$ser%' ");
-            $sql->or_where("pl.location  like '%$ser%' ");
-            $sql->or_where("pl.client_name  like '%$ser%' ");
-            $sql->or_where("pr.name  like '%$ser%' )");
+            $sql->where("(concat(cu.fname,' ',cu.lname) LIKE '%$ser%'");
+            $sql->or_where("DATE_FORMAT(psq.created_date, '%d-%m-%y %h:%i %p')  LIKE '%$ser%'");
+            $sql->or_where("psq.quote_no  LIKE '%$ser%' ");
+            $sql->or_where("psq.kva  LIKE '%$ser%' ");
+            $sql->or_where("psq.quantity  LIKE '%$ser%' ");
+            $sql->or_where("psq.quote_age  LIKE '%$ser%' ");
+            $sql->or_where("psq.requested_amount  LIKE '%$ser%' ");
+            $sql->or_where("psq.quoted_amount  LIKE '%$ser%' ");
+            $sql->or_where("pl.location  LIKE '%$ser%' ");
+            $sql->or_where("pl.client_name  LIKE '%$ser%' ");
+            $sql->or_where("pr.name  LIKE '%$ser%' )");
         }
 
         if (isset($_GET['client_id']) && $_GET['client_id'] != "") {
@@ -450,14 +450,14 @@ class Colors_model extends CI_Model {
 
             $ser=str_replace("'",",","$ser");
 
-            $sql->where("(concat(cu.fname,' ',cu.lname) like '%$ser%'");
-            $sql->or_where("DATE_FORMAT(psq.created_date, '%d-%m-%Y %h:%i %p')  like '%$ser%'");
-            $sql->or_where("psq.quote_no  like '%$ser%' ");
+            $sql->where("(concat(cu.fname,' ',cu.lname) LIKE '%$ser%'");
+            $sql->or_where("DATE_FORMAT(psq.created_date, '%d-%m-%Y %h:%i %p')  LIKE '%$ser%'");
+            $sql->or_where("psq.quote_no  LIKE '%$ser%' ");
 
-            $sql->or_where("psq.quoted_amount  like '%$ser%' ");
-            $sql->or_where("pl.location  like '%$ser%' ");
+            $sql->or_where("psq.quoted_amount  LIKE '%$ser%' ");
+            $sql->or_where("pl.location  LIKE '%$ser%' ");
 
-            $sql->or_where("pl.client_name  like '%$ser%' )");
+            $sql->or_where("pl.client_name  LIKE '%$ser%' )");
         }
 
         if (isset($_GET['client_id']) && $_GET['client_id'] != "") {

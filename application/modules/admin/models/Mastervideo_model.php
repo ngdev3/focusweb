@@ -34,11 +34,11 @@ class Mastervideo_model extends CI_Model {
             $ser=str_replace("'",",","$ser");
           
             $sql->where("cu.type",'2');
-            $sql->or_where("cu.id like '%$ser%'");
-            $sql->or_where("cu.title like '%$ser%'");
-            $sql->or_where("cu.url like '%$ser%'");
-            $sql->or_where("cu.description like '%$ser%'");
-            $sql->or_where("cu.status like '%$ser%'");
+            $sql->or_where("cu.id LIKE '%$ser%'");
+            $sql->or_where("cu.title LIKE '%$ser%'");
+            $sql->or_where("cu.url LIKE '%$ser%'");
+            $sql->or_where("cu.description LIKE '%$ser%'");
+            $sql->or_where("cu.status LIKE '%$ser%'");
         }
         $sql->order_by($columns[$requestData['order'][0]['column']], $requestData['order'][0]['dir']);
         $sql1 = clone $sql;
@@ -267,17 +267,17 @@ class Mastervideo_model extends CI_Model {
 
             $ser=str_replace("'",",","$ser");
 
-            $sql->where("(concat(cu.fname,' ',cu.lname) like '%$ser%'");
-            $sql->or_where("DATE_FORMAT(psq.created_date, '%d-%m-%y %h:%i %p')  like '%$ser%'");
-            $sql->or_where("psq.quote_no  like '%$ser%' ");
-            $sql->or_where("psq.kva  like '%$ser%' ");
-            $sql->or_where("psq.quantity  like '%$ser%' ");
-            $sql->or_where("psq.quote_age  like '%$ser%' ");
-            $sql->or_where("psq.requested_amount  like '%$ser%' ");
-            $sql->or_where("psq.quoted_amount  like '%$ser%' ");
-            $sql->or_where("pl.location  like '%$ser%' ");
-            $sql->or_where("pl.client_name  like '%$ser%' ");
-            $sql->or_where("pr.name  like '%$ser%' )");
+            $sql->where("(concat(cu.fname,' ',cu.lname) LIKE '%$ser%'");
+            $sql->or_where("DATE_FORMAT(psq.created_date, '%d-%m-%y %h:%i %p')  LIKE '%$ser%'");
+            $sql->or_where("psq.quote_no  LIKE '%$ser%' ");
+            $sql->or_where("psq.kva  LIKE '%$ser%' ");
+            $sql->or_where("psq.quantity  LIKE '%$ser%' ");
+            $sql->or_where("psq.quote_age  LIKE '%$ser%' ");
+            $sql->or_where("psq.requested_amount  LIKE '%$ser%' ");
+            $sql->or_where("psq.quoted_amount  LIKE '%$ser%' ");
+            $sql->or_where("pl.location  LIKE '%$ser%' ");
+            $sql->or_where("pl.client_name  LIKE '%$ser%' ");
+            $sql->or_where("pr.name  LIKE '%$ser%' )");
         }
 
         if (isset($_GET['client_id']) && $_GET['client_id'] != "") {
@@ -449,14 +449,14 @@ class Mastervideo_model extends CI_Model {
 
             $ser=str_replace("'",",","$ser");
 
-            $sql->where("(concat(cu.fname,' ',cu.lname) like '%$ser%'");
-            $sql->or_where("DATE_FORMAT(psq.created_date, '%d-%m-%Y %h:%i %p')  like '%$ser%'");
-            $sql->or_where("psq.quote_no  like '%$ser%' ");
+            $sql->where("(concat(cu.fname,' ',cu.lname) LIKE '%$ser%'");
+            $sql->or_where("DATE_FORMAT(psq.created_date, '%d-%m-%Y %h:%i %p')  LIKE '%$ser%'");
+            $sql->or_where("psq.quote_no  LIKE '%$ser%' ");
 
-            $sql->or_where("psq.quoted_amount  like '%$ser%' ");
-            $sql->or_where("pl.location  like '%$ser%' ");
+            $sql->or_where("psq.quoted_amount  LIKE '%$ser%' ");
+            $sql->or_where("pl.location  LIKE '%$ser%' ");
 
-            $sql->or_where("pl.client_name  like '%$ser%' )");
+            $sql->or_where("pl.client_name  LIKE '%$ser%' )");
         }
 
         if (isset($_GET['client_id']) && $_GET['client_id'] != "") {

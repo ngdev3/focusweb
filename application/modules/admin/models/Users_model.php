@@ -37,11 +37,11 @@ class Users_model extends CI_Model {
 
             $ser=str_replace("'",",","$ser");
           
-            $sql->or_where("cu.id like '%$ser%'");
-            $sql->or_where("cu.fname like '%$ser%'");
-            $sql->or_where("cu.lname like '%$ser%'");
-            $sql->or_where("cu.email like '%$ser%'");
-            $sql->or_where("cu.mobile_no like '%$ser%'");
+            $sql->where("cu.id LIKE '%$ser%'");
+            $sql->or_where("cu.fname LIKE '%$ser%'");
+            $sql->or_where("cu.lname LIKE '%$ser%'");
+            $sql->or_where("cu.email LIKE '%$ser%'");
+            $sql->or_where("cu.mobile_no LIKE '%$ser%'");
         }
 
         if(isset($_GET['user_type']) && $_GET['user_type']!="")
